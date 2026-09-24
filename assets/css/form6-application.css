@@ -14,3 +14,70 @@ body { margin: 0; font-family: 'Noto Sans', system-ui, sans-serif; background: #
 .hv-1:hover { background: #F3F0FF; border-color: #4A2BC2; }
 .hv-2:hover { color: #4A2BC2; text-decoration: underline; }
 .hv-3:hover { background: #3A1F9E; }
+/* header: hover fills the background and nothing else, so no item changes size or moves.
+   !important because header items set their resting background inline. */
+.hv-hd:hover { background: #F3F0FF !important; }
+
+/* "(optional)" sits inside the label, muted, on fields that are genuinely optional. */
+.optional { font-weight: 400; color: #737373; }
+
+/* ux4g-combobox, matched to the other fields on this form: 48px tall, the same border. */
+.ux4g-combobox { display: flex; width: 100%; --ux4g-combobox-border: #737373; --ux4g-combobox-border-hover: #404040; }
+.ux4g-combobox.ux4g-combobox-lg .ux4g-combobox-control { font-size: 15px; background: #FFFFFF; }
+.ux4g-combobox .ux4g-combobox-input { min-height: 46px; }
+.ux4g-combobox .ux4g-combobox-input[aria-invalid="true"] { box-shadow: none; }
+.ux4g-combobox.is-open > .ux4g-combobox-menu { max-height: 280px; border: 1px solid #E5E5E5; }
+.ux4g-combobox-single-option { font-size: 15px; line-height: 22px; }
+.ux4g-combobox-single-option.is-active { background: var(--ux4g-bg-neutral-subtle, #E5E5E5); }
+.ux4g-combobox-single-option.is-selected.is-active { background: var(--ux4g-bg-primary-soft, #EDE9FE); outline: 2px solid #4A2BC2; outline-offset: -2px; }
+.combo-empty { margin: 0; padding: 8px 12px; font-size: 14px; line-height: 20px; color: #525252; }
+
+/* Error summary at the top of a section, listing what needs attention. */
+.error-summary { align-items: flex-start; padding: 14px 16px; border-radius: 8px; }
+.error-summary .ux4g-alert-content { flex-direction: column; align-items: flex-start; gap: 6px; }
+.error-summary .ux4g-alert-title { font-size: 15px; line-height: 22px; }
+.error-summary ul { margin: 0; padding-left: 18px; }
+.error-summary li { font-size: 14px; line-height: 22px; }
+.error-summary a { color: #B3261E; font-weight: 500; }
+
+/* Advisory document checks: a spinner beside the file name, then a warning only if needed. */
+.doc-scanning { display: flex; align-items: center; gap: 8px; margin: 8px 0 0; font-size: 13px; line-height: 19px; color: #404040; }
+.doc-warning { align-items: flex-start; margin-top: 8px; padding: 12px 14px; border-radius: 8px; }
+.doc-warning .ux4g-alert-content { flex-direction: column; align-items: flex-start; gap: 4px; }
+.doc-warning .ux4g-alert-title { font-size: 14px; line-height: 20px; }
+.doc-warning .ux4g-alert-message { font-size: 13px; line-height: 19px; color: #262626; }
+
+/* Numbered steps joined by lines. Neutral by default; mark a step is-done or is-current
+   to show progress (the tracking page can reuse this). */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 16px; }
+.step { position: relative; display: flex; flex-direction: column; }
+.step-marker { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; box-sizing: border-box; border-radius: 999px; border: 1px solid #D4D4D4; background: #FFFFFF; font-size: 12px; font-weight: 600; color: #525252; }
+.step:not(:last-child)::after { content: ""; position: absolute; top: 13px; left: 36px; right: -8px; height: 2px; background: #D4D4D4; }
+.step-title { display: block; margin-top: 10px; font-size: 15px; line-height: 22px; font-weight: 600; color: #171717; text-wrap: pretty; }
+.step-text { display: block; margin-top: 4px; font-size: 13px; line-height: 20px; color: #737373; text-wrap: pretty; }
+.step.is-done .step-marker { border-color: var(--eci-success); background: var(--eci-success); color: #FFFFFF; }
+.step.is-done::after { background: var(--eci-success); }
+.step.is-current .step-marker { border: 2px solid #4A2BC2; color: #4A2BC2; }
+@media (max-width: 560px) {
+  .steps { grid-template-columns: 1fr; }
+  .step { padding: 0 0 20px 40px; }
+  .step-marker { position: absolute; left: 0; top: 0; }
+  .step-title { margin-top: 3px; }
+  .step:not(:last-child)::after { top: 32px; bottom: 4px; left: 13px; right: auto; width: 2px; height: auto; }
+}
+
+/* The current page in a breadcrumb is not a link, so it should not look like one. */
+.ux4g-breadcrumb .ux4g-breadcrumb-item.active { color: #525252; }
+
+/* header: tighter side gutters on a phone so the utilities row fits (the rows set padding inline) */
+@media (max-width: 600px) { header[role="banner"] > div > div, header[role="banner"] > div:first-child { padding-left: 16px !important; padding-right: 16px !important; } }
+
+/* On a phone the section rail stacks above the form instead of squeezing beside it. */
+@media (max-width: 800px) { .form-layout { grid-template-columns: minmax(0, 1fr) !important; padding: 16px 16px 72px !important; } .form-layout > aside { position: static !important; } }
+
+/* Status colours, the same on every page: green means completed successfully, red means
+   it failed, purple means this is where you are now. Never use green on a failed state. */
+:root { --eci-success: #1B7A4B; --eci-success-tint: #E8F5EE; }
+
+/* Parenthetical detail inside a label, such as a date format, reads like "(optional)". */
+.label-note { font-weight: 400; color: #737373; }

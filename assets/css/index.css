@@ -11,3 +11,18 @@ body { margin: 0; font-family: 'Noto Sans', system-ui, sans-serif; background: #
 .hv-2:hover { color: #4A2BC2; text-decoration: underline; }
 .hv-3:hover { background: #3A1F9E; }
 .hv-4:hover { color: #FFFFFF; text-decoration: underline; }
+/* header: hover fills the background and nothing else, so no item changes size or moves.
+   !important because header items set their resting background inline. */
+.hv-hd:hover { background: #F3F0FF !important; }
+
+/* header: tighter side gutters on a phone so the utilities row fits (the rows set padding inline) */
+@media (max-width: 600px) { header[role="banner"] > div > div, header[role="banner"] > div:first-child { padding-left: 16px !important; padding-right: 16px !important; } }
+
+/* Status colours, the same on every page: green means completed successfully, red means
+   it failed, purple means this is where you are now. Never use green on a failed state. */
+:root { --eci-success: #1B7A4B; --eci-success-tint: #E8F5EE; }
+
+/* Other services: nine entries, so three even rows of three; one column on a phone
+   (two columns would leave a single card on its own). */
+.other-services-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 720px) { .other-services-grid { grid-template-columns: minmax(0, 1fr); } }

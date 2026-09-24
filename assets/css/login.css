@@ -4,4 +4,15 @@ body { margin: 0; font-family: 'Noto Sans', system-ui, sans-serif; background: #
   a:hover { color: #3A1F9E; }
 
 /* hover styles, lifted out of style-hover attributes */
-.hv-1:hover { color: #4A2BC2; text-decoration: underline; }
+.hv-1:hover { background: #F3F0FF; border-color: #4A2BC2; }
+.hv-2:hover { color: #4A2BC2; text-decoration: underline; }
+/* header: hover fills the background and nothing else, so no item changes size or moves.
+   !important because header items set their resting background inline. */
+.hv-hd:hover { background: #F3F0FF !important; }
+
+/* header: tighter side gutters on a phone so the utilities row fits (the rows set padding inline) */
+@media (max-width: 600px) { header[role="banner"] > div > div, header[role="banner"] > div:first-child { padding-left: 16px !important; padding-right: 16px !important; } }
+
+/* Status colours, the same on every page: green means completed successfully, red means
+   it failed, purple means this is where you are now. Never use green on a failed state. */
+:root { --eci-success: #1B7A4B; --eci-success-tint: #E8F5EE; }

@@ -40,14 +40,57 @@ class Page extends DCLogic {
     if (el) el.scrollBy({ left: dir * 552, behavior: 'smooth' });
   }
 
+  // Everything the shared <header> binds to. The header markup is identical on every
+  // page, so this method is too; each page only says whether someone is signed in,
+  // where the emblem links, and (on the homepage) what Log in does.
+  headerVals({ loggedIn, homeHref, onLoginClick }) {
+    const s = this.state;
+    const lang = s.lang || 'en';
+    const name = this.props.userName ?? 'Ananya Rao';
+    const opt = (on) => 'display: block; width: 100%; text-align: left; padding: 8px 10px; border: none; border-radius: 6px; background: transparent; font-family: inherit; font-size: 13px; line-height: 18px; cursor: pointer; font-weight: ' + (on ? '600' : '500') + '; color: ' + (on ? '#4A2BC2' : '#171717') + ';';
+    return {
+      homeHref: homeHref,
+      isLoggedIn: loggedIn,
+      isLoggedOut: !loggedIn,
+      onLoginClick: onLoginClick,
+      userName: name,
+      userInitials: name.split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase(),
+      textZoom: s.scale || 1,
+      rootTracking: s.wide ? '0.06em' : 'normal',
+      trackingWide: !!s.wide,
+      toggleTracking: () => this.setState(st => ({ wide: !st.wide })),
+      increaseText: () => this.setState(st => ({ scale: Math.min(1.4, +((st.scale || 1) + 0.1).toFixed(2)) })),
+      decreaseText: () => this.setState(st => ({ scale: Math.max(0.85, +((st.scale || 1) - 0.1).toFixed(2)) })),
+      resetText: () => this.setState({ scale: 1 }),
+      isEnglish: lang === 'en',
+      isHindi: lang === 'hi',
+      langLabel: lang === 'en' ? 'English' : 'हिन्दी',
+      langOpen: !!s.langOpen,
+      toggleLangMenu: () => this.setState(st => ({ langOpen: !st.langOpen })),
+      enOptStyle: opt(lang === 'en'),
+      hiOptStyle: opt(lang === 'hi'),
+      setEnglish: () => this.setState({ lang: 'en', langOpen: false }),
+      setHindi: () => this.setState({ lang: 'hi', langOpen: false }),
+      guidesOpen: !!s.guidesOpen,
+      openGuides: () => this.setState({ guidesOpen: true }),
+      closeGuides: () => this.setState({ guidesOpen: false }),
+      // Keyboard: close the Guides menu once focus has left the link and its menu.
+      closeGuidesOnBlur: (e) => {
+        const wrap = e.currentTarget.closest('[data-guides]');
+        if (!wrap || !wrap.contains(e.relatedTarget)) this.setState({ guidesOpen: false });
+      }
+    };
+  }
+
   renderVals() {
-    const { scale, wide, lang } = this.state;
-    const opt = (on) => 'display: block; width: 100%; text-align: left; padding: 8px 10px; border: none; border-radius: 6px; background: none; font-family: inherit; font-size: 13px; line-height: 18px; cursor: pointer; font-weight: ' + (on ? '600' : '500') + '; color: ' + (on ? '#4A2BC2' : '#171717') + ';';
-    const pill = (on) => 'min-width: 72px; min-height: 44px; padding: 0 16px; border-radius: 4px; font-size: 12px; line-height: 16px; font-weight: 500; cursor: pointer; border: 1px solid ' +
-      (on ? '#4A2BC2' : '#D9D9D9') + '; background: ' + (on ? '#4A2BC2' : '#FFFFFF') + '; color: ' + (on ? '#FAFAFA' : '#171717') + ';';
-    const accountName = 'Ananya Rao';
     const phase = this.sirPhases[this.state.sirState] || { open: false, closes: '' };
     return {
+      // The homepage has its own sign-in dialog, so Log in opens that rather than navigating.
+      ...this.headerVals({
+        loggedIn: this.state.loggedIn,
+        homeHref: this.state.loggedIn ? 'index.html?loggedIn=1' : 'index.html',
+        onLoginClick: (e) => { e.preventDefault(); this.setState({ loginOpen: true }); }
+      }),
       sirState: this.state.sirState,
       sirCloseDate: phase.closes,
       sirOpenHere: phase.open,
@@ -60,39 +103,13 @@ class Page extends DCLogic {
         try { sessionStorage.setItem('eci-sir-strip', 'dismissed'); } catch (err) {}
         this.setState({ sirDismissed: true });
       },
-      loggedIn: this.state.loggedIn,
-      loggedOut: !this.state.loggedIn,
       loginOpen: this.state.loginOpen && !this.state.loggedIn,
-      openLogin: () => this.setState({ loginOpen: true }),
       closeLogin: () => this.setState({ loginOpen: false }),
       submitLogin: (e) => { e.preventDefault(); this.setState({ loggedIn: true, loginOpen: false }); },
-      userName: accountName,
-      userInitials: accountName.split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase(),
-      showA11yBar: this.props.showAccessibilityBar ?? true,
       showAppBanner: this.props.showAppBanner ?? true,
       personasRef: this.personas,
       scrollPersonasLeft: () => this.scrollPersonas(-1),
       scrollPersonasRight: () => this.scrollPersonas(1),
-      textZoom: scale,
-      rootTracking: wide ? '0.06em' : 'normal',
-      trackingNormal: !wide,
-      trackingWide: wide,
-      isEnglish: lang === 'en',
-      isHindi: lang === 'hi',
-      langLabel: lang === 'en' ? 'English' : 'हिन्दी',
-      langOpen: !!this.state.langOpen,
-      toggleLangMenu: () => this.setState(s => ({ langOpen: !s.langOpen })),
-      enOptStyle: opt(lang === 'en'),
-      hiOptStyle: opt(lang === 'hi'),
-      toggleTracking: () => this.setState(s => ({ wide: !s.wide })),
-      increaseText: () => this.setState(s => ({ scale: Math.min(1.4, +(s.scale + 0.1).toFixed(2)) })),
-      decreaseText: () => this.setState(s => ({ scale: Math.max(0.85, +(s.scale - 0.1).toFixed(2)) })),
-      resetText: () => this.setState({ scale: 1 }),
-      setTrackingNormal: () => this.setState({ wide: false }),
-      setTrackingWide: () => this.setState({ wide: true }),
-      setEnglish: () => this.setState({ lang: 'en', langOpen: false }),
-      setHindi: () => this.setState({ lang: 'hi', langOpen: false }),
-      guidesOpen: this.state.guidesOpen,
       panelOpen: this.state.panelOpen || (this.props.openFormSheet ?? false),
       closePanel: () => this.setState({ panelOpen: false }),
       chk1: !!this.state.chk1, toggle1: () => this.setState(s => ({ chk1: !s.chk1 })),
@@ -109,8 +126,6 @@ class Page extends DCLogic {
       officeName: this.offices[this.state.officeState].name,
       officeAddress: this.offices[this.state.officeState].address,
       onOfficeChange: (e) => this.setState({ officeState: e.target.value }),
-      openGuides: () => this.setState({ guidesOpen: true }),
-      closeGuides: () => this.setState({ guidesOpen: false }),
       onSearchSubmit: (e) => e.preventDefault()
     };
   }
