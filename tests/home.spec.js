@@ -19,6 +19,123 @@ test.describe('Homepage hero', () => {
     await expect(page.getByRole('heading', { name: 'Other services' })).toHaveCSS('text-align', 'start');
   });
 
+  test('every clickable card has the same hover, UX4G\'s: only the shadow deepens', async ({ page }) => {
+    await page.goto(signedIn);
+    await expect(page.locator('.service-card')).toHaveCount(4);
+    await expect(page.locator('.service-tile')).toHaveCount(9);
+    const look = (el) => el.evaluate(e => { const s = getComputedStyle(e); return { bg: s.backgroundColor, border: s.borderTopColor, shadow: s.boxShadow, transform: s.transform }; });
+    const shadows = new Set();
+    for (const card of [page.locator('.service-card').nth(1), page.locator('.service-tile').first(), page.locator('.centre-card'), page.getByRole('link', { name: /Documents you’ll need/ })]) {
+      await card.scrollIntoViewIfNeeded();
+      await page.mouse.move(0, 0);
+      await page.waitForTimeout(400);
+      const rest = await look(card);
+      await card.hover();
+      await page.waitForTimeout(400);
+      const hover = await look(card);
+      expect(hover.shadow).not.toBe(rest.shadow);
+      expect({ bg: hover.bg, border: hover.border, transform: hover.transform }).toEqual({ bg: rest.bg, border: rest.border, transform: rest.transform });
+      shadows.add(hover.shadow);
+    }
+    expect(shadows.size).toBe(1);
+  });
+
+  test('a card that is not clickable does not react to hover', async ({ page }) => {
+    await page.goto('form6-prep.html?loggedIn=1');
+    const faq = page.locator('.faq-card');
+    await faq.scrollIntoViewIfNeeded();
+    const before = await faq.evaluate(e => getComputedStyle(e).boxShadow);
+    await faq.hover();
+    await page.waitForTimeout(400);
+    expect(await faq.evaluate(e => getComputedStyle(e).boxShadow)).toBe(before);
+  });
+
+  test('the SIR strip is one line of text and one link, with the state as plain text (PROTOTYPE)', async ({ page }) => {
+    await page.addInitScript(() => { navigator.geolocation.getCurrentPosition = () => { window.__asked = true; }; });
+    await page.goto(signedIn);
+    const strip = page.getByRole('region', { name: 'Voter list revision notice' });
+    await expect(strip.locator('p')).toHaveText('Voter list revision is open in Madhya Pradesh until 30 October 2026.');
+    await expect(strip.getByRole('link')).toHaveCount(1);
+    await expect(strip.getByRole('link', { name: 'Fill your form' })).toHaveAttribute('href', '#sir-form');
+    await expect(strip.locator('select, [aria-haspopup]')).toHaveCount(0);
+    // The tint is a box at the navbar's content edges, not a full-width band.
+    const box = strip.locator('.sir-strip-row');
+    await expect(box).toHaveCSS('background-color', 'rgb(220, 212, 255)');
+    await expect(strip).not.toHaveCSS('background-color', 'rgb(220, 212, 255)');
+    const row = await box.boundingBox();
+    const nav = await page.locator('.eci-header-row-nav').evaluate(e => { const r = e.getBoundingClientRect(), s = getComputedStyle(e); return { left: r.left + parseFloat(s.paddingLeft), right: r.right - parseFloat(s.paddingRight) }; });
+    expect(Math.round(row.x)).toBe(Math.round(nav.left));
+    expect(Math.round(row.x + row.width)).toBe(Math.round(nav.right));
+    expect(await page.evaluate(() => window.__asked)).toBeUndefined();
+  });
+
+  test('around the SIR card, 48px either side of the band edge, as around the Guides band; no band of its own', async ({ page }) => {
+    await page.goto(signedIn);
+    const gaps = await page.evaluate(() => {
+      const b = (s) => document.querySelector(s).getBoundingClientRect();
+      const band = b('#services');
+      return [
+        band.bottom - b('.home-search + div').bottom,          // service cards to the grey edge
+        b('#sir .sir-card').top - band.bottom,                 // grey edge to the SIR card
+        b('#other-services').top - b('#sir .sir-card').bottom, // SIR card to Other services
+        b('#guides-heading').top - b('#guides').top            // the Guides band, for comparison
+      ].map(Math.round);
+    });
+    // The grey edge has a 1px border, counted inside the band.
+    expect(gaps.map(g => Math.abs(g - 48) <= 1)).toEqual([true, true, true, true]);
+    await expect(page.locator('#sir')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+    // The card itself carries the colour: UX4G's lightest purple.
+    await expect(page.locator('#sir .sir-card')).toHaveCSS('background-color', 'rgb(242, 239, 255)');
+  });
+
+  test('every content block on the homepage shares the same 1100px edges', async ({ page }) => {
+    await page.goto(signedIn);
+    const edges = await page.evaluate(() => {
+      const blocks = {
+        cards: document.querySelector('.home-search + div'),
+        sir: document.querySelector('#sir .sir-card'),
+        other: document.querySelector('#other-services').parentElement,
+        forms: document.querySelector('#download-forms-heading').closest('section').firstElementChild,
+        centre: document.querySelector('.centre-card'),
+        guides: document.querySelector('#guides').firstElementChild,
+        faqs: document.querySelector('#faqs').firstElementChild
+      };
+      return Object.fromEntries(Object.entries(blocks).map(([k, el]) => { const r = el.getBoundingClientRect(); return [k, [Math.round(r.left), Math.round(r.right)]]; }));
+    });
+    const first = edges.cards;
+    for (const [name, e] of Object.entries(edges)) expect(e, name).toEqual(first);
+    if (page.viewportSize().width >= 1164) expect(first[1] - first[0]).toBe(1100);
+  });
+
+  test('the SIR card sits in the page container, with no state picker', async ({ page }) => {
+    await page.goto(signedIn);
+    const card = page.locator('#sir .sir-card');
+    await expect(card.getByRole('heading', { name: 'Special Intensive Revision (SIR) 2026' })).toBeVisible();
+    await expect(card.getByText('Open now')).toBeVisible();
+    await expect(card.getByText('A door-to-door check of the voter list. You may need to return a form to stay on the roll.')).toBeVisible();
+    await expect(card.getByRole('link', { name: 'Fill enumeration form' })).toHaveClass(/ux4g-btn-primary/);
+    await expect(card.getByRole('link', { name: 'Fill enumeration form' })).toHaveCSS('color', 'rgb(250, 250, 250)');
+    await expect(card.getByRole('link', { name: 'Search your name in last SIR' })).toHaveClass(/ux4g-btn-outline-primary/);
+    await expect(card.getByRole('link', { name: 'Submit documents' })).toBeVisible();
+    await expect(card.getByRole('link', { name: 'See the full phase schedule' })).toBeVisible();
+    await expect(page.locator('#sir select')).toHaveCount(0);
+    await expect(page.getByText('Check the dates for your state')).toHaveCount(0);
+    // Same width as the service cards, not edge to edge.
+    const box = await card.boundingBox();
+    const cards = await page.locator('.home-search + div').boundingBox();
+    expect(Math.round(box.width)).toBe(Math.round(cards.width));
+    // On a phone the buttons drop below the text and stack.
+    const fill = await card.getByRole('link', { name: 'Fill enumeration form' }).boundingBox();
+    const search = await card.getByRole('link', { name: 'Search your name in last SIR' }).boundingBox();
+    const text = await card.locator('.sir-card-text').boundingBox();
+    if (page.viewportSize().width < 860) {
+      expect(fill.y).toBeGreaterThan(text.y + text.height - 1);
+      expect(search.y).toBeGreaterThan(fill.y + fill.height - 1);
+    } else {
+      expect(Math.round(search.y)).toBe(Math.round(fill.y));
+    }
+  });
+
   test('the persona carousel is gone', async ({ page }) => {
     await page.goto(signedIn);
     await expect(page.getByRole('heading', { name: 'Find services relevant to you' })).toHaveCount(0);

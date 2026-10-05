@@ -1,18 +1,10 @@
 class Page extends DCLogic {
-  state = { scale: 1, wide: false, lang: 'en', guidesOpen: false, officeState: 'Delhi', panelOpen: false, loggedIn: false, sirState: 'Madhya Pradesh', sirDismissed: false };
+  state = { scale: 1, wide: false, lang: 'en', guidesOpen: false, officeState: 'Delhi', panelOpen: false, loggedIn: false, sirDismissed: false };
 
-  // PLACEHOLDER DATA — check against the ECI site before use. Phase dates, the list of
-  // states currently mid-phase, and the documents accepted under Special Intensive Revision
-  // are all unconfirmed. The nationwide exercise was announced on 27 October 2025.
-  sirPhases = {
-    'Madhya Pradesh': { open: true, closes: '30 September 2026' },
-    'Delhi': { open: true, closes: '7 October 2026' },
-    'Maharashtra': { open: false, closes: '' },
-    'Karnataka': { open: false, closes: '' },
-    'Tamil Nadu': { open: false, closes: '' },
-    'Uttar Pradesh': { open: true, closes: '15 October 2026' },
-    'West Bengal': { open: false, closes: '' }
-  };
+  // The Special Intensive Revision where the person is, read by both the strip under the navbar
+  // and the SIR card. PROTOTYPE: the state stands in for one found from the person's location;
+  // the browser is never asked. PLACEHOLDER DATA: check the dates against the ECI site before use.
+  sir = { state: 'Madhya Pradesh', open: true, closes: '30 October 2026', year: 2026, formHref: '#sir-form' };
 
   offices = {
     'Delhi': { name: 'Chief Electoral Officer, Delhi', address: 'Old St. Stephen\u2019s College Building, Kashmere Gate, Delhi-110006' },
@@ -117,7 +109,6 @@ class Page extends DCLogic {
   }
 
   renderVals() {
-    const phase = this.sirPhases[this.state.sirState] || { open: false, closes: '' };
     return {
       // The homepage has its own sign-in dialog, so Log in opens that rather than navigating.
       ...this.headerVals({
@@ -132,14 +123,11 @@ class Page extends DCLogic {
           all[id.replace(/-([a-z])/g, (m, c) => c.toUpperCase())] = 'service.html?s=' + id + (this.state.loggedIn ? '&loggedIn=1' : '');
           return all;
         }, {}),
-      sirState: this.state.sirState,
-      sirCloseDate: phase.closes,
-      sirOpenHere: phase.open,
-      sirStripVisible: this.state.loggedIn && phase.open && !this.state.sirDismissed,
-      sirPhaseLine: phase.open
-        ? 'A phase is open in ' + this.state.sirState + '. Enumeration forms must be returned by ' + phase.closes + '.'
-        : 'No phase is open in ' + this.state.sirState + ' at the moment. The dates for the next phase are yet to be confirmed.',
-      onSirState: (e) => this.setState({ sirState: e.target.value }),
+      sirYear: this.sir.year,
+      sirOpen: this.sir.open,
+      sirFormHref: this.sir.formHref,
+      sirStripVisible: this.state.loggedIn && this.sir.open && !this.state.sirDismissed,
+      sirStripLine: 'Voter list revision is open in ' + this.sir.state + ' until ' + this.sir.closes.replace(/ /g, ' ') + '.',
       dismissSir: () => {
         try { sessionStorage.setItem('eci-sir-strip', 'dismissed'); } catch (err) {}
         this.setState({ sirDismissed: true });

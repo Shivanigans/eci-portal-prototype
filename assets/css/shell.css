@@ -83,3 +83,9 @@ p, li, dd,
 /* Long-form reading (guide pages and FAQ answers) stops at about 70 characters. Everywhere
    else a paragraph takes the width of its container, so it lines up with what is around it. */
 .eci-reading p, .eci-reading li { max-width: 70ch; }
+
+/* Cards: only a card you can click reacts to hover, with UX4G's own deeper shadow
+   (.ux4g-card:hover). A card that is not a link or button keeps its resting shadow. */
+/* .centre-card is a div made clickable by its arrow button (see index.css), so it keeps the hover. */
+.ux4g-card:not(a):not(button):not(.centre-card):hover { box-shadow: none; }
+.ux4g-card-solid:not(a):not(button):not(.centre-card):hover { box-shadow: var(--ux4g-shadow-l1); }

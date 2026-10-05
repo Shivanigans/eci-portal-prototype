@@ -144,25 +144,18 @@
 </header>
 
 <x-if value="{{ sirStripVisible }}">
-<div class="ux4g-alert ux4g-alert-info" role="region" aria-label="Special Intensive Revision notice" style="padding: 0;">
-  <div style="max-width: 1200px; width: 100%; margin: 0 auto; padding: 10px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; box-sizing: border-box;">
-    <span class="ux4g-alert-icon ux4g-icon-outlined" aria-hidden="true">info</span>
-    <div class="ux4g-alert-content" style="flex-wrap: wrap; gap: 4px 10px;">
-      <span class="ux4g-alert-title">Special Intensive Revision</span>
-      <span class="ux4g-alert-message">Return your enumeration form by {{ sirCloseDate }} to stay on the roll.</span>
-    </div>
-    <div class="ux4g-alert-actions" style="gap: 8px;">
-      <a class="ux4g-alert-link" href="#sir" style="display: inline-flex; align-items: center; min-height: 36px; padding: 0 8px; border-radius: 8px; font-size: 14px;" class-hover="hv-hd">What I need to do</a>
-      <button type="button" class="ux4g-alert-close" aria-label="Dismiss this notice" on-click="{{ dismissSir }}" style="width: 32px; height: 32px; justify-content: center; border-radius: 8px;" class-hover="hv-hd">
-        <span class="ux4g-icon-outlined" aria-hidden="true" style="font-size: 20px; color: #404040;">close</span>
-      </button>
-    </div>
+<div class="sir-strip" role="region" aria-label="Voter list revision notice">
+  <div class="sir-strip-row ux4g-bg-primary-soft ux4g-radius-m">
+    <span class="ux4g-icon-outlined ux4g-text-primary sir-strip-icon" aria-hidden="true">info</span>
+    <p class="ux4g-body-s-default ux4g-text-neutral-primary ux4g-m-none sir-strip-text">{{ sirStripLine }}</p>
+    <a class="ux4g-text-link-sm sir-strip-link" href="{{ sirFormHref }}">Fill your form</a>
+    <button type="button" class="ux4g-icon-btn ux4g-icon-btn-sm ux4g-icon-btn-text-primary sir-strip-close" aria-label="Dismiss this notice" on-click="{{ dismissSir }}"><span class="ux4g-icon-outlined" aria-hidden="true">close</span></button>
   </div>
 </div>
 </x-if>
 
 <main id="main-content">
-<section id="services" style="background: #F5F5F5; border-bottom: 1px solid #E5E5E5; padding: 48px 32px 64px;">
+<section id="services" style="background: #F5F5F5; border-bottom: 1px solid #E5E5E5; padding: 48px 32px;">
   <div style="max-width: 1200px; margin: 0 auto;">
     <div class="home-hero" style="max-width: 1100px; margin: 0 auto 32px;">
       <h1 style="margin: 0 0 8px; font-size: 28px; line-height: 32px; font-weight: 600; color: #171717;">What do you want to do today?</h1>
@@ -183,35 +176,35 @@
       <div class="home-search-panel" id="eci-search-panel" hidden>
         <ul class="ux4g-list ux4g-list-default ux4g-list-m home-search-list" id="eci-search-list" role="listbox" aria-label="Services"></ul>
       </div>
-    </form><div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; max-width: 1100px; margin: 0 auto 32px;">
-      <a class="ux4g-card" href="form6-prep.html" on-click="{{ onRegisterClick }}" style="display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 16px; padding: 24px 20px; overflow: hidden; min-height: 300px; text-decoration: none; color: inherit; box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.04); transition: border-color .15s ease, box-shadow .15s ease;" class-hover="hv-1">
+    </form><div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; max-width: 1100px; margin: 0 auto;">
+      <a class="ux4g-card service-card" href="form6-prep.html" on-click="{{ onRegisterClick }}">
         
         <span class="eci-card-title" style="margin: 0; font-size: 18px; line-height: 23px; font-weight: 700; letter-spacing: -0.01em; color: #171717;">Register as a new voter</span>
         <span class="eci-card-text" style="margin-top: 10px; font-size: 14px; line-height: 20px; color: #525252;">First time voting? Apply to add your name to the electoral roll.</span>
         <span aria-hidden="true" style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; height: 116px; margin-top: auto;"><img src="assets/img/form6-hand.png" alt="Hand holding a Form&nbsp;6 application" style="max-width: 150px; max-height: 116px; width: auto; height: auto; object-fit: contain; pointer-events: none;"></span>
       
-        <span aria-hidden="true" style="display: flex; justify-content: flex-end; padding-top: 8px;"><span style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 999px; border: 1px solid #525252;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#171717" stroke-width="2"><line x1="4" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg></span></span>
-      </a><a class="ux4g-card" href="login.html" style="display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 16px; padding: 24px 20px; overflow: hidden; min-height: 300px; text-decoration: none; color: inherit; box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.04); transition: border-color .15s ease, box-shadow .15s ease;" class-hover="hv-1">
+        <span aria-hidden="true" class="service-card-go"><span class="service-card-arrow"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg></span></span>
+      </a><a class="ux4g-card service-card" href="login.html">
         
-        <span class="eci-card-title" style="margin: 0; font-size: 18px; line-height: 23px; font-weight: 700; letter-spacing: -0.01em; color: #171717;">Track your application</span>
+        <span class="eci-card-title" style="margin: 0; font-size: 18px; line-height: 23px; font-weight: 700; letter-spacing: -0.01em; color: #171717;">Track application</span>
         <span class="eci-card-text" style="margin-top: 10px; font-size: 14px; line-height: 20px; color: #525252;">Check the status of a form you’ve already submitted.</span>
         <span aria-hidden="true" style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; height: 116px; margin-top: auto;"><img src="assets/img/status-tracker.png" alt="Laptop showing an application status tracker" style="max-width: 150px; max-height: 116px; width: auto; height: auto; object-fit: contain; pointer-events: none;"></span>
       
-        <span aria-hidden="true" style="display: flex; justify-content: flex-end; padding-top: 8px;"><span style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 999px; border: 1px solid #525252;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#171717" stroke-width="2"><line x1="4" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg></span></span>
-      </a><a class="ux4g-card" href="form8-prep.html" on-click="{{ onForm8Click }}" style="display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 16px; padding: 24px 20px; overflow: hidden; min-height: 300px; text-decoration: none; color: inherit; box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.04); transition: border-color .15s ease, box-shadow .15s ease;" class-hover="hv-1">
+        <span aria-hidden="true" class="service-card-go"><span class="service-card-arrow"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg></span></span>
+      </a><a class="ux4g-card service-card" href="form8-prep.html" on-click="{{ onForm8Click }}">
         
-        <span class="eci-card-title" style="margin: 0; font-size: 18px; line-height: 23px; font-weight: 700; letter-spacing: -0.01em; color: #171717;">Fix or update your details</span>
+        <span class="eci-card-title" style="margin: 0; font-size: 18px; line-height: 23px; font-weight: 700; letter-spacing: -0.01em; color: #171717;">Fix or update details</span>
         <span class="eci-card-text" style="margin-top: 10px; font-size: 14px; line-height: 20px; color: #525252;">Correct your name, address, photo, or other details on your voter ID.</span>
         <span aria-hidden="true" style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; height: 116px; margin-top: auto;"><img src="assets/img/form8-hand.png" alt="Hand holding a Form&nbsp;8 correction form" style="max-width: 150px; max-height: 116px; width: auto; height: auto; object-fit: contain; pointer-events: none;"></span>
       
-        <span aria-hidden="true" style="display: flex; justify-content: flex-end; padding-top: 8px;"><span style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 999px; border: 1px solid #525252;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#171717" stroke-width="2"><line x1="4" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg></span></span>
-      </a><a class="ux4g-card" href="login.html" style="display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 16px; padding: 24px 20px; overflow: hidden; min-height: 300px; text-decoration: none; color: inherit; box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.04); transition: border-color .15s ease, box-shadow .15s ease;" class-hover="hv-1">
+        <span aria-hidden="true" class="service-card-go"><span class="service-card-arrow"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg></span></span>
+      </a><a class="ux4g-card service-card" href="login.html">
         
         <span class="eci-card-title" style="margin: 0; font-size: 18px; line-height: 23px; font-weight: 700; letter-spacing: -0.01em; color: #171717;">Search in the voter list</span>
         <span class="eci-card-text" style="margin-top: 10px; font-size: 14px; line-height: 20px; color: #525252;">Check if your name is on the roll, find your polling station, and know your MP/MLA.</span>
         <span aria-hidden="true" style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; height: 116px; margin-top: auto;"><img src="assets/img/voter-list-search.png" alt="Laptop showing a voter list search" style="max-width: 150px; max-height: 116px; width: auto; height: auto; object-fit: contain; pointer-events: none;"></span>
       
-        <span aria-hidden="true" style="display: flex; justify-content: flex-end; padding-top: 8px;"><span style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 999px; border: 1px solid #525252;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#171717" stroke-width="2"><line x1="4" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg></span></span>
+        <span aria-hidden="true" class="service-card-go"><span class="service-card-arrow"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg></span></span>
       </a>
     </div>
 
@@ -220,84 +213,66 @@
 </section>
 
 
-<section id="sir" aria-labelledby="sir-heading" style="background: #FFFFFF; border-bottom: 1px solid #E5E5E5; padding: 48px 32px;">
-  <div style="max-width: 1100px; margin: 0 auto;">
-    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px;">
-      <h2 id="sir-heading" style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 600; color: #171717;">Special Intensive Revision (SIR)</h2>
-      <x-if value="{{ sirOpenHere }}">
-      <span style="display: inline-flex; align-items: center; min-height: 26px; padding: 0 12px; border-radius: 999px; background: #F3F0FF; font-size: 13px; line-height: 18px; font-weight: 600; color: #4A2BC2;">Open now</span>
-      </x-if>
-    </div>
-
-    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 24px;">
-      <a href="#sir-form" style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 20px; background: #4A2BC2; border: 1px solid #4A2BC2; border-radius: 8px; font-size: 15px; line-height: 22px; font-weight: 600; color: #FFFFFF; text-decoration: none;" class-hover="hv-3">Fill enumeration form<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto;"><line x1="4" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg></a>
-      <a href="#sir-search" style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 20px; background: #FFFFFF; border: 1px solid #D4D4D4; border-radius: 8px; font-size: 15px; line-height: 22px; font-weight: 500; color: #171717; text-decoration: none;" class-hover="hv-1">Search last SIR roll<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto;"><line x1="4" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg></a>
-      <a href="#sir-notice" style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 20px; background: #FFFFFF; border: 1px solid #D4D4D4; border-radius: 8px; font-size: 15px; line-height: 22px; font-weight: 500; color: #171717; text-decoration: none;" class-hover="hv-1">Submit documents<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto;"><line x1="4" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg></a>
-    </div>
-
-    <div style="margin-top: 28px; padding: 20px; background: #FAFAFA; border: 1px solid #E5E5E5; border-radius: 12px;">
-      <h3 style="margin: 0; font-size: 16px; line-height: 22px; font-weight: 600; color: #171717;">Check the dates for your state</h3>
-      <p style="margin: 6px 0 0; max-width: 620px; font-size: 14px; line-height: 21px; color: #525252;">The revision runs in phases, and the dates differ from one state to another.</p>
-      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px; margin-top: 16px;">
-        <div style="flex: 0 1 300px; min-width: 0;">
-          <label for="sir-state" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">State or union territory</label>
-          <div style="position: relative;">
-          <select id="sir-state" value="{{ sirState }}" on-change="{{ onSirState }}" style="display: block; width: 100%; box-sizing: border-box; height: 48px; padding: 0 44px 0 14px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; appearance: none; -webkit-appearance: none; font-family: inherit; font-size: 15px; line-height: 48px; color: #171717;">
-            <option value="Madhya Pradesh">Madhya Pradesh</option>
-            <option value="Delhi">Delhi</option>
-            <option value="Maharashtra">Maharashtra</option>
-            <option value="Karnataka">Karnataka</option>
-            <option value="Tamil Nadu">Tamil Nadu</option>
-            <option value="Uttar Pradesh">Uttar Pradesh</option>
-            <option value="West Bengal">West Bengal</option>
-          </select>
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#404040" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); pointer-events: none;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+<section id="sir" aria-labelledby="sir-heading" class="sir-section">
+  <div class="ux4g-card ux4g-card-outline sir-card">
+    <div class="sir-card-main">
+      <div class="sir-card-text">
+        <div class="sir-card-head">
+          <h2 id="sir-heading" class="ux4g-title-m-strong ux4g-text-neutral-primary ux4g-m-none">Special Intensive Revision (SIR) {{ sirYear }}</h2>
+          <x-if value="{{ sirOpen }}"><span class="ux4g-tag-tonal-primary">Open now</span></x-if>
         </div>
-        </div>
-        <a href="#sir-schedule" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 4px; font-size: 15px; line-height: 22px; font-weight: 500; color: #4A2BC2; text-decoration: none;" class-hover="hv-2">See the full phase schedule</a>
+        <p class="ux4g-body-s-default ux4g-text-neutral-secondary ux4g-m-none">A door-to-door check of the voter list. You may need to return a form to stay on the roll.</p>
       </div>
-      <p style="margin: 16px 0 0; font-size: 14px; line-height: 21px; color: #404040;">{{ sirPhaseLine }}</p>
+      <div class="sir-card-actions">
+        <a class="ux4g-btn ux4g-btn-primary ux4g-btn-md" href="{{ sirFormHref }}">Fill enumeration form</a>
+        <a class="ux4g-btn ux4g-btn-outline-primary ux4g-btn-md" href="#sir-search">Search your name in last SIR</a>
+      </div>
+    </div>
+    <hr class="ux4g-divider-horizontal sir-card-divider">
+    <div class="sir-card-links">
+      <a class="ux4g-text-link-sm" href="#sir-notice">Submit documents</a>
+      <a class="ux4g-text-link-sm" href="#sir-schedule">See the full phase schedule</a>
     </div>
   </div>
 </section>
 
 <section aria-labelledby="other-services" style="padding: 48px 32px;">
-  <div style="max-width: 1200px; margin: 0 auto;">
+  <div style="max-width: 1100px; margin: 0 auto;">
     <h2 id="other-services" style="margin: 0 0 24px; font-size: 20px; line-height: 24px; font-weight: 600; color: #171717;">Other services</h2>
     <ul class="other-services-grid" style="list-style: none; margin: 0; padding: 0; display: grid; gap: 12px;">
-      <li><a href="{{ svc.polling }}" style="display: flex; flex-direction: column; gap: 8px; height: 100%; min-height: 44px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 8px; padding: 20px 16px; text-decoration: none; color: #171717; transition: border-color .15s ease, background .15s ease;" class-hover="hv-1">
+      <li><a href="{{ svc.polling }}" class="ux4g-card service-tile">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#4A2BC2" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
         <span class="eci-card-title" style="font-size: 14px; line-height: 18px; font-weight: 500;">Find your polling station</span>
       </a></li>
-      <li><a href="{{ svc.epic }}" style="display: flex; flex-direction: column; gap: 8px; height: 100%; min-height: 44px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 8px; padding: 20px 16px; text-decoration: none; color: #171717; transition: border-color .15s ease, background .15s ease;" class-hover="hv-1">
+      <li><a href="{{ svc.epic }}" class="ux4g-card service-tile">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#4A2BC2" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
         <span class="eci-card-title" style="font-size: 14px; line-height: 18px; font-weight: 500;">Download e-EPIC (digital voter ID)</span>
       </a></li>
-      <li><a href="{{ svc.bookBlo }}" style="display: flex; flex-direction: column; gap: 8px; height: 100%; min-height: 44px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 8px; padding: 20px 16px; text-decoration: none; color: #171717; transition: border-color .15s ease, background .15s ease;" class-hover="hv-1">
+      <li><a href="{{ svc.bookBlo }}" class="ux4g-card service-tile">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#4A2BC2" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"></path></svg>
         <span class="eci-card-title" style="font-size: 14px; line-height: 18px; font-weight: 500;">Book a call with your booth level officer (BLO)</span>
       </a></li>
-      <li><a href="{{ svc.profile }}" style="display: flex; flex-direction: column; gap: 8px; height: 100%; min-height: 44px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 8px; padding: 20px 16px; text-decoration: none; color: #171717; transition: border-color .15s ease, background .15s ease;" class-hover="hv-1">
+      <li><a href="{{ svc.profile }}" class="ux4g-card service-tile">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#4A2BC2" stroke-width="2" aria-hidden="true"><circle cx="9" cy="8" r="3"></circle><path d="M3 20a6 6 0 0112 0"></path><path d="M16 6a3 3 0 010 6"></path><path d="M18 20a5 5 0 00-2-4"></path></svg>
         <span class="eci-card-title" style="font-size: 14px; line-height: 18px; font-weight: 500;">Manage your profile (self and family)</span>
       </a></li>
-      <li><a href="{{ svc.appeal }}" style="display: flex; flex-direction: column; gap: 8px; height: 100%; min-height: 44px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 8px; padding: 20px 16px; text-decoration: none; color: #171717; transition: border-color .15s ease, background .15s ease;" class-hover="hv-1">
+      <li><a href="{{ svc.appeal }}" class="ux4g-card service-tile">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#4A2BC2" stroke-width="2" aria-hidden="true"><path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V9z"></path><polyline points="14 3 14 9 20 9"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><polyline points="9 15 12 12 15 15"></polyline></svg>
         <span class="eci-card-title" style="font-size: 14px; line-height: 18px; font-weight: 500;">Submit an appeal</span>
       </a></li>
-      <li><a href="{{ svc.appealAdjudication }}" style="display: flex; flex-direction: column; gap: 8px; height: 100%; min-height: 44px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 8px; padding: 20px 16px; text-decoration: none; color: #171717; transition: border-color .15s ease, background .15s ease;" class-hover="hv-1">
+      <li><a href="{{ svc.appealAdjudication }}" class="ux4g-card service-tile">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#4A2BC2" stroke-width="2" aria-hidden="true"><line x1="12" y1="3" x2="12" y2="21"></line><path d="M5 21h14"></path><path d="M3 7h18"></path><path d="M6 7l-3 7a3 3 0 006 0z"></path><path d="M18 7l-3 7a3 3 0 006 0z"></path></svg>
         <span class="eci-card-title" style="font-size: 14px; line-height: 18px; font-weight: 500;">Submit an appeal for individuals under adjudication</span>
       </a></li>
-      <li><a href="{{ svc.deletion }}" style="display: flex; flex-direction: column; gap: 8px; height: 100%; min-height: 44px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 8px; padding: 20px 16px; text-decoration: none; color: #171717; transition: border-color .15s ease, background .15s ease;" class-hover="hv-1">
+      <li><a href="{{ svc.deletion }}" class="ux4g-card service-tile">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#4A2BC2" stroke-width="2" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14H6L5 6"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
         <span class="eci-card-title" style="font-size: 14px; line-height: 18px; font-weight: 500;">Request a deletion from voter list</span>
       </a></li>
-      <li><a href="{{ svc.nri }}" style="display: flex; flex-direction: column; gap: 8px; height: 100%; min-height: 44px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 8px; padding: 20px 16px; text-decoration: none; color: #171717; transition: border-color .15s ease, background .15s ease;" class-hover="hv-1">
+      <li><a href="{{ svc.nri }}" class="ux4g-card service-tile">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#4A2BC2" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><line x1="3" y1="12" x2="21" y2="12"></line><path d="M12 3a15 15 0 014 9 15 15 0 01-4 9 15 15 0 01-4-9 15 15 0 014-9z"></path></svg>
         <span class="eci-card-title" style="font-size: 14px; line-height: 18px; font-weight: 500;">NRI voter registration</span>
       </a></li>
-      <li><a href="{{ svc.results }}" style="display: flex; flex-direction: column; gap: 8px; height: 100%; min-height: 44px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 8px; padding: 20px 16px; text-decoration: none; color: #171717; transition: border-color .15s ease, background .15s ease;" class-hover="hv-1">
+      <li><a href="{{ svc.results }}" class="ux4g-card service-tile">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#4A2BC2" stroke-width="2" aria-hidden="true"><line x1="6" y1="20" x2="6" y2="12"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="18" y1="20" x2="18" y2="9"></line></svg>
         <span class="eci-card-title" style="font-size: 14px; line-height: 18px; font-weight: 500;">Election results and updates</span>
       </a></li>
@@ -306,7 +281,7 @@
 </section>
 
 <section aria-labelledby="download-forms-heading" style="padding: 0 32px 48px;">
-  <div style="max-width: 1200px; margin: 0 auto;">
+  <div style="max-width: 1100px; margin: 0 auto;">
     <h2 id="download-forms-heading" style="margin: 0 0 24px; font-size: 20px; line-height: 24px; font-weight: 600; color: #171717;">Download forms to apply offline</h2>
     <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px;">
       <li style="display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 8px; padding: 20px;">
@@ -347,24 +322,24 @@
 </section>
 
 <section id="guides" aria-labelledby="guides-heading" style="background: #F5F5F5; border-top: 1px solid #E5E5E5; padding: 48px 32px;">
-  <div style="max-width: 1200px; margin: 0 auto;">
+  <div style="max-width: 1100px; margin: 0 auto;">
     <h2 id="guides-heading" style="margin: 0 0 24px; font-size: 20px; line-height: 24px; font-weight: 600; color: #171717;">Guides to help you get started</h2>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
-      <a class="ux4g-card" href="#guide-documents" style="display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 8px; padding: 24px; text-decoration: none; color: inherit; transition: border-color .15s ease, box-shadow .15s ease;" class-hover="hv-1">
+      <a class="ux4g-card" href="#guide-documents" style="display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 8px; padding: 24px; text-decoration: none; color: inherit;">
         <span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 8px; background: #FFF3EC; display: flex; align-items: center; justify-content: center; margin-bottom: 4px;">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#AD4E00" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
         </span>
         <span class="eci-card-title" style="font-size: 16px; line-height: 20px; font-weight: 600; color: #171717;">Documents you’ll need</span>
         <span class="eci-card-text" style="font-size: 14px; line-height: 20px; color: #404040;">Proof of age, address, and identity — what’s accepted and what format to upload.</span>
       </a>
-      <a class="ux4g-card" href="#guide-terms" style="display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 8px; padding: 24px; text-decoration: none; color: inherit; transition: border-color .15s ease, box-shadow .15s ease;" class-hover="hv-1">
+      <a class="ux4g-card" href="#guide-terms" style="display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 8px; padding: 24px; text-decoration: none; color: inherit;">
         <span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 8px; background: #F3F0FF; display: flex; align-items: center; justify-content: center; margin-bottom: 4px;">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#4A2BC2" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
         </span>
         <span class="eci-card-title" style="font-size: 16px; line-height: 20px; font-weight: 600; color: #171717;">Common terms explained</span>
         <span class="eci-card-text" style="font-size: 14px; line-height: 20px; color: #404040;">What SIR, EPIC, assembly constituency, and other terms actually mean.</span>
       </a>
-      <a class="ux4g-card" href="#guide-after" style="display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 8px; padding: 24px; text-decoration: none; color: inherit; transition: border-color .15s ease, box-shadow .15s ease;" class-hover="hv-1">
+      <a class="ux4g-card" href="#guide-after" style="display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 8px; padding: 24px; text-decoration: none; color: inherit;">
         <span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 8px; background: #E8F5EC; display: flex; align-items: center; justify-content: center; margin-bottom: 4px;">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#00522C" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
         </span>
@@ -375,7 +350,7 @@
   </div>
 </section>
 <section id="faqs" aria-labelledby="faqs-heading" style="padding: 48px 32px; background: #FAFAFA;">
-  <div class="eci-reading" style="max-width: 900px; margin: 0 auto; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 12px; padding: 32px;">
+  <div class="eci-reading" style="max-width: 1100px; margin: 0 auto; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 12px; padding: 32px;">
     <h2 id="faqs-heading" style="margin: 0 0 16px; font-size: 20px; line-height: 24px; font-weight: 600; color: #171717;">Common questions</h2>
       <details style="border-bottom: 1px solid #E5E5E5;">
         <summary style="display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 44px; padding: 16px 0; cursor: pointer; list-style: none; font-size: 16px; line-height: 20px; font-weight: 600; color: #171717;">
@@ -424,7 +399,7 @@
 
 <x-if value="{{ showAppBanner }}">
 <section aria-labelledby="app-heading" style="background: #F3F0FF; border-top: 1px solid #E5E5E5; padding: 32px;">
-  <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
+  <div style="max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
     <div style="min-width: 0;">
       <h2 id="app-heading" style="margin: 0 0 4px; font-size: 20px; line-height: 24px; font-weight: 600; color: #171717;">Get the ECINet mobile app</h2>
       <p style="margin: 0; font-size: 14px; line-height: 20px; color: #404040;">Access voter services on the go</p>

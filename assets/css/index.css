@@ -35,8 +35,7 @@ body { margin: 0; font-family: 'Noto Sans', system-ui, sans-serif; background: #
    single-row or whole-card-link variant, so the row layout, the stretched click area and the
    phone stacking are page rules. Colours, border and type come from UX4G classes. */
 .centre-section { padding: 0 32px 48px; }
-.centre-card { position: relative; max-width: 1200px; margin: 0 auto; cursor: pointer; }
-.centre-card:hover { border-color: var(--ux4g-border-color-primary-default, #4A2BC2); }
+.centre-card { position: relative; max-width: 1100px; margin: 0 auto; cursor: pointer; }
 .centre-card-body { display: flex; align-items: center; gap: var(--ux4g-gap-column-m); }
 .centre-card-icon { flex: 0 0 auto; font-size: 24px; }
 .centre-card-text { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: var(--ux4g-gap-row-2xs); }
@@ -83,3 +82,51 @@ body { margin: 0; font-family: 'Noto Sans', system-ui, sans-serif; background: #
 /* A light tint over the rest of the page, lighter than the log in dialog's and without blur. */
 .home-search-scrim { position: fixed; inset: 0; z-index: 70; background-color: rgba(23, 23, 23, 0.2); }
 .home-search-scrim[hidden] { display: none; }
+
+/* Clickable cards on the homepage (the four service cards and the Other services tiles) are UX4G
+   cards, so hover is UX4G's own: the shadow deepens from l1 to l2 and nothing else changes.
+   These classes hold what used to be inline styles; they set no transition, so UX4G's applies. */
+.service-card { display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 16px; padding: 24px 20px; overflow: hidden; min-height: 300px; text-decoration: none; color: inherit; box-shadow: var(--ux4g-shadow-l1); }
+/* The resting shadow above is set here, so the hover shadow has to be set here too. */
+.service-card:hover { box-shadow: var(--ux4g-shadow-l2); }
+.service-card-go { display: flex; justify-content: flex-end; padding-top: 8px; }
+.service-card-arrow { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 999px; border: 1px solid #525252; color: #171717; }
+.service-tile { display: flex; flex-direction: column; gap: 8px; height: 100%; min-height: 44px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 8px; padding: 20px 16px; text-decoration: none; color: #171717; }
+.service-card:hover, .service-tile:hover { color: inherit; }
+
+/* ---- Special Intensive Revision ----
+   The strip under the navbar: one slim line in a light purple box that stops at the navbar
+   content edges (1200px less the 32px sides), not a full-width band. Its surround matches the
+   grey of the section below. On a phone the sentence may wrap; the link stays beside it. */
+.sir-strip { background: #F5F5F5; padding: 16px 32px 0; }
+.sir-strip-row { max-width: calc(1200px - 64px); margin: 0 auto; padding: 8px 8px 8px 16px; display: flex; align-items: center; gap: 8px; box-sizing: border-box; }
+.sir-strip-icon { flex: 0 0 auto; font-size: 20px; }
+.sir-strip-text { flex: 1 1 auto; min-width: 0; }
+.sir-strip-link { flex: 0 0 auto; white-space: nowrap; }
+.sir-strip-close { flex: 0 0 auto; }
+@media (max-width: 600px) { .sir-strip { padding-inline: 16px; } }
+
+/* The SIR card: in the page container at the width of the service cards above (1100px),
+   on the page background rather than a full-width band. Text on the left, buttons on the
+   right; on a phone the buttons drop below the text and stack. */
+/* Sections are spaced 48px either side of a band edge, as the Guides band is: 48px from the
+   service cards to the grey edge, 48px from it to this card, then 48px to Other services.
+   No band of its own: the user tried white and purple full-width bands and neither helped. */
+.sir-section { padding: 48px 32px 0; }
+/* The card is tinted with UX4G's lightest purple (bg-primary), so SIR stands apart from the white
+   cards around it without a full-width band. */
+.sir-card { max-width: 1100px; margin: 0 auto; padding: var(--ux4g-padding-xl, 24px); background-color: var(--ux4g-bg-primary); }
+.sir-card-main { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.sir-card-text { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.sir-card-head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.sir-card-actions { display: flex; flex: 0 0 auto; gap: 12px; }
+.sir-card-actions .ux4g-btn { justify-content: center; text-decoration: none; white-space: nowrap; }
+.sir-card-divider { margin: 20px 0 16px; }
+.sir-card-links { display: flex; flex-wrap: wrap; gap: 24px; }
+@media (max-width: 860px) {
+  .sir-card-main { flex-direction: column; align-items: stretch; }
+  .sir-card-actions { flex-direction: column; }
+}
+/* This page colours every link purple (a, a:hover above), which beats UX4G's layered button text
+   on a button made from a link. Hand the primary button its own white text back. */
+.sir-card-actions a.ux4g-btn-primary, .sir-card-actions a.ux4g-btn-primary:hover { color: var(--ux4g-text-neutral-inverse); }
