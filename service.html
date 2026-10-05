@@ -3,14 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sign in</title>
+<title>Service — Citizen Service Portal</title>
 
 <link rel="stylesheet" href="https://cdn.ux4g.gov.in/UX4G@3.2.0/index.css">
-<link rel="stylesheet" href="https://cdn.ux4g.gov.in/UX4G@3.2.0/patterns/identity-access.css">
-<link rel="stylesheet" href="assets/css/fonts-login.css">
+<link rel="stylesheet" href="assets/css/fonts-track.css">
 <link rel="stylesheet" href="assets/css/shell.css">
-<link rel="stylesheet" href="assets/css/login.css">
-<link rel="stylesheet" href="assets/css/auth.css">
+<link rel="stylesheet" href="assets/css/service.css">
 <style>.dc-loading #app { visibility: hidden; }</style>
 <script>
   // Hold the page back until the first render, otherwise the raw {{ }} bindings
@@ -25,7 +23,7 @@
 </head>
 <body>
 <div id="app">
-<div style="min-height: 100vh; background: #FAFAFA; display: flex; flex-direction: column; zoom: {{ textZoom }}; letter-spacing: {{ rootTracking }};">
+<div style="min-height: 100vh; background: #F5F5F5; zoom: {{ textZoom }}; letter-spacing: {{ rootTracking }};">
 
 <header role="banner" class="eci-header">
   <div class="eci-header-row eci-header-row-top">
@@ -142,22 +140,46 @@
   </div>
 </header>
 
-<main id="main-content" class="ux4g-identity-access-container auth-main">
-  <div class="ux4g-identity-access-layout-card">
-    <!-- The shared log in form (assets/js/login-form.js) is drawn in here. The homepage dialog
-         draws the same form, so the two are identical. -->
-    <div class="login-card login-page-card" id="loginMount"></div>
+<main id="main-content" style="max-width: 760px; margin: 0 auto; padding: 20px 24px 72px;">
 
-    <p class="ux4g-body-xs-default ux4g-text-neutral-secondary auth-privacy">Your data is protected under the ECI’s <a href="#privacy">privacy policy</a>.</p>
-  </div>
+  <nav aria-label="Breadcrumb" class="ux4g-breadcrumb ux4g-breadcrumb-divider" style="margin-bottom: 20px;">
+    <ol class="ux4g-breadcrumb-list ux4g-d-flex ux4g-ai-center ux4g-flex-wrap" style="margin: 0; padding: 0;">
+      <li class="ux4g-breadcrumb-item ux4g-d-flex ux4g-ai-center"><a class="ux4g-breadcrumb-link ux4g-d-flex ux4g-ai-center ux4g-gap-x-xs" href="{{ homeHref }}"><span class="ux4g-icon-outlined" aria-hidden="true" style="font-size: 18px;">home</span>Home</a></li>
+      <li class="ux4g-breadcrumb-item active" aria-current="page">{{ serviceName }}</li>
+    </ol>
+  </nav>
+
+  <h1 style="margin: 0 0 24px; font-size: 32px; line-height: 40px; font-weight: 600; color: #171717;">{{ serviceName }}</h1>
+
+  <!-- UX4G empty state, "Coming soon" variant: services linked from the homepage that this
+       prototype has not built yet land here, rather than on a link that goes nowhere. -->
+  <section class="service-panel" aria-labelledby="empty-title">
+    <div class="ux4g-empty-state">
+      <span class="ux4g-icon-outlined ux4g-empty-state-icon ux4g-text-primary" aria-hidden="true">rocket_launch</span>
+      <div class="ux4g-empty-state-content">
+        <h2 id="empty-title" class="ux4g-title-l-strong">Coming soon</h2>
+        <p class="ux4g-body-m-default">This service is under development.</p>
+      </div>
+      <button type="button" class="ux4g-btn-tonal-primary ux4g-btn-md" on-click="{{ goBack }}">Go back</button>
+    </div>
+  </section>
+
 </main>
 
+<footer role="contentinfo" class="eci-footer">
+  <div class="eci-footer-row">
+    <span>© 2026 Election Commission of India</span>
+    <span>Last updated 24 September 2026</span>
+    <nav aria-label="Footer" class="eci-footer-nav">
+      <a href="#contact-directory" class="eci-footer-link">Contact directory</a>
+      <a href="#privacy" class="eci-footer-link">Privacy policy</a>
+    </nav>
+  </div>
+</footer>
 </div></div>
 <script src="https://cdn.ux4g.gov.in/UX4G@3.2.0/ux4g.js"></script>
 <script src="https://cdn.ux4g.gov.in/UX4G@3.2.0/ux4g-custom.js"></script>
 <script src="assets/js/dc-lite.js"></script>
-<script src="assets/js/auth-otp.js"></script>
-<script src="assets/js/login-form.js"></script>
-<script src="assets/js/login.js"></script>
+<script src="assets/js/service.js"></script>
 </body>
 </html>

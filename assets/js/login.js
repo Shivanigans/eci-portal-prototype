@@ -2,7 +2,7 @@ class Page extends DCLogic {
   // Everything the shared <header> binds to. The header markup is identical on every
   // page, so this method is too; each page only says whether someone is signed in,
   // where the emblem links, and (on the homepage) what Log in does.
-  headerVals({ loggedIn, homeHref, onLoginClick }) {
+  headerVals({ loggedIn, homeHref, onLoginClick, onLogOut }) {
     const s = this.state;
     const lang = s.lang || 'en';
     const name = this.props.userName ?? 'Ananya Rao';
@@ -37,199 +37,73 @@ class Page extends DCLogic {
       closeGuidesOnBlur: (e) => {
         const wrap = e.currentTarget.closest('[data-guides]');
         if (!wrap || !wrap.contains(e.relatedTarget)) this.setState({ guidesOpen: false });
+      },
+      // Help menu: opens on click; Escape or focus leaving it closes it.
+      helpOpen: !!s.helpOpen,
+      toggleHelp: () => this.setState(st => ({ helpOpen: !st.helpOpen })),
+      closeHelpOnBlur: (e) => {
+        const wrap = e.currentTarget.closest('[data-help]');
+        if (!wrap || !wrap.contains(e.relatedTarget)) this.setState({ helpOpen: false });
+      },
+      helpKeydown: (e) => {
+        if (e.key !== 'Escape' || !s.helpOpen) return;
+        this.setState({ helpOpen: false });
+        e.currentTarget.querySelector('button').focus();
+      },
+      helpBloHref: 'service.html?s=book-blo' + (loggedIn ? '&loggedIn=1' : ''),
+      // Log in brings the person back to this page, signed in.
+      loginHref: 'login.html?next=' + encodeURIComponent(location.pathname.split('/').pop() || 'index.html'),
+      // Account menu, shown once signed in: profile, my applications, log out.
+      accountOpen: !!s.accountOpen,
+      toggleAccount: () => this.setState(st => ({ accountOpen: !st.accountOpen })),
+      closeAccountOnBlur: (e) => {
+        const wrap = e.currentTarget.closest('[data-account]');
+        if (!wrap || !wrap.contains(e.relatedTarget)) this.setState({ accountOpen: false });
+      },
+      // Signs out straight away by reloading this page without the signed-in flag. Only a
+      // page with unsaved work (the application form) passes onLogOut to ask first.
+      logOut: () => {
+        this.setState({ accountOpen: false });
+        if (onLogOut) { onLogOut(); return; }
+        const q = new URLSearchParams(location.search);
+        q.delete('loggedIn'); q.delete('signedIn');
+        location.href = location.pathname + (q.toString() ? '?' + q : '');
       }
     };
   }
 
   renderVals() {
     return {
-      ...this.headerVals({ loggedIn: false, homeHref: 'index.html' }),
-      onSubmit: (e) => {
-        e.preventDefault();
-
-        const mode = document.querySelector('[role="tab"][aria-selected="true"]').dataset.mode;
-
-        if (mode === 'resident') {
-          const mobile = document.getElementById('mobileNumber');
-          const residentEpic = document.getElementById('residentEpic');
-          const mobileError = document.getElementById('mobileError');
-          const residentEpicError = document.getElementById('residentEpicError');
-
-          const mobileValue = mobile.value.trim();
-          const epicValue = residentEpic.value.trim();
-          let hasError = false;
-
-          mobileError.style.display = 'none';
-          residentEpicError.style.display = 'none';
-          mobile.removeAttribute('aria-invalid');
-          residentEpic.removeAttribute('aria-invalid');
-
-          if (mobileValue && !/^[6-9]\d{9}$/.test(mobileValue)) {
-            mobileError.textContent = 'Enter a valid 10-digit mobile number.';
-            mobileError.style.display = 'block';
-            mobile.setAttribute('aria-invalid', 'true');
-            hasError = true;
-          }
-
-          if (epicValue && !/^[A-Z]{3}[0-9]{7}$/i.test(epicValue)) {
-            residentEpicError.textContent = 'Enter a valid EPIC number, for example ABC1234567.';
-            residentEpicError.style.display = 'block';
-            residentEpic.setAttribute('aria-invalid', 'true');
-            hasError = true;
-          }
-
-          if (!mobileValue && !epicValue) {
-            mobileError.textContent = 'Enter your registered mobile number or EPIC number.';
-            mobileError.style.display = 'block';
-            mobile.setAttribute('aria-invalid', 'true');
-            hasError = true;
-          }
-
-          if (hasError) {
-            mobile.focus();
-            return;
-          }
-        } else {
-          const email = document.getElementById('overseasEmail');
-          const overseasEpic = document.getElementById('overseasEpic');
-          const emailError = document.getElementById('overseasEmailError');
-          const overseasEpicError = document.getElementById('overseasEpicError');
-
-          const emailValue = email.value.trim();
-          const epicValue = overseasEpic.value.trim();
-          let hasError = false;
-
-          emailError.style.display = 'none';
-          overseasEpicError.style.display = 'none';
-          email.removeAttribute('aria-invalid');
-          overseasEpic.removeAttribute('aria-invalid');
-
-          if (emailValue && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
-            emailError.textContent = 'Enter a valid email address.';
-            emailError.style.display = 'block';
-            email.setAttribute('aria-invalid', 'true');
-            hasError = true;
-          }
-
-          if (epicValue && !/^[A-Z]{3}[0-9]{7}$/i.test(epicValue)) {
-            overseasEpicError.textContent = 'Enter a valid EPIC number, for example ABC1234567.';
-            overseasEpicError.style.display = 'block';
-            overseasEpic.setAttribute('aria-invalid', 'true');
-            hasError = true;
-          }
-
-          if (!emailValue && !epicValue) {
-            emailError.textContent = 'Enter your email address or EPIC number.';
-            emailError.style.display = 'block';
-            email.setAttribute('aria-invalid', 'true');
-            hasError = true;
-          }
-
-          if (hasError) {
-            email.focus();
-            return;
-          }
-        }
-
-        location.href = 'index.html?loggedIn=1';
-      }
+      ...this.headerVals({ loggedIn: false, homeHref: 'index.html' })
     };
   }
 }
 
-const tabs = document.querySelectorAll('[role="tab"]');
-const residentGroup = document.getElementById('residentGroup');
-const overseasGroup = document.getElementById('overseasGroup');
-const mobileNumber = document.getElementById('mobileNumber');
-const residentEpic = document.getElementById('residentEpic');
-const mobileNumberWrap = document.getElementById('mobileNumberWrap');
-const overseasEmail = document.getElementById('overseasEmail');
-const overseasEpic = document.getElementById('overseasEpic');
-
-function setMode(mode) {
-  tabs.forEach((tab) => {
-    const selected = tab.dataset.mode === mode;
-    tab.setAttribute('aria-selected', String(selected));
-    tab.style.background = selected ? '#4A2BC2' : 'transparent';
-    tab.style.color = selected ? '#FAFAFA' : '#404040';
-    tab.style.boxShadow = selected ? '0 2px 6px rgba(74, 43, 194, 0.18)' : 'none';
-  });
-
-  if (mode === 'resident') {
-    residentGroup.style.display = 'flex';
-    overseasGroup.style.display = 'none';
-  } else {
-    residentGroup.style.display = 'none';
-    overseasGroup.style.display = 'flex';
-  }
+// Back to the page the person came from, signed in. Only a page on this site is accepted, so
+// the link cannot be used to send someone elsewhere. The one question a page may carry through
+// is the Form 8 purpose, so the form opens where it was started.
+function signedInHref() {
+  let next = 'index.html';
+  let carried = '';
+  try {
+    const asked = new URLSearchParams(location.search).get('next') || '';
+    const page = asked.split('?')[0];
+    if (/^[a-z0-9-]+\.html$/i.test(page) && page !== 'login.html' && page !== 'signup.html') {
+      next = page;
+      const purpose = new URLSearchParams(asked.split('?')[1] || '').get('purpose');
+      if (/^(correct|move|replace|disability)$/.test(purpose || '')) carried = 'purpose=' + purpose + '&';
+    }
+  } catch (err) {}
+  return next + '?' + carried + 'loggedIn=1';
 }
 
-mobileNumber.addEventListener('input', () => {
-  if (mobileNumber.value.trim() !== '') {
-    residentEpic.disabled = true;
-    residentEpic.style.background = '#F5F5F5';
-    residentEpic.style.borderColor = '#D9D9D9';
-    residentEpic.style.color = '#A3A3A3';
-  } else if (residentEpic.value.trim() === '') {
-    residentEpic.disabled = false;
-    residentEpic.style.background = '#FFFFFF';
-    residentEpic.style.borderColor = '#737373';
-    residentEpic.style.color = '#171717';
-  }
-
-  // The field being typed in always stays in its active colours.
-  mobileNumberWrap.style.borderColor = '#737373';
-  mobileNumberWrap.style.background = '#FFFFFF';
-  mobileNumber.style.color = '#171717';
-});
-
-residentEpic.addEventListener('input', () => {
-  if (residentEpic.value.trim() !== '') {
-    mobileNumber.disabled = true;
-    mobileNumberWrap.style.borderColor = '#D9D9D9';
-    mobileNumberWrap.style.background = '#F5F5F5';
-    mobileNumber.style.color = '#A3A3A3';
-    residentEpic.style.background = '#FFFFFF';
-    residentEpic.style.borderColor = '#737373';
-    residentEpic.style.color = '#171717';
-  } else if (mobileNumber.value.trim() === '') {
-    mobileNumber.disabled = false;
-    mobileNumberWrap.style.borderColor = '#737373';
-    mobileNumberWrap.style.background = '#FFFFFF';
-    mobileNumber.style.color = '#171717';
-  }
-});
-
-overseasEmail.addEventListener('input', () => {
-  if (overseasEmail.value.trim() !== '') {
-    overseasEpic.disabled = true;
-    overseasEpic.style.background = '#F5F5F5';
-    overseasEpic.style.borderColor = '#D9D9D9';
-    overseasEpic.style.color = '#A3A3A3';
-  } else if (overseasEpic.value.trim() === '') {
-    overseasEpic.disabled = false;
-    overseasEpic.style.background = '#FFFFFF';
-    overseasEpic.style.borderColor = '#737373';
-    overseasEpic.style.color = '#171717';
-  }
-});
-
-overseasEpic.addEventListener('input', () => {
-  if (overseasEpic.value.trim() !== '') {
-    overseasEmail.disabled = true;
-    overseasEmail.style.background = '#F5F5F5';
-    overseasEmail.style.borderColor = '#D9D9D9';
-    overseasEmail.style.color = '#A3A3A3';
-  } else if (overseasEmail.value.trim() === '') {
-    overseasEmail.disabled = false;
-    overseasEmail.style.background = '#FFFFFF';
-    overseasEmail.style.borderColor = '#737373';
-    overseasEmail.style.color = '#171717';
-  }
-});
-
-tabs.forEach((tab) => {
-  tab.addEventListener('click', () => setMode(tab.dataset.mode));
-});
-
 DC.mount(Page, document.getElementById('app'), {});
+
+// The shared log in form. Sign up keeps the page the person was heading for, and signing in
+// goes back there.
+LoginForm.mount(document.getElementById('loginMount'), {
+  id: 'login',
+  headingTag: 'h1',
+  signupHref: 'signup.html' + location.search,
+  onSuccess: () => { location.href = signedInHref(); }
+});

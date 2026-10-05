@@ -1,0 +1,32 @@
+/* "Find your nearest centre" side sheet (assets/js/centre-sheet.js) and the links that open it.
+   Everything else is UX4G classes; these rules cover what UX4G 3.2.0 has no class for. */
+
+/* The centre list. UX4G's List component lays out single-line menu rows, which can't
+   hold a name, address, timings and a link per centre, and there is no list-reset utility. */
+.centre-list { list-style: none; margin: 0; padding: 0; }
+.centre-item { display: flex; flex-direction: column; gap: var(--ux4g-gap-row-2xs); padding: var(--ux4g-padding-m) 0; border-top: var(--ux4g-border-width-sm, 1px) solid var(--ux4g-border-color-neutral-default); }
+.centre-item:first-child { border-top: 0; padding-top: 0; }
+.centre-maps { align-self: flex-start; }
+
+/* A <button> that opens the sheet but reads as a text link. UX4G's link classes only
+   colour and size; they assume an <a>, so the button chrome is cleared here. */
+.link-btn { border: 0; background: none; padding: 0; margin: 0; font-family: inherit; cursor: pointer; text-align: start; }
+
+/* UX4G's drawer close button is 24px with no minimum target and 50% opacity,
+   so the 44px minimum and full contrast from Design.md §9 are added here. */
+.centre-sheet .ux4g-drawer-close { min-width: 44px; min-height: 44px; justify-content: center; opacity: 1; }
+
+/* Prep screens: the offline line's links are neutral grey, so they need an underline
+   to be told apart from the text around them (UX4G's link classes set none). */
+.offline-line a, .offline-line .link-btn { text-decoration: underline; text-underline-offset: 2px; }
+
+/* PIN code: the field and Search, with "Use my current location" under them. */
+.centre-pin-form:not([hidden]) { display: flex; flex-direction: column; gap: var(--ux4g-gap-row-xs); }
+.centre-here-link { align-self: flex-start; display: inline-flex; align-items: center; gap: var(--ux4g-space-2); }
+.centre-here-link .ux4g-icon-outlined { font-size: 16px; }
+/* Search lines up with the input, not the label above it. */
+.centre-pin-search { margin-top: calc(var(--ux4g-lh-16, 16px) + var(--ux4g-space-2)); }
+/* The loading line, then the results: heading, the centres and the link to all of them. */
+.centre-loading:focus { outline: none; }
+.centre-results:not([hidden]) { display: flex; flex-direction: column; gap: var(--ux4g-gap-row-m); }
+.centre-all { align-self: flex-start; }

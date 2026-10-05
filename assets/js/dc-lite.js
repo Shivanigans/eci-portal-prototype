@@ -11,7 +11,8 @@
  *   <x-for list="{{ expr }}" as="item">   children repeat per entry
  *   on-click="{{ fn }}"             also on-change, on-submit, on-input,
  *                                   on-focus, on-blur, on-keydown, on-mousedown,
- *                                   on-mouseenter, on-mouseleave
+ *                                   on-mouseenter, on-mouseleave, on-dragover,
+ *                                   on-dragleave, on-drop
  *   ref="{{ refObject }}"           stores the element on refObject.current
  *   class-hover="hv-3"              a plain class; the rule lives in the page CSS
  *
@@ -35,7 +36,10 @@
     'on-keydown': 'keydown',
     'on-mousedown': 'mousedown',
     'on-mouseenter': 'mouseenter',
-    'on-mouseleave': 'mouseleave'
+    'on-mouseleave': 'mouseleave',
+    'on-dragover': 'dragover',
+    'on-dragleave': 'dragleave',
+    'on-drop': 'drop'
   };
 
   // Attributes that are present-or-absent rather than string valued.

@@ -1,0 +1,17 @@
+{
+  "name": "eci-portal-prototype",
+  "private": true,
+  "description": "Local tools for the ECI portal prototype: a static server and browser tests. The site itself stays plain HTML, CSS and JS and does not need Node.",
+  "scripts": {
+    "serve": "http-server -p 4173 -c-1 -o index.html",
+    "test": "playwright test",
+    "test:headed": "playwright test --headed --project=desktop --workers=1",
+    "test:ui": "playwright test --ui",
+    "shots": "playwright test -c playwright.shots.config.js",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "http-server": "^14.1.1"
+  }
+}

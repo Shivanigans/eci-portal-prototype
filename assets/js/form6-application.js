@@ -1,17 +1,74 @@
+// ============================================================================================
+// PROTOTYPE SCAFFOLDING: SCRIPTED DOCUMENT CHECK
+// Outcomes below are HARD-CODED FOR DEMONSTRATION. NO FILE ANALYSIS TAKES PLACE: whatever file
+// is chosen, the field shows "Verifying document." for SCAN_SECONDS and then the outcome set
+// here, every time, including on re-upload. Remove this block when a real check exists.
+//
+// Each value is either 'clean' (shows "Document verified.") or one warning line. An upload not
+// listed here (the disability certificate) is held without any check. A field shows
+// one warning only, with one action beside it: "Re-upload", or "Upload a clearer copy" for
+// the warnings listed in LEGIBILITY_WARNINGS. Warnings are advisory and never block the form.
+//
+// Warning lines, copy any in as a field's value:
+//   'Address does not match the address you entered'
+//   'Date of birth does not match the date you entered'
+//   'Photograph does not meet the size and background requirements'
+//   'Document is not clear enough to read'                          (legibility)
+//   'Part of the document is missing'
+//   'Image quality is too low to read'                              (legibility)
+//   'Date of birth is not visible on this document'
+//   'Document is not self-attested'
+//   'Photograph background is not plain white'
+//   'Photograph must not be signed or marked'
+// ============================================================================================
+const SCRIPTED_DOC_CHECK = {
+  SCAN_SECONDS: 2.5,
+  // true: files over 2 MB, or not of the type the field's hint names, are refused before the
+  // check runs (a real portal rule, not analysis). false: every file goes through to the script.
+  ENFORCE_SIZE_AND_TYPE: true,
+  // Warnings about legibility rather than a mismatch; their action reads "Upload a clearer copy".
+  LEGIBILITY_WARNINGS: ['Document is not clear enough to read', 'Image quality is too low to read'],
+  outcomes: {
+    'photo': 'Photograph does not meet the size and background requirements',
+    'dob-proof': 'Date of birth does not match the date you entered',
+    'addr-proof': 'Address does not match the address you entered'
+  }
+};
+
+// ============================================================================================
+// PROTOTYPE SCAFFOLDING: SAMPLE FILES
+// Upload and Re-upload attach the sample file named here straight away, with no file picker,
+// so the form can be walked through without real documents. The scripted check above still
+// runs on it. Dragging a real file onto the panel still works. Set ON to false to open the
+// file picker again.
+// ============================================================================================
+const SAMPLE_FILES = {
+  ON: true,
+  size: 412 * 1024,
+  names: {
+    photo: 'passport-photo.jpg',
+    'dob-proof': 'birth-certificate.pdf',
+    'addr-proof': 'electricity-bill.pdf',
+    'disability-cert': 'disability-certificate.pdf'
+  }
+};
+
 class Page extends DCLogic {
+  // Lettered and worded as on the online Form 6 (ECINET), so this prototype lines up with the
+  // live form. `heading` is used where the section heading is longer than its rail label.
   sectionList = [
-    { key: 'constituency', id: 'constituency', label: 'Select state, district and constituency' },
-    { key: 'personal', id: 'your-details', label: 'Personal details' },
-    { key: 'relative', id: 'relative', label: 'Parent or spouse details' },
-    { key: 'contact', id: 'contact', label: 'Contact details' },
-    { key: 'aadhaar', id: 'aadhaar', label: 'Aadhaar details' },
-    { key: 'gender', id: 'gender', label: 'Gender' },
-    { key: 'dob', id: 'dob', label: 'Date of birth details' },
-    { key: 'address', id: 'address', label: 'Current address details' },
-    { key: 'disability', id: 'disability', label: 'Disability details' },
-    { key: 'family', id: 'family', label: 'Family member details' },
-    { key: 'declaration', id: 'declaration', label: 'Declaration' }
-  ];
+    { key: 'constituency', id: 'constituency', letter: 'A', label: 'Select state, district and AC', heading: 'Select state, district and assembly/parliamentary constituency' },
+    { key: 'personal', id: 'your-details', letter: 'B', label: 'Personal details' },
+    { key: 'relative', id: 'relative', letter: 'C', label: 'Relatives details' },
+    { key: 'contact', id: 'contact', letter: 'D', label: 'Contact details' },
+    { key: 'aadhaar', id: 'aadhaar', letter: 'E', label: 'Aadhaar details' },
+    { key: 'gender', id: 'gender', letter: 'F', label: 'Gender' },
+    { key: 'dob', id: 'dob', letter: 'G', label: 'Date of birth details' },
+    { key: 'address', id: 'address', letter: 'H', label: 'Present address details' },
+    { key: 'disability', id: 'disability', letter: 'I', label: 'Disability details' },
+    { key: 'family', id: 'family', letter: 'J', label: 'Family member details' },
+    { key: 'declaration', id: 'declaration', letter: 'K', label: 'Declaration' }
+  ].map(s => Object.assign(s, { title: s.letter + '. ' + s.label, headingTitle: s.letter + '. ' + (s.heading || s.label) }));
 
   // PLACEHOLDER DATA — the states and union territories are complete, but only Madhya
   // Pradesh has districts and only Bhopal has assembly constituencies, and the constituency
@@ -133,16 +190,14 @@ class Page extends DCLogic {
     proceed();
   }
 
-  // A quiet reassurance that answers are being kept. It appears at most once every
-  // 30 seconds while someone is filling in the form, fades on its own, and blocks nothing.
+  // The time in the auto-save bar above the sections. It moves on at most once every
+  // 30 seconds while someone is filling in the form, and at once when a section is saved.
   showSaved(force) {
     const now = Date.now();
     if (!force && now - (this.lastSavedNote || 0) < 30000) return;
     this.lastSavedNote = now;
     const time = new Date().toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit' });
-    this.setState({ savedNote: 'Progress saved at ' + time });
-    clearTimeout(this.savedNoteTimer);
-    this.savedNoteTimer = setTimeout(() => this.setState({ savedNote: '' }), 4000);
+    this.setState({ savedNote: 'Saved ' + time });
   }
 
   // Errors are only ever added by Save and continue, but one that has been put right goes
@@ -153,6 +208,7 @@ class Page extends DCLogic {
     Object.keys(errors).forEach(key => {
       const el = document.getElementById(key) || document.querySelector('[name="' + key + '"]');
       if (!el || !el.checkValidity()) return;
+      if (el.type === 'file') return;   // cleared only when an acceptable file is chosen (onFile)
       if (el.hasAttribute('data-date') && el.value && !this.realDate(el.value)) return;
       delete errors[key];
       changed = true;
@@ -192,7 +248,6 @@ class Page extends DCLogic {
     done: [],
     // Neither constituency type is chosen for the person, and neither is ruled out.
     type: '',
-    tip: null,
     combo: null,
     docs: {},
     submitting: false,
@@ -278,38 +333,38 @@ class Page extends DCLogic {
     const assembly = this.state.type === 'assembly';
     const parliamentary = this.state.type === 'parliamentary';
     return [
-      { letter: 'A', id: 'constituency', heading: 'Constituency details', rows: [
+      { id: 'constituency', rows: [
         { label: 'State or union territory', value: v.state },
         { label: 'District', value: v.district },
         { label: assembly ? 'Assembly constituency name' : parliamentary ? 'Parliamentary constituency name' : 'Constituency name', value: assembly ? v.acName : parliamentary ? v.pcName : '' },
         { label: assembly ? 'Assembly constituency number' : parliamentary ? 'Parliamentary constituency number' : 'Constituency number', value: assembly ? v.acNumber : parliamentary ? v.pcNumber : '' }
       ] },
-      { letter: 'B', id: 'your-details', heading: 'Applicant details', rows: [
+      { id: 'your-details', rows: [
         { label: 'First name and middle name', value: v.firstName },
         { label: 'Surname', value: v.surname },
         { label: 'Name in regional language', value: v.nameRegional },
         { label: 'Passport size photograph', value: this.state.done.indexOf('your-details') > -1 ? 'Attached' : '' }
       ] },
-      { letter: 'C', id: 'relative', heading: 'Details of parent or spouse', rows: [
+      { id: 'relative', rows: [
         { label: 'Name', value: v.relativeName },
         { label: 'Relationship to the applicant', value: cap(v.relativeRelation) }
       ] },
-      { letter: 'D', id: 'contact', heading: 'Contact details', rows: [
+      { id: 'contact', rows: [
         { label: 'Mobile number', value: v.mobile },
         { label: 'Email address', value: v.email }
       ] },
-      { letter: 'E', id: 'aadhaar', heading: 'Aadhaar details', rows: [
+      { id: 'aadhaar', rows: [
         { label: 'Aadhaar number', value: this.state.noAadhaar ? '' : v.aadhaar },
         { label: 'No Aadhaar number held', value: this.state.noAadhaar ? 'Declared' : '' }
       ] },
-      { letter: 'F', id: 'gender', heading: 'Gender', rows: [
+      { id: 'gender', rows: [
         { label: 'Gender', value: genderLabels[v.gender] || '' }
       ] },
-      { letter: 'G', id: 'dob', heading: 'Date of birth details', rows: [
+      { id: 'dob', rows: [
         { label: 'Date of birth', value: v.dob },
         { label: 'Proof of date of birth', value: this.state.done.indexOf('dob') > -1 ? 'Attached' : '' }
       ] },
-      { letter: 'H', id: 'address', heading: 'Details of present ordinary residence', rows: [
+      { id: 'address', rows: [
         { label: 'House or flat number', value: v.house },
         { label: 'Street or locality', value: v.street },
         { label: 'Town or village', value: v.town },
@@ -318,16 +373,16 @@ class Page extends DCLogic {
         { label: 'District', value: v.addrDistrict },
         { label: 'Proof of present address', value: this.state.done.indexOf('address') > -1 ? 'Attached' : '' }
       ] },
-      { letter: 'I', id: 'disability', heading: 'Disability details', rows: [
+      { id: 'disability', rows: [
         { label: 'Disability', value: disList.join(', ') },
         { label: 'Disability certificate', value: '' }
       ] },
-      { letter: 'J', id: 'family', heading: 'Details of a family member already in the roll', rows: [
+      { id: 'family', rows: [
         { label: 'Name', value: v.familyName },
         { label: 'Relationship to the applicant', value: cap(v.familyRelation) },
         { label: 'Voter ID number', value: v.familyEpic }
       ] },
-      { letter: 'K', id: 'declaration', heading: 'Declaration', rows: [
+      { id: 'declaration', rows: [
         { label: 'Place', value: v.place },
         { label: 'Date', value: v.declDate },
         { label: 'Declaration confirmed', value: this.state.declared ? 'Yes' : '' }
@@ -484,122 +539,139 @@ class Page extends DCLogic {
     this.setState({ docs: docs });
   }
 
+  // What each upload's hint promises: a file outside it is refused straight away with the
+  // reason against the field. Can be switched off in SCRIPTED_DOC_CHECK at the top.
+  fileRules = {
+    photo: { pattern: /\.jpe?g$/i, types: 'a JPG or JPEG', list: 'JPG, JPEG' },
+    'dob-proof': { pattern: /\.(jpe?g|pdf)$/i, types: 'a JPG, JPEG or PDF', list: 'JPG, JPEG, PDF' },
+    'addr-proof': { pattern: /\.(jpe?g|pdf)$/i, types: 'a JPG, JPEG or PDF', list: 'JPG, JPEG, PDF' },
+    'disability-cert': { pattern: /\.(jpe?g|pdf)$/i, types: 'a JPG, JPEG or PDF', list: 'JPG, JPEG, PDF' }
+  };
+  maxFileBytes = 2 * 1048576;
+
+  fileProblem(key, file) {
+    if (!SCRIPTED_DOC_CHECK.ENFORCE_SIZE_AND_TYPE) return '';
+    const rule = this.fileRules[key];
+    if (!rule.pattern.test(file.name)) return file.name + ' is not ' + rule.types + ' file. Choose ' + rule.types + ' file.';
+    if (file.size > this.maxFileBytes) return file.name + ' is ' + (file.size / 1048576).toFixed(1) + ' MB. Choose a file under 2 MB.';
+    return '';
+  }
+
+  setFileError(key, msg) {
+    const errors = Object.assign({}, this.state.errors);
+    if (msg) errors[key] = msg; else delete errors[key];
+    this.setState({ errors: errors });
+  }
+
+  // Only fields listed in SCRIPTED_DOC_CHECK.outcomes go through the check; any other upload
+  // (the disability certificate) is simply held, with no verifying step and no verdict.
+  isChecked(key) {
+    return Object.prototype.hasOwnProperty.call(SCRIPTED_DOC_CHECK.outcomes, key);
+  }
+
+  // The scripted outcome for a field: one warning line, or empty when it is set to clean.
+  // Nothing about the file is read: see SCRIPTED_DOC_CHECK at the top of this script.
+  scriptedWarning(key) {
+    const outcome = SCRIPTED_DOC_CHECK.outcomes[key];
+    return !outcome || outcome === 'clean' ? '' : String(outcome);
+  }
+
+  // One way in for a file, whether it was chosen with Upload or dropped on the panel.
+  takeSampleFile(key) {
+    this.takeFile(key, { name: SAMPLE_FILES.names[key] || key + '.pdf', size: SAMPLE_FILES.size });
+  }
+
+  takeFile(key, file) {
+    const input = document.getElementById(key);
+    if (!file) { this.setDoc(key, null); return; }
+    const problem = this.fileProblem(key, file);
+    this.setFileError(key, problem);
+    if (problem) { if (input) input.value = ''; this.setDoc(key, null); return; }
+    const token = Date.now() + Math.random();
+    if (!this.isChecked(key)) {
+      this.setDoc(key, { token: token, status: 'done', checked: false, name: file.name, size: file.size, warning: '' });
+      return;
+    }
+    this.setDoc(key, { token: token, status: 'scanning', checked: true, name: file.name, size: file.size, warning: '' });
+    setTimeout(() => {
+      const now = this.state.docs[key];
+      if (!now || now.token !== token) return;   // removed, or replaced by a newer file
+      this.setDoc(key, { token: token, status: 'done', checked: true, name: file.name, size: file.size, warning: this.scriptedWarning(key) });
+    }, SCRIPTED_DOC_CHECK.SCAN_SECONDS * 1000);
+  }
+
   onFile(key) {
-    return (e) => {
-      const file = e.target.files && e.target.files[0];
-      if (!file) { this.setDoc(key, null); return; }
-      const token = Date.now() + Math.random();
-      this.setDoc(key, { token: token, status: 'scanning', name: file.name, warnings: [] });
-      const started = Date.now();
-      this.inspect(key, file).catch(() => []).then(codes => {
-        // Hold the scanning state briefly, so it reads as a check rather than a flicker.
-        setTimeout(() => {
-          const now = this.state.docs[key];
-          if (!now || now.token !== token) return;   // a newer file has replaced this one
-          this.setDoc(key, { token: token, status: 'done', name: file.name, warnings: codes.map(c => this.warningText(c, key)) });
-        }, Math.max(0, 1400 - (Date.now() - started)));
-      });
-    };
+    return (e) => this.takeFile(key, e.target.files && e.target.files[0]);
   }
 
-  inspect(key, file) {
-    // Demo hooks. Reading the text and comparing the address need text recognition, which
-    // this prototype does not have, so a file name containing one of these words stands in
-    // for that result. The other checks below are measured from the image itself.
-    const hooks = ['unreadable', 'mismatch', 'cropped', 'dark', 'blurred', 'lowres']
-      .filter(w => file.name.toLowerCase().indexOf(w) > -1)
-      .filter(w => key === 'addr-proof' || w !== 'mismatch')
-      .filter(w => key !== 'photo' || (w !== 'unreadable' && w !== 'cropped'));
-    if (!/^image\//.test(file.type)) return Promise.resolve(hooks);
-    return new Promise((resolve, reject) => {
-      const url = URL.createObjectURL(file);
-      const img = new Image();
-      img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
-      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('unreadable image')); };
-      img.src = url;
-    }).then(img => {
-      const measured = this.measure(img, key);
-      return measured.concat(hooks.filter(h => measured.indexOf(h) < 0));
-    });
+  setDragging(key, on) {
+    if (!!(this.state.dragging || {})[key] === on) return;
+    this.setState(st => ({ dragging: Object.assign({}, st.dragging, { [key]: on }) }));
   }
 
-  // Rough image heuristics: overall brightness, sharpness (variance of the Laplacian), size,
-  // and whether dark marks run into the edges as if the page had been cut off.
-  measure(img, key) {
-    const w = img.naturalWidth, h = img.naturalHeight;
-    const scale = Math.min(1, 640 / Math.max(w, h));
-    const cw = Math.max(3, Math.round(w * scale)), ch = Math.max(3, Math.round(h * scale));
-    const canvas = document.createElement('canvas');
-    canvas.width = cw; canvas.height = ch;
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(img, 0, 0, cw, ch);
-    const px = ctx.getImageData(0, 0, cw, ch).data;
-    const gray = new Float32Array(cw * ch);
-    let sum = 0;
-    for (let i = 0; i < gray.length; i++) {
-      gray[i] = 0.299 * px[i * 4] + 0.587 * px[i * 4 + 1] + 0.114 * px[i * 4 + 2];
-      sum += gray[i];
-    }
-    const mean = sum / gray.length;
-
-    let lapSum = 0, lapSq = 0, n = 0;
-    for (let y = 1; y < ch - 1; y++) {
-      for (let x = 1; x < cw - 1; x++) {
-        const i = y * cw + x;
-        const lap = gray[i - 1] + gray[i + 1] + gray[i - cw] + gray[i + cw] - 4 * gray[i];
-        lapSum += lap; lapSq += lap * lap; n++;
-      }
-    }
-    const lapVar = n ? lapSq / n - Math.pow(lapSum / n, 2) : 0;
-
-    const out = [];
-    if (Math.min(w, h) < (key === 'photo' ? 300 : 800)) out.push('lowres');
-    if (mean < 70) out.push('dark');
-    if (lapVar < 40) out.push('blurred');
-
-    if (key !== 'photo') {
-      const band = Math.max(2, Math.round(Math.min(cw, ch) * 0.015));
-      const ink = Math.min(110, mean * 0.55);
-      const strip = (x0, y0, x1, y1) => {
-        let dark = 0, total = 0;
-        for (let y = y0; y < y1; y++) for (let x = x0; x < x1; x++) { total++; if (gray[y * cw + x] < ink) dark++; }
-        return total ? dark / total : 0;
-      };
-      // Text crossing an edge leaves a mix of dark and light there; a plain dark table
-      // behind the page is almost all dark, and is not a sign of cropping.
-      const edges = [strip(0, 0, cw, band), strip(0, ch - band, cw, ch), strip(0, 0, band, ch), strip(cw - band, 0, cw, ch)];
-      if (edges.some(f => f > 0.1 && f < 0.6)) out.push('cropped');
-    }
-    return out;
-  }
-
-  // Phrased as what might happen, not as a verdict or a measurement.
-  warningText(code, key) {
-    const photo = key === 'photo';
-    return {
-      dark: photo ? 'This photo looks quite dark, so the officer may not be able to recognise your face.' : 'This looks quite dark, so the officer may not be able to read it.',
-      blurred: photo ? 'This photo looks blurred, so the officer may not be able to recognise your face.' : 'This looks blurred, so the officer may not be able to read the details.',
-      lowres: photo ? 'This photo is quite small, so it may print unclearly on your voter ID.' : 'This image is quite small, so the details may be too unclear for the officer to read.',
-      cropped: 'The edges look cut off. If part of the document is missing, the officer may not accept it.',
-      unreadable: 'Some of the text may be hard to make out, so the officer may not be able to check it.',
-      mismatch: 'The address on this document may not match the address you entered above. If they differ, the officer may not accept it as proof.'
-    }[code];
-  }
-
+  // Everything one upload field binds to. The UX4G state class is chosen here: selecting while
+  // a file is dragged over, scanning during the check, error while a refused file's message
+  // shows, default otherwise. Once a file is held the panel gives way to the file list.
   docVals(key) {
     const d = this.state.docs[key];
+    const scanning = !!(d && d.status === 'scanning');
+    const done = !!(d && d.status === 'done');
+    const warned = done && !!d.warning;
+    const dragging = !d && !!(this.state.dragging || {})[key];
+    const refused = !d && !!this.state.errors[key];
+    const state = scanning ? 'scanning' : dragging ? 'selecting' : refused ? 'error' : done ? 'uploaded' : 'default';
+    const size = !d ? '' : d.size >= 1048576 ? (d.size / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(d.size / 1024)) + ' KB';
+    const focusUpload = () => setTimeout(() => { const el = document.getElementById(key + '-btn'); if (el) el.focus(); }, 0);
     return {
-      scanning: !!(d && d.status === 'scanning'),
+      uploadClass: 'ux4g-upload ux4g-upload-state-' + state,
+      showPanel: !done,
+      idle: !d && !dragging,
+      scanning: scanning,
+      notScanning: !scanning,
+      panelHeading: scanning ? 'Verifying document.' : 'Drop file here',
+      panelHint: scanning ? d.name : 'File type: ' + this.fileRules[key].list + '. Max size: 2 MB',
+      done: done,
+      // UX4G colours a held file's name green; a flagged file keeps it neutral.
+      itemClass: 'ux4g-upload-file-item' + (warned ? ' is-flagged' : ''),
+      clean: done && d.checked && !warned,
       name: d ? d.name : '',
-      hasWarnings: !!(d && d.status === 'done' && d.warnings.length),
-      warnings: d && d.status === 'done' ? d.warnings.map(t => ({ text: t })) : []
+      size: size,
+      // Read out by the hidden status line, since the panel changes state without moving focus.
+      announce: scanning ? 'Verifying document.' : !done ? '' : warned ? d.warning : d.checked ? 'Document verified.' : d.name + ' added.',
+      pick: () => { if (SAMPLE_FILES.ON) { this.takeSampleFile(key); return; } const input = document.getElementById(key); if (input) input.click(); },
+      dragOver: (e) => { e.preventDefault(); if (!d) this.setDragging(key, true); },
+      dragLeave: (e) => { if (!e.currentTarget.contains(e.relatedTarget)) this.setDragging(key, false); },
+      drop: (e) => {
+        e.preventDefault();
+        this.setDragging(key, false);
+        if (d) return;   // a file is already being checked
+        this.takeFile(key, e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]);
+      },
+      remove: () => {
+        const input = document.getElementById(key);
+        if (input) input.value = '';
+        this.setDoc(key, null);
+        focusUpload();
+      },
+      // Drops the flagged file and opens the file picker straight away.
+      reupload: () => {
+        const input = document.getElementById(key);
+        if (input) input.value = '';
+        this.setDoc(key, null);
+        if (SAMPLE_FILES.ON) this.takeSampleFile(key);
+        else if (input) input.click();
+        focusUpload();
+      },
+      hasWarnings: warned,
+      warning: warned ? d.warning : '',
+      actionLabel: warned && SCRIPTED_DOC_CHECK.LEGIBILITY_WARNINGS.indexOf(d.warning) > -1 ? 'Upload a clearer copy' : 'Re-upload'
     };
   }
 
   // Everything the shared <header> binds to. The header markup is identical on every
   // page, so this method is too; each page only says whether someone is signed in,
   // where the emblem links, and (on the homepage) what Log in does.
-  headerVals({ loggedIn, homeHref, onLoginClick }) {
+  headerVals({ loggedIn, homeHref, onLoginClick, onLogOut }) {
     const s = this.state;
     const lang = s.lang || 'en';
     const name = this.props.userName ?? 'Ananya Rao';
@@ -634,6 +706,37 @@ class Page extends DCLogic {
       closeGuidesOnBlur: (e) => {
         const wrap = e.currentTarget.closest('[data-guides]');
         if (!wrap || !wrap.contains(e.relatedTarget)) this.setState({ guidesOpen: false });
+      },
+      // Help menu: opens on click; Escape or focus leaving it closes it.
+      helpOpen: !!s.helpOpen,
+      toggleHelp: () => this.setState(st => ({ helpOpen: !st.helpOpen })),
+      closeHelpOnBlur: (e) => {
+        const wrap = e.currentTarget.closest('[data-help]');
+        if (!wrap || !wrap.contains(e.relatedTarget)) this.setState({ helpOpen: false });
+      },
+      helpKeydown: (e) => {
+        if (e.key !== 'Escape' || !s.helpOpen) return;
+        this.setState({ helpOpen: false });
+        e.currentTarget.querySelector('button').focus();
+      },
+      helpBloHref: 'service.html?s=book-blo' + (loggedIn ? '&loggedIn=1' : ''),
+      // Log in brings the person back to this page, signed in.
+      loginHref: 'login.html?next=' + encodeURIComponent(location.pathname.split('/').pop() || 'index.html'),
+      // Account menu, shown once signed in: profile, my applications, log out.
+      accountOpen: !!s.accountOpen,
+      toggleAccount: () => this.setState(st => ({ accountOpen: !st.accountOpen })),
+      closeAccountOnBlur: (e) => {
+        const wrap = e.currentTarget.closest('[data-account]');
+        if (!wrap || !wrap.contains(e.relatedTarget)) this.setState({ accountOpen: false });
+      },
+      // Signs out straight away by reloading this page without the signed-in flag. Only a
+      // page with unsaved work (the application form) passes onLogOut to ask first.
+      logOut: () => {
+        this.setState({ accountOpen: false });
+        if (onLogOut) { onLogOut(); return; }
+        const q = new URLSearchParams(location.search);
+        q.delete('loggedIn'); q.delete('signedIn');
+        location.href = location.pathname + (q.toString() ? '?' + q : '');
       }
     };
   }
@@ -649,22 +752,23 @@ class Page extends DCLogic {
     if (rounded >= 100 && filled < total) rounded = 90;
     if (filled === total) rounded = 100;
 
-    const rowBase = 'display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 36px; padding: 7px 12px 7px 13px; border-top: 1px solid #EDEDED; text-decoration: none; background: #FFFFFF;';
     const sections = this.sectionList.map(s => {
       const active = this.state.active === s.id;
+      const isDone = done.indexOf(s.id) > -1;
       return {
         label: s.label,
+        prefix: s.letter + '. ',
+        mark: s.letter,
         href: '#' + s.id,
-        active: active,
-        inactive: !active,
-        done: done.indexOf(s.id) > -1,
+        current: active ? 'step' : 'false',
+        done: isDone,
         onClick: this.jump(s.id),
-        rowStyle: active
-          ? 'display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 36px; padding: 7px 12px 7px 10px; border-top: 1px solid #EDEDED; border-left: 3px solid #4A2BC2; text-decoration: none; background: #F3F0FF;'
-          : rowBase,
-        labelStyle: active
-          ? 'font-size: 14px; line-height: 20px; font-weight: 600; color: #4A2BC2; text-wrap: pretty;'
-          : 'font-size: 14px; line-height: 20px; color: #404040; text-wrap: pretty;'
+        // UX4G's 'completed' is its base step class; 'done' is a finished step, shown green with a
+        // tick. The current step gets the purple ring, and later steps stay grey.
+        stepClass: 'ux4g-status-pipeline-step ux4g-status-pipeline-completed' + (isDone && !active ? ' ux4g-status-pipeline-done' : '') + (!isDone && !active ? ' ux4g-status-pipeline-step-pending' : ''),
+        iconClass: 'ux4g-status-pipeline-head-icon' + (active ? ' ux4g-status-pipeline-head-icon-active' : ''),
+        checkClass: 'ux4g-status-pipeline-head-check' + (active ? ' ux4g-status-pipeline-head-check-active' : ''),
+        linkClass: 'section-rail-link ux4g-status-pipeline-label ' + (active ? 'ux4g-label-m-strong ux4g-text-primary' : 'ux4g-label-m-default ux4g-text-neutral-primary')
       };
     });
 
@@ -675,7 +779,7 @@ class Page extends DCLogic {
       const prev = this.sectionList[i - 1];
       const summary = this.state.summaries[s.id] || [];
       heads[s.key] = {
-        label: s.label,
+        label: s.headingTitle,
         open: open,
         done: isDone,
         onClick: () => this.openSection(open ? null : s.id),
@@ -698,15 +802,11 @@ class Page extends DCLogic {
           }
         })),
         onPrevious: () => this.openSection(prev ? prev.id : s.id),
-        cardStyle: 'background: #FFFFFF; border: 1px solid ' + (open ? '#DDD5F7' : '#E5E5E5') + '; border-radius: 12px; overflow: hidden;',
-        rowStyle: 'display: flex; align-items: center; gap: 12px; width: 100%; box-sizing: border-box; min-height: 56px; padding: 14px 24px; border: none; border-bottom: 1px solid ' + (open ? '#DDD5F7' : 'transparent') + '; background: ' + (open ? '#F3F0FF' : '#FFFFFF') + '; font-family: inherit; text-align: left; cursor: pointer;',
-        titleStyle: 'flex: 1 1 auto; min-width: 0; font-size: ' + (open ? '17px' : '16px') + '; line-height: 24px; font-weight: 600; color: ' + (open || isDone ? '#171717' : '#525252') + '; text-wrap: pretty;',
-        chevStyle: 'flex: 0 0 auto; transition: transform 160ms ease; transform: rotate(' + (open ? '180deg' : '0deg') + ');'
+        buttonClass: 'ux4g-accordion__button' + (open ? '' : ' collapsed')
       };
     });
 
     const v = this.state.values;
-    const tip = this.state.tip;
     const dis = this.state.disabilities;
     const toggleDis = (k) => () => {
       const next = Object.assign({}, dis);
@@ -718,17 +818,29 @@ class Page extends DCLogic {
     const errs = {};
     ['state', 'district', 'constituency-type', 'ac-name', 'ac-number', 'pc-name', 'pc-number', 'first-name', 'surname', 'name-regional', 'photo', 'rel-name', 'rel-type', 'mobile', 'email', 'aadhaar-number', 'dob-date', 'dob-proof', 'house', 'street', 'town', 'post-office', 'pin', 'addr-district', 'addr-proof', 'disability-cert', 'family-name', 'family-relation', 'family-epic', 'decl-place', 'decl-date', 'gender', 'declaration-confirm'].forEach(k => {
       const camel = k.replace(/-([a-z])/g, (m, c) => c.toUpperCase());
-      errs[camel] = { show: !!errState[k], msg: errState[k] || '' };
+      const show = !!errState[k];
+      // UX4G Input has one helper line: the field's hint (while `ok`), replaced by the error.
+      errs[camel] = { show: show, ok: !show, msg: errState[k] || '', inputClass: 'ux4g-input-container ux4g-input-md ' + (show ? 'ux4g-input-error' : 'ux4g-input-default') };
     });
+    // UX4G Radio: the error variant goes on every option in a group while its error shows.
+    const radioClass = (show) => 'ux4g-radio ux4g-radio-md' + (show ? ' ux4g-radio-error' : '');
+    errs.constituencyType.radioClass = radioClass(errs.constituencyType.show);
+    errs.gender.radioClass = radioClass(errs.gender.show);
 
     return {
-      ...this.headerVals({ loggedIn: true, homeHref: 'index.html?loggedIn=1' }),
+      // Logging out mid-application loses the place, so it goes through the same "Leave this
+      // application?" dialogue as any other exit. Once submitted there is nothing to lose.
+      ...this.headerVals({
+        loggedIn: true,
+        homeHref: 'index.html?loggedIn=1',
+        onLogOut: this.state.screen === 'done' ? null : () => this.setState({ leaveOpen: true, leaveHref: 'index.html' })
+      }),
       errs: errs,
       sections,
       heads,
       v: v,
       pctExact: Math.round(exact),
-      barWidth: exact.toFixed(1) + '%',
+      barValue: exact.toFixed(1),
       pctLabel: rounded + '%',
 
       isAssembly: this.state.type === 'assembly',
@@ -747,19 +859,10 @@ class Page extends DCLogic {
       // The name label follows the relationship chosen above it.
       relNameLabel: { father: 'Father’s name', mother: 'Mother’s name', husband: 'Husband’s name', wife: 'Wife’s name', guardian: 'Legal guardian’s name' }[v.relativeRelation] || 'Name of parent or spouse',
 
-      docs: { photo: this.docVals('photo'), dobProof: this.docVals('dob-proof'), addrProof: this.docVals('addr-proof') },
-      onFile: { photo: this.onFile('photo'), dobProof: this.onFile('dob-proof'), addrProof: this.onFile('addr-proof') },
+      docs: { photo: this.docVals('photo'), dobProof: this.docVals('dob-proof'), addrProof: this.docVals('addr-proof'), disabilityCert: this.docVals('disability-cert') },
+      onFile: { photo: this.onFile('photo'), dobProof: this.onFile('dob-proof'), addrProof: this.onFile('addr-proof'), disabilityCert: this.onFile('disability-cert') },
 
-      savedNote: this.state.savedNote,
-      savedNoteStyle: 'position: fixed; left: 24px; bottom: 24px; z-index: 30; display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 8px; background: #262626; color: #FAFAFA; font-size: 13px; line-height: 18px; box-shadow: 0 4px 12px rgba(23,23,23,0.2); pointer-events: none; transition: opacity 300ms ease; opacity: ' + (this.state.savedNote ? '1' : '0') + ';',
-
-      tips: { ac: tip === 'ac', first: tip === 'first', name: tip === 'name', epic: tip === 'epic', type: tip === 'type' },
-      tipType: () => this.setState({ tip: 'type' }),
-      tipAc: () => this.setState({ tip: 'ac' }),
-      tipFirst: () => this.setState({ tip: 'first' }),
-      tipName: () => this.setState({ tip: 'name' }),
-      tipEpic: () => this.setState({ tip: 'epic' }),
-      hideTip: () => this.setState({ tip: null }),
+      savedNote: this.state.savedNote || 'Answers are saved automatically',
 
       on: {
         acNumber: this.setVal('acNumber'),
@@ -814,16 +917,11 @@ class Page extends DCLogic {
       closeLeave: () => this.setState({ leaveOpen: false }),
       leaveTo: {
         home: this.confirmLeave('index.html?loggedIn=1'),
+        blo: this.confirmLeave('service.html?s=book-blo&loggedIn=1'),
         register: this.confirmLeave('index.html?loggedIn=1'),
         prep: this.confirmLeave('form6-prep.html')
       },
 
-      screenTrack: this.state.screen === 'track',
-      goToTrack: (e) => {
-        if (e && e.preventDefault) e.preventDefault();
-        this.setState({ screen: 'track' });
-        setTimeout(() => { const se = document.scrollingElement || document.documentElement; if (se) se.scrollTop = 0; }, 0);
-      },
       screenForm: this.state.screen === 'form',
       screenPreview: this.state.screen === 'preview',
       screenDone: this.state.screen === 'done',
@@ -831,14 +929,12 @@ class Page extends DCLogic {
         (this.state.type === 'parliamentary' && v.pcName ? v.pcName + ' parliamentary constituency, ' : '') +
         (v.district || '') + (v.state ? ', ' + v.state : ''),
       previewSections: this.previewRows().map(sec => ({
-        title: sec.letter + '. ' + sec.heading,
+        title: this.sectionList.filter(x => x.id === sec.id)[0].headingTitle,
         onEdit: this.editSection(sec.id),
         rows: sec.rows.map(r => ({
           label: r.label,
           value: r.value || '',
-          valueStyle: (r.value || '') === ''
-            ? 'margin: 0; font-size: 14px; line-height: 20px; min-height: 20px; border-bottom: 1px dashed #D4D4D4;'
-            : 'margin: 0; font-size: 14px; line-height: 20px; font-weight: 500; color: #171717; text-wrap: pretty;'
+          valueClass: 'ux4g-text-neutral-secondary ux4g-body-s-default' + ((r.value || '') === '' ? ' preview-empty' : '')
         }))
       })),
       backToForm: (e) => {
@@ -863,7 +959,8 @@ class Page extends DCLogic {
         }, 1500);
       },
       refNumber: this.state.refNumber,
-      trackHref: 'index.html?ref=' + encodeURIComponent(this.state.refNumber),
+      // The confirmation hands over to the track page, with the reference just issued.
+      trackHref: 'track.html?loggedIn=1&status=submitted&ref=' + encodeURIComponent(this.state.refNumber),
       copyLabel: this.state.copied ? 'Copied' : 'Copy code',
       copyRef: () => {
         if (navigator.clipboard) navigator.clipboard.writeText(this.state.refNumber);
@@ -875,3 +972,14 @@ class Page extends DCLogic {
 }
 
 DC.mount(Page, document.getElementById('app'), {"userName": "Ananya Rao"});
+
+// Escape hides the tooltip under the pointer or focus; it returns once the pointer or focus leaves.
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  document.querySelectorAll('.ux4g-tooltip-wrapper:hover, .ux4g-tooltip-wrapper:focus-within').forEach((w) => w.classList.add('tip-dismissed'));
+});
+['mouseout', 'focusout'].forEach((type) => document.addEventListener(type, (e) => {
+  const w = e.target.closest && e.target.closest('.tip-dismissed');
+  if (w && !w.contains(e.relatedTarget)) w.classList.remove('tip-dismissed');
+}));
+

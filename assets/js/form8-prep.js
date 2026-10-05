@@ -83,25 +83,23 @@ class Page extends DCLogic {
 
   renderVals() {
     const loggedIn = (this.props.loggedIn ?? false) || this.state.urlLoggedIn;
-    const dismissed = this.state.tipDismissed;
-    // "Self-attested" is explained in a UX4G tooltip on the term. CSS shows it on hover and
-    // on keyboard focus; Escape hides it without moving focus, until the pointer or focus
-    // leaves the term (WCAG 1.4.13).
-    const dismissOnEscape = (key) => (e) => { if (e.key === 'Escape') this.setState({ tipDismissed: key }); };
     const home = loggedIn ? 'index.html?loggedIn=1' : 'index.html';
+    const keep = loggedIn ? '?loggedIn=1' : '';
     return {
       ...this.headerVals({ loggedIn: loggedIn, homeHref: home }),
-      // Breadcrumb Home goes back to the homepage's service cards, where this form was chosen.
+      // Breadcrumb: Home goes to the homepage, and Correction of entries to its service cards,
+      // where this form was chosen.
       servicesHref: home + '#services',
-      tipClass: { dob: dismissed === 'dob' ? 'is-dismissed' : '', addr: dismissed === 'addr' ? 'is-dismissed' : '' },
-      dismissTip: { dob: dismissOnEscape('dob'), addr: dismissOnEscape('addr') },
-      resetTip: () => { if (this.state.tipDismissed) this.setState({ tipDismissed: null }); },
-      // Start stays disabled until "I understand" is ticked, as on Form 8.
+      trackHref: 'track.html' + keep,
+
+      // Start application is disabled until the Aadhaar e-Sign acknowledgement is ticked, and
+      // again if it is unticked. The page carries nothing into the form: the form asks what
+      // the person needs to do as its first question. Signed out, log in comes first.
       acknowledged: this.state.acknowledged,
       toggleAck: (e) => this.setState({ acknowledged: e.target.checked }),
       startDisabled: !this.state.acknowledged,
       onStart: () => {
-        const form = 'form6-application.html';
+        const form = 'form8-application.html';
         location.href = loggedIn ? form + '?loggedIn=1' : 'login.html?next=' + encodeURIComponent(form);
       }
     };

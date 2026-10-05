@@ -1,0 +1,78 @@
+/* Log in and sign up: one set of styles for the shared log in form (assets/js/login-form.js) in
+   both its wrappers (login.html and the homepage dialog) and for the sign up page. The sizes are
+   the homepage dialog's, on UX4G's scale: Title L heading, Body S text, Label M labels, Input md
+   fields, Button lg. Everything else here is layout UX4G has no class for. */
+
+/* ---- Page layout: UX4G's Identity and Access card pattern, under the portal's own header ----
+   The pattern's stylesheet (patterns/identity-access.css) is linked on these pages, because
+   UX4G 3.2.0's index.css does not bring it in. The pattern sizes its area for UX4G's own navbar
+   and paints it pale purple; here it fills what the portal header leaves, with the card centred
+   and the page's grey showing through. */
+.auth-main { flex: 1; display: flex; flex-direction: column; }
+.auth-main .ux4g-identity-access-layout-card { flex: 1; min-height: 0; justify-content: center; padding: 40px 24px; background-color: transparent; }
+@media (max-width: 767px) {
+  .auth-main .ux4g-identity-access-layout-card { padding: 24px 16px; }
+}
+
+/* ---- The card: the same box on the page and in the dialog ---- */
+.login-card { box-sizing: border-box; width: 100%; max-width: 27.5rem; padding: var(--ux4g-padding-2xl); background-color: var(--ux4g-bg-neutral-elevated); border-radius: var(--ux4g-radius-xl); }
+.login-page-card { box-shadow: var(--ux4g-shadow-l2); }
+@media (max-width: 767px) {
+  .login-card { padding: var(--ux4g-padding-xl) var(--ux4g-padding-m); }
+}
+/* Under the page card, lined up with its left edge. */
+.auth-privacy { margin: 20px 0 0; width: 100%; max-width: 27.5rem; }
+
+/* ---- Heading, intro line and the line under the form ---- */
+.login-head { display: flex; align-items: flex-start; gap: var(--ux4g-gap-column-m); }
+.login-head > :first-child { flex: 1 1 auto; min-width: 0; }
+.login-close { flex: 0 0 auto; margin: calc(var(--ux4g-space-4) * -1) calc(var(--ux4g-space-4) * -1) 0 0; }
+.login-intro { margin: var(--ux4g-space-4) 0 var(--ux4g-space-8); }
+.login-back { margin-bottom: var(--ux4g-space-6); }
+.login-signup { margin-top: var(--ux4g-space-7); }
+
+/* ---- The form ---- */
+.auth-form { display: flex; flex-direction: column; gap: var(--ux4g-space-7); }
+.auth-group { display: flex; flex-direction: column; gap: var(--ux4g-space-7); }
+.auth-actions { gap: var(--ux4g-space-6); }
+.auth-group[hidden], .login-step[hidden] { display: none; }
+.auth-form .ux4g-divider-horizontal-text { margin-block: 0; }
+.auth-form .ux4g-divider-label { background-color: var(--ux4g-bg-neutral-elevated); }
+.auth-form .ux4g-btn { justify-content: center; text-decoration: none; }
+/* In its card layout the pattern adds 32px above every field, and a rule and 32px above the
+   buttons. They were made for its one-field Aadhaar screens and leave these forms too loose. */
+.auth-form .ux4g-input-container { width: 100%; max-width: none; margin-top: 0; }
+.ux4g-identity-access-layout-card .auth-actions { padding-top: 4px; border-top: 0; }
+.auth-optional { font-weight: 400; color: var(--ux4g-text-neutral-tertiary); }
+.auth-status { margin: 0; min-height: 20px; }
+.auth-status:empty { display: none; }
+/* Sign up's "You do not need a password" note: the demo hint's helper style (Body XS, tertiary
+   grey), sitting as close under Send OTP as a helper sits under its field (4px). */
+.auth-note { margin: 0; }
+.auth-actions .auth-note { margin-top: calc(var(--ux4g-space-2) - var(--ux4g-space-5)); } /* the actions' gap is 12px */
+
+/* Resident elector / Overseas elector: a two-way switch. UX4G has no segmented control. */
+.login-switch { display: flex; gap: var(--ux4g-space-4); padding: var(--ux4g-space-2); border: var(--ux4g-border-width-sm) solid var(--ux4g-border-color-neutral-subtle); border-radius: var(--ux4g-radius-lg); background-color: var(--ux4g-bg-neutral-soft); }
+.login-switch-tab { flex: 1; min-height: var(--ux4g-sz-44, 44px); padding: 0 var(--ux4g-space-5, 12px); border: 0; border-radius: var(--ux4g-radius-md); background: transparent; font-family: inherit; font-size: var(--ux4g-fs-14); line-height: var(--ux4g-lh-20); font-weight: var(--ux4g-font-weight-semibold); color: var(--ux4g-text-neutral-secondary); cursor: pointer; }
+.login-switch-tab[aria-selected="true"] { background-color: var(--ux4g-bg-primary-strong); color: var(--ux4g-text-neutral-inverse); box-shadow: var(--ux4g-shadow-l1); }
+
+/* Step 2, after Send OTP: where the code went with Change beside it, the six boxes, Verify. */
+.login-change { margin-inline-start: var(--ux4g-space-2); vertical-align: baseline; }
+.auth-otp .ux4g-otp-meta .ux4g-btn:disabled { font-variant-numeric: tabular-nums; }
+.link-btn { border: 0; background: none; padding: 0; margin: 0; font-family: inherit; cursor: pointer; text-align: start; }
+/* One-time password: UX4G's Input-OTP, the full width of the card. */
+.auth-otp { display: flex; width: 100%; }
+.auth-otp .ux4g-otp-meta { align-items: center; }
+.auth-otp .ux4g-otp-meta .ux4g-btn { flex: 0 0 auto; white-space: nowrap; }
+
+/* ---- The homepage dialog: a scrim with the card in the middle ---- */
+.login-dialog-scrim { position: fixed; inset: 0; z-index: 80; display: flex; align-items: center; justify-content: center; padding: var(--ux4g-padding-xl); background-color: var(--ux4g-bg-overlay, rgba(23, 23, 23, 0.45)); overflow-y: auto; }
+.login-dialog-scrim[hidden] { display: none; }
+.login-dialog { box-shadow: var(--ux4g-shadow-l3); margin: auto; }
+body.login-dialog-lock { overflow: hidden; }
+@media (max-width: 767px) {
+  .login-dialog-scrim { padding: var(--ux4g-padding-m); }
+}
+
+/* UX4G's OTP label keeps the body size; here it matches the other field labels (Label M). */
+.auth-otp .ux4g-otp-label { font-size: var(--ux4g-fs-12); line-height: var(--ux4g-lh-16); font-weight: var(--ux4g-font-weight-medium); }

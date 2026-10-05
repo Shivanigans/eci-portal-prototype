@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Form 6 application</title>
+<title>Form&nbsp;6 application</title>
 
-<link rel="stylesheet" href="assets/css/ux4g.css">
+<link rel="stylesheet" href="https://cdn.ux4g.gov.in/UX4G@3.2.0/index.css">
 <link rel="stylesheet" href="assets/css/fonts-form6-application.css">
+<link rel="stylesheet" href="assets/css/shell.css">
 <link rel="stylesheet" href="assets/css/form6-application.css">
 <style>.dc-loading #app { visibility: hidden; }</style>
 <script>
@@ -24,35 +25,35 @@
 <div id="app">
 <div style="min-height: 100vh; background: #F5F5F5; zoom: {{ textZoom }}; letter-spacing: {{ rootTracking }};">
 
-<header role="banner" style="background: #FFFFFF; border-bottom: 1px solid #E5E5E5;">
-  <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 16px; padding: 12px 32px;">
-    <a href="{{ homeHref }}" style="display: flex; align-items: center; gap: 12px; min-width: 0; text-decoration: none; color: inherit;">
-      <img src="assets/img/eci-logo.png" alt="" style="width: 52px; height: 52px; flex: 0 0 auto; object-fit: contain;">
-      <div style="min-width: 0;">
-        <div lang="hi" style="font-size: 12px; line-height: 16px; color: #404040;">भारत निर्वाचन आयोग</div>
-        <div style="font-size: 16px; line-height: 20px; font-weight: 600; color: #4A2BC2;">Election Commission of India</div>
-        <div style="font-size: 11px; line-height: 14px; color: #737373;">Citizen Service Portal</div>
+<header role="banner" class="eci-header">
+  <div class="eci-header-row eci-header-row-top">
+    <a href="{{ homeHref }}" class="eci-brand">
+      <img src="assets/img/eci-logo.png" alt="" class="eci-brand-emblem">
+      <div class="eci-brand-text">
+        <div lang="hi" class="eci-brand-hindi">भारत निर्वाचन आयोग</div>
+        <div class="eci-brand-name">Election Commission of India</div>
+        <div class="eci-brand-sub">Citizen Service Portal</div>
       </div>
     </a>
-    <nav aria-label="Top utilities" style="display: flex; align-items: center; margin-left: auto;">
-      <div role="group" aria-label="Text size controls" style="display: flex; align-items: center; gap: 2px;">
-        <button type="button" aria-label="Decrease text size" on-click="{{ decreaseText }}" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; padding: 0; background: transparent; border: none; border-radius: 6px; font-family: inherit; font-size: 13px; line-height: 1; font-weight: 600; color: #404040; cursor: pointer;" class-hover="hv-hd">A<span aria-hidden="true" style="font-size: 10px;">−</span></button>
-        <button type="button" aria-label="Reset text size" on-click="{{ resetText }}" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; padding: 0; background: transparent; border: none; border-radius: 6px; font-family: inherit; font-size: 15px; line-height: 1; font-weight: 600; color: #404040; cursor: pointer;" class-hover="hv-hd">A</button>
-        <button type="button" aria-label="Increase text size" on-click="{{ increaseText }}" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; padding: 0; background: transparent; border: none; border-radius: 6px; font-family: inherit; font-size: 17px; line-height: 1; font-weight: 600; color: #404040; cursor: pointer;" class-hover="hv-hd">A<span aria-hidden="true" style="font-size: 11px;">+</span></button>
+    <nav aria-label="Top utilities" class="eci-utilities">
+      <div role="group" aria-label="Text size controls" class="eci-text-size">
+        <button type="button" aria-label="Decrease text size" on-click="{{ decreaseText }}" class="eci-util-btn eci-util-btn-text eci-util-btn-sm" class-hover="hv-hd">A<span aria-hidden="true" class="eci-util-sign-sm">−</span></button>
+        <button type="button" aria-label="Reset text size" on-click="{{ resetText }}" class="eci-util-btn eci-util-btn-text eci-util-btn-md" class-hover="hv-hd">A</button>
+        <button type="button" aria-label="Increase text size" on-click="{{ increaseText }}" class="eci-util-btn eci-util-btn-text eci-util-btn-lg" class-hover="hv-hd">A<span aria-hidden="true" class="eci-util-sign-lg">+</span></button>
       </div>
-      <span aria-hidden="true" style="width: 1px; height: 18px; background: #D9D9D9; margin: 0 10px;"></span>
-      <button type="button" aria-label="Wide letter spacing" aria-pressed="{{ trackingWide }}" on-click="{{ toggleTracking }}" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; padding: 0; background: transparent; border: none; border-radius: 6px; color: #404040; cursor: pointer;" class-hover="hv-hd">
+      <span aria-hidden="true" class="eci-util-divider"></span>
+      <button type="button" aria-label="Wide letter spacing" aria-pressed="{{ trackingWide }}" on-click="{{ toggleTracking }}" class="eci-util-btn" class-hover="hv-hd">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="4" r="1.6"></circle><path d="M4 8.5h16"></path><path d="M12 8.5V15"></path><path d="M9 21l3-6 3 6"></path></svg>
       </button>
-      <span aria-hidden="true" style="width: 1px; height: 18px; background: #D9D9D9; margin: 0 10px;"></span>
-      <div style="position: relative;">
-        <button type="button" aria-haspopup="listbox" aria-expanded="{{ langOpen }}" on-click="{{ toggleLangMenu }}" style="display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 8px; background: transparent; border: none; border-radius: 6px; font-family: inherit; font-size: 13px; line-height: 16px; font-weight: 500; color: #404040; cursor: pointer;" class-hover="hv-hd">
+      <span aria-hidden="true" class="eci-util-divider"></span>
+      <div class="eci-menu-anchor">
+        <button type="button" aria-haspopup="listbox" aria-expanded="{{ langOpen }}" on-click="{{ toggleLangMenu }}" class="eci-lang-btn" class-hover="hv-hd">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3a15 15 0 010 18a15 15 0 010-18z"></path></svg>
           {{ langLabel }}
           <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </button>
         <x-if value="{{ langOpen }}">
-        <ul role="listbox" aria-label="Language" style="list-style: none; position: absolute; top: 100%; right: 0; z-index: 50; margin: 4px 0 0; padding: 4px; width: 140px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+        <ul role="listbox" aria-label="Language" class="eci-lang-menu">
           <li><button type="button" role="option" aria-selected="{{ isEnglish }}" on-click="{{ setEnglish }}" style="{{ enOptStyle }}" class-hover="hv-hd">English</button></li>
           <li><button type="button" role="option" aria-selected="{{ isHindi }}" on-click="{{ setHindi }}" style="{{ hiOptStyle }}" class-hover="hv-hd" lang="hi">हिन्दी</button></li>
         </ul>
@@ -60,52 +61,80 @@
       </div>
     </nav>
   </div>
-  <div style="border-top: 1px solid #E5E5E5;">
-    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 16px; padding: 4px 32px;">
-      <nav aria-label="Main navigation" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-left: -10px;">
-        <div data-guides style="position: relative;" on-mouseenter="{{ openGuides }}" on-mouseleave="{{ closeGuides }}">
-          <a href="#guides" aria-haspopup="true" aria-expanded="{{ guidesOpen }}" on-focus="{{ openGuides }}" on-blur="{{ closeGuidesOnBlur }}" style="display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 10px; border-radius: 8px; font-size: 14px; line-height: 18px; font-weight: 500; color: #171717; text-decoration: none;" class-hover="hv-hd">
+  <div class="eci-header-nav-band">
+    <div class="eci-header-row eci-header-row-nav">
+      <nav aria-label="Main navigation" class="eci-nav">
+        <!-- Home asks before leaving, as the breadcrumb does: the form has unsaved answers. -->
+        <a href="{{ homeHref }}" on-click="{{ leaveTo.home }}" class="eci-nav-link" class-hover="hv-hd">Home</a>
+        <div data-guides class="eci-menu-anchor" on-mouseenter="{{ openGuides }}" on-mouseleave="{{ closeGuides }}">
+          <a href="#guides" aria-haspopup="true" aria-expanded="{{ guidesOpen }}" on-focus="{{ openGuides }}" on-blur="{{ closeGuidesOnBlur }}" class="eci-nav-link eci-nav-link-icon" class-hover="hv-hd">
             Guides
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </a>
           <x-if value="{{ guidesOpen }}">
-          <ul aria-label="Form guides" style="list-style: none; position: absolute; top: 100%; left: 0; z-index: 40; margin: 0; padding: 8px; width: 320px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.04); display: flex; flex-direction: column;">
-            <li><a href="#guide-form6" on-blur="{{ closeGuidesOnBlur }}" style="display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 8px; min-height: 44px; text-decoration: none; color: inherit;" class-hover="hv-hd">
-              <span style="font-size: 14px; line-height: 18px; font-weight: 600; color: #171717;">Form 6 — New voter registration</span>
-              <span style="font-size: 12px; line-height: 16px; color: #404040;">Adding your name to the electoral roll</span>
+          <ul aria-label="Form guides" class="eci-guides-menu">
+            <li><a href="#guide-form6" on-blur="{{ closeGuidesOnBlur }}" class="eci-guides-item" class-hover="hv-hd">
+              <span class="eci-guides-title">Form&nbsp;6 — New voter registration</span>
+              <span class="eci-guides-desc">Adding your name to the electoral roll</span>
             </a></li>
-            <li><a href="#guide-form6a" on-blur="{{ closeGuidesOnBlur }}" style="display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 8px; min-height: 44px; text-decoration: none; color: inherit;" class-hover="hv-hd">
-              <span style="font-size: 14px; line-height: 18px; font-weight: 600; color: #171717;">Form 6A — Overseas electors</span>
-              <span style="font-size: 12px; line-height: 16px; color: #404040;">Registering as an NRI voter</span>
+            <li><a href="#guide-form6a" on-blur="{{ closeGuidesOnBlur }}" class="eci-guides-item" class-hover="hv-hd">
+              <span class="eci-guides-title">Form&nbsp;6A — Overseas electors</span>
+              <span class="eci-guides-desc">Registering as an NRI voter</span>
             </a></li>
-            <li><a href="#guide-form7" on-blur="{{ closeGuidesOnBlur }}" style="display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 8px; min-height: 44px; text-decoration: none; color: inherit;" class-hover="hv-hd">
-              <span style="font-size: 14px; line-height: 18px; font-weight: 600; color: #171717;">Form 7 — Objection or deletion</span>
-              <span style="font-size: 12px; line-height: 16px; color: #404040;">Removing a name from the roll</span>
+            <li><a href="#guide-form7" on-blur="{{ closeGuidesOnBlur }}" class="eci-guides-item" class-hover="hv-hd">
+              <span class="eci-guides-title">Form&nbsp;7 — Objection or deletion</span>
+              <span class="eci-guides-desc">Removing a name from the roll</span>
             </a></li>
-            <li><a href="#guide-form8" on-blur="{{ closeGuidesOnBlur }}" style="display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 8px; min-height: 44px; text-decoration: none; color: inherit;" class-hover="hv-hd">
-              <span style="font-size: 14px; line-height: 18px; font-weight: 600; color: #171717;">Form 8 — Corrections and transfer</span>
-              <span style="font-size: 12px; line-height: 16px; color: #404040;">Name, address, photo, or shifting</span>
+            <li><a href="#guide-form8" on-blur="{{ closeGuidesOnBlur }}" class="eci-guides-item" class-hover="hv-hd">
+              <span class="eci-guides-title">Form&nbsp;8 — Corrections and transfer</span>
+              <span class="eci-guides-desc">Name, address, photo, or shifting</span>
             </a></li>
-            <li><a href="#guides" on-blur="{{ closeGuidesOnBlur }}" style="display: flex; align-items: center; min-height: 44px; padding: 10px 12px; border-radius: 8px; font-size: 14px; line-height: 18px; font-weight: 500; color: #4A2BC2; text-decoration: none;" class-hover="hv-hd">See all guides →</a></li>
+            <li><a href="#guides" on-blur="{{ closeGuidesOnBlur }}" class="eci-guides-all" class-hover="hv-hd">See all guides →</a></li>
           </ul>
           </x-if>
         </div>
-        <a href="#faqs" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 10px; border-radius: 8px; font-size: 14px; line-height: 18px; font-weight: 500; color: #171717; text-decoration: none;" class-hover="hv-hd">FAQs</a>
-        <a href="#help" style="display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 10px; border-radius: 8px; font-size: 14px; line-height: 18px; font-weight: 500; color: #171717; text-decoration: none;" class-hover="hv-hd">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 16.5a1.15 1.15 0 110-2.3 1.15 1.15 0 010 2.3zm1.4-5.9c-.6.4-.75.63-.75 1.05v.35h-1.5v-.5c0-1.02.43-1.6 1.3-2.2.7-.48.95-.76.95-1.28 0-.6-.47-1.02-1.2-1.02-.7 0-1.2.38-1.42 1.05l-1.4-.5C9.7 8.3 10.7 7.6 12.2 7.6c1.6 0 2.75.9 2.75 2.3 0 1-.5 1.66-1.55 2.3z"></path></svg>
-          Help
-        </a>
+        <a href="#faqs" class="eci-nav-link" class-hover="hv-hd">FAQs</a>
+        <!-- Help menu: the helpline and a BLO call. It opens on click, and closes on Escape or when focus leaves it. -->
+        <div data-help class="eci-menu-anchor" on-keydown="{{ helpKeydown }}">
+          <button type="button" aria-haspopup="true" aria-expanded="{{ helpOpen }}" aria-controls="help-menu" on-click="{{ toggleHelp }}" on-blur="{{ closeHelpOnBlur }}" class="eci-nav-link eci-nav-link-icon eci-nav-btn" class-hover="hv-hd">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 16.5a1.15 1.15 0 110-2.3 1.15 1.15 0 010 2.3zm1.4-5.9c-.6.4-.75.63-.75 1.05v.35h-1.5v-.5c0-1.02.43-1.6 1.3-2.2.7-.48.95-.76.95-1.28 0-.6-.47-1.02-1.2-1.02-.7 0-1.2.38-1.42 1.05l-1.4-.5C9.7 8.3 10.7 7.6 12.2 7.6c1.6 0 2.75.9 2.75 2.3 0 1-.5 1.66-1.55 2.3z"></path></svg>
+            Help
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <x-if value="{{ helpOpen }}">
+          <ul id="help-menu" aria-label="Help" class="eci-guides-menu eci-help-menu">
+            <li><a href="tel:1950" on-blur="{{ closeHelpOnBlur }}" class="eci-guides-item" class-hover="hv-hd">
+              <span class="eci-guides-title">Call&nbsp;1950</span>
+              <span class="eci-guides-desc">Toll-free helpline, Monday&nbsp;to&nbsp;Saturday</span>
+            </a></li>
+            <li><a href="{{ helpBloHref }}" on-click="{{ leaveTo.blo }}" on-blur="{{ closeHelpOnBlur }}" class="eci-guides-item" class-hover="hv-hd">
+              <span class="eci-guides-title">Book a call with BLO</span>
+              <span class="eci-guides-desc">Your Booth Level Officer calls or visits you</span>
+            </a></li>
+          </ul>
+          </x-if>
+        </div>
       </nav>
-      <div style="display: flex; align-items: center; gap: 8px; margin-left: auto;">
+      <div class="eci-account">
         <x-if value="{{ isLoggedOut }}">
-        <a href="login.html" on-click="{{ onLoginClick }}" style="display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 0 16px; border-radius: 999px; font-size: 13px; font-weight: 500; background: #FFFFFF; color: #171717; border: 1px solid #737373; white-space: nowrap; text-decoration: none;" class-hover="hv-hd">Log in</a>
-        <a href="#signup" style="display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 0 16px; border-radius: 999px; font-size: 13px; font-weight: 500; background: #FFFFFF; color: #171717; border: 1px solid #737373; white-space: nowrap; text-decoration: none;" class-hover="hv-hd">Sign up</a>
+        <a href="{{ loginHref }}" on-click="{{ onLoginClick }}" class="eci-account-link" class-hover="hv-hd">Log in</a>
+        <a href="signup.html" class="eci-account-link" class-hover="hv-hd">Sign up</a>
         </x-if>
         <x-if value="{{ isLoggedIn }}">
-        <span style="display: inline-flex; align-items: center; gap: 8px; min-height: 36px;">
-          <span aria-hidden="true" style="width: 32px; height: 32px; flex: 0 0 auto; border-radius: 999px; background: #F3F0FF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #4A2BC2;">{{ userInitials }}</span>
-          <span style="font-size: 13px; line-height: 18px; font-weight: 500; color: #171717; white-space: nowrap;">{{ userName }}</span>
-        </span>
+        <div data-account class="eci-menu-anchor">
+          <button type="button" aria-haspopup="menu" aria-expanded="{{ accountOpen }}" aria-controls="account-menu" on-click="{{ toggleAccount }}" on-blur="{{ closeAccountOnBlur }}" class="eci-account-btn" class-hover="hv-hd">
+            <span aria-hidden="true" class="eci-avatar">{{ userInitials }}</span>
+            <span class="eci-account-name">{{ userName }}</span>
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#404040" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <x-if value="{{ accountOpen }}">
+          <ul id="account-menu" role="menu" aria-label="Account" class="eci-account-menu">
+            <li role="none"><a role="menuitem" href="service.html?s=profile&loggedIn=1" on-blur="{{ closeAccountOnBlur }}" class="account-item" class-hover="hv-hd">Profile</a></li>
+            <li role="none"><a role="menuitem" href="track.html?loggedIn=1" on-blur="{{ closeAccountOnBlur }}" class="account-item" class-hover="hv-hd">My applications</a></li>
+            <li role="none"><button type="button" role="menuitem" on-click="{{ logOut }}" on-blur="{{ closeAccountOnBlur }}" class="account-item" class-hover="hv-hd">Log out</button></li>
+          </ul>
+          </x-if>
+        </div>
         </x-if>
       </div>
     </div>
@@ -118,34 +147,25 @@
   <aside style="position: sticky; top: 24px;">
     <div style="background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 12px; overflow: hidden;">
       <div style="padding: 20px 20px 16px;">
-        <div role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ pctExact }}" aria-label="Application progress" style="height: 8px; border-radius: 999px; background: #EDEDED; overflow: hidden;">
-          <span style="display: block; height: 100%; border-radius: 999px; background: #4A2BC2; width: {{ barWidth }};"></span>
-        </div>
-        <p style="margin: 10px 0 0; font-size: 13px; line-height: 19px; color: #737373;">{{ pctLabel }} complete</p>
+        <article class="ux4g-progress-bar" data-ux-progress-bar data-ux-shape="rounded" data-ux-label-placement="outside" data-ux-progress="{{ pctExact }}" style="--ux4g-progress-value: {{ barValue }};" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ pctExact }}" aria-label="Application progress">
+          <div class="ux4g-progress-bar-track">
+            <div class="ux4g-progress-bar-fill"></div>
+          </div>
+          <span class="ux4g-label-s-strong ux4g-text-neutral-secondary">{{ pctLabel }} complete</span>
+        </article>
 
-        <h2 style="margin: 16px 0 0; font-size: 16px; line-height: 22px; font-weight: 600; color: #171717;">Form sections</h2>
+        <h2 class="ux4g-label-l-strong ux4g-text-neutral-primary section-rail-title">Form sections</h2>
       </div>
 
-      <nav aria-label="Form sections">
-        <ul style="list-style: none; margin: 0; padding: 0;">
+      <nav aria-label="Form sections" class="section-rail">
+        <!-- UX4G Status pipeline, vertical, small. Done steps are green with a tick, the current one purple. -->
+        <ul class="ux4g-status-pipeline-stepper ux4g-status-pipeline-vertical ux4g-status-pipeline-s">
           <x-for list="{{ sections }}" as="item">
-            <li>
-              <x-if value="{{ item.active }}">
-                <a href="{{ item.href }}" on-click="{{ item.onClick }}" aria-current="true" style="{{ item.rowStyle }}">
-                  <span style="{{ item.labelStyle }}">{{ item.label }}</span>
-                  <x-if value="{{ item.done }}">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke-width="2.5" aria-hidden="true" style="flex: 0 0 auto; stroke: var(--eci-success);"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  </x-if>
-                </a>
-              </x-if>
-              <x-if value="{{ item.inactive }}">
-                <a href="{{ item.href }}" on-click="{{ item.onClick }}" style="{{ item.rowStyle }}" class-hover="hv-1">
-                  <span style="{{ item.labelStyle }}">{{ item.label }}</span>
-                  <x-if value="{{ item.done }}">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke-width="2.5" aria-hidden="true" style="flex: 0 0 auto; stroke: var(--eci-success);"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  </x-if>
-                </a>
-              </x-if>
+            <li class="{{ item.stepClass }}">
+              <div class="ux4g-status-pipeline-head" aria-hidden="true">
+                <span class="{{ item.iconClass }}"><span class="{{ item.checkClass }}">{{ item.mark }}</span></span>
+              </div>
+              <a class="{{ item.linkClass }}" href="{{ item.href }}" on-click="{{ item.onClick }}" aria-current="{{ item.current }}"><x-if value="{{ item.prefix }}"><span class="ux4g-sr-only">{{ item.prefix }}</span></x-if>{{ item.label }}<x-if value="{{ item.done }}"><span class="ux4g-sr-only"> (completed)</span></x-if></a>
             </li>
           </x-for>
         </ul>
@@ -155,27 +175,25 @@
 
   <main style="min-width: 0;">
     <nav aria-label="Breadcrumb" class="ux4g-breadcrumb ux4g-breadcrumb-divider" style="margin-bottom: 16px;">
-      <ol class="ux4g-breadcrumb-list ux4g-d-flex ux4g-ai-center" style="margin: 0; padding: 0;">
-        <li class="ux4g-breadcrumb-item"><a class="ux4g-breadcrumb-link" href="index.html" on-click="{{ leaveTo.home }}"><span class="ux4g-icon-outlined" aria-hidden="true" style="font-size: 18px; margin-right: 4px;">home</span>Home</a></li>
-        <li class="ux4g-breadcrumb-item"><a class="ux4g-breadcrumb-link" href="index.html" on-click="{{ leaveTo.register }}">Register to vote</a></li>
+      <ol class="ux4g-breadcrumb-list ux4g-d-flex ux4g-ai-center ux4g-flex-wrap" style="margin: 0; padding: 0;">
+        <li class="ux4g-breadcrumb-item ux4g-d-flex ux4g-ai-center"><a class="ux4g-breadcrumb-link ux4g-d-flex ux4g-ai-center ux4g-gap-x-xs" href="index.html" on-click="{{ leaveTo.home }}"><span class="ux4g-icon-outlined" aria-hidden="true" style="font-size: 18px;">home</span>Home</a></li>
+        <li class="ux4g-breadcrumb-item ux4g-d-flex ux4g-ai-center"><a class="ux4g-breadcrumb-link" href="index.html" on-click="{{ leaveTo.register }}">Register to vote</a></li>
         <li class="ux4g-breadcrumb-item active" aria-current="page">Application form</li>
       </ol>
     </nav>
 
     <div style="background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 12px; padding: 24px; margin-bottom: 20px;">
       <div style="display: flex; align-items: flex-start; gap: 16px;">
-        <h1 style="flex: 1 1 auto; min-width: 0; margin: 0; font-size: 30px; line-height: 38px; font-weight: 600; color: #171717;">Form 6</h1>
-        <button type="button" aria-label="Close application" on-click="{{ openLeave }}" style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; margin: -2px -8px 0 0; padding: 0; border: none; background: transparent; color: #737373; cursor: pointer;" class-hover="hv-2">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
-        </button>
+        <h1 style="flex: 1 1 auto; min-width: 0; margin: 0; font-size: 30px; line-height: 38px; font-weight: 600; color: #171717;">Form&nbsp;6</h1>
+        <button type="button" class="ux4g-icon-btn ux4g-icon-btn-md ux4g-icon-btn-text-primary close-app" aria-label="Close application" on-click="{{ openLeave }}"><i class="ux4g-icon-outlined" aria-hidden="true">close</i></button>
       </div>
       <p style="margin: 4px 0 0; font-size: 16px; line-height: 24px; font-weight: 600; color: #404040;">Application for new voters</p>
-      <p style="margin: 8px 0 0; max-width: 620px; font-size: 12px; line-height: 18px; color: #737373; text-wrap: pretty;">Made under Rules 13(1) and 26 of the Registration of Electors Rules 1960.</p>
+      <p style="margin: 8px 0 0; max-width: 620px; font-size: 12px; line-height: 18px; color: #737373;">Made under Rules 13(1) and 26 of the Registration of Electors Rules 1960.</p>
       <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 16px; padding-top: 16px; border-top: 1px solid #E5E5E5;">
         <a href="#guidelines" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; font-weight: 500; color: #4A2BC2; text-decoration: none;" class-hover="hv-2">Read the guidelines</a>
         <div style="margin-left: auto; display: flex; align-items: center; gap: 8px;">
           <label for="form-language" style="font-size: 13px; line-height: 18px; color: #737373;">Language</label>
-          <select id="form-language" style="min-height: 40px; padding: 0 10px; border: 1px solid #D4D4D4; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 14px; color: #171717;">
+          <select id="form-language" class="ux4g-form-select ux4g-form-select-md">
             <option value="en">English</option>
             <option value="hi">हिन्दी</option>
           </select>
@@ -183,19 +201,26 @@
       </div>
     </div>
 
-    <p style="margin: 0 0 20px; font-size: 13px; line-height: 19px; color: #737373; text-wrap: pretty;">Fields marked with an asterisk (<span style="color: #B3261E; font-weight: 600;">*</span>) are required. Answers saved automatically.</p>
+    <div class="ux4g-auto-draft-status-bar ux4g-bg-success autosave-bar" role="status" aria-live="polite">
+      <div class="ux4g-d-flex ux4g-ai-center ux4g-gap-x-xs">
+        <span class="ux4g-icon-outlined ux4g-icon-success ux4g-fs-20" aria-hidden="true">check_circle</span>
+        <span class="ux4g-body-xs-default ux4g-text-neutral-secondary">{{ savedNote }}</span>
+      </div>
+    </div>
 
-    <div style="display: flex; flex-direction: column; gap: 12px;">
+    <p style="margin: 0 0 20px; font-size: 13px; line-height: 19px; color: #737373;">Fields marked with an asterisk (<span style="color: #B3261E; font-weight: 600;">*</span>) are required.</p>
 
-      <section id="constituency" style="{{ heads.constituency.cardStyle }}">
-        <h2 style="margin: 0;">
-          <button type="button" on-click="{{ heads.constituency.onClick }}" aria-expanded="{{ heads.constituency.open }}" style="{{ heads.constituency.rowStyle }}" class-hover="hv-1">
-            <span style="{{ heads.constituency.titleStyle }}">Select state, district and constituency</span>
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#4A2BC2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{ heads.constituency.chevStyle }}"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    <div class="ux4g-accordion ux4g-accordion-bordered ux4g-accordion-arrow-right">
+
+      <section id="constituency" class="ux4g-accordion__item">
+        <h2 class="ux4g-accordion__header">
+          <button type="button" class="{{ heads.constituency.buttonClass }}" on-click="{{ heads.constituency.onClick }}" aria-expanded="{{ heads.constituency.open }}" aria-controls="constituency-panel">
+            <span class="ux4g-accordion__button-content"><span class="ux4g-accordion__title">{{ heads.constituency.label }}</span></span>
           </button>
         </h2>
         <x-if value="{{ heads.constituency.open }}">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">
+        <div id="constituency-panel" class="ux4g-accordion__collapse collapse show">
+        <div class="ux4g-accordion__body section-body">
           <x-if value="{{ heads.constituency.hasErrors }}">
           <div class="ux4g-alert ux4g-alert-error error-summary" role="alert">
             <span class="ux4g-alert-icon ux4g-icon-outlined" aria-hidden="true">error</span>
@@ -210,7 +235,7 @@
           </div>
           </x-if>
           <div>
-            <label for="state" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">State or union territory <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
+            <label for="state" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">State or union territory <span class="ux4g-text-error" aria-hidden="true">*</span></label>
             <div class="{{ combo.state.cls }}">
               <div class="ux4g-combobox-control" on-click="{{ combo.state.open }}">
                 <div class="ux4g-combobox-value">
@@ -227,12 +252,12 @@
                 </x-if>
               </div>
             </div><x-if value="{{ errs.state.show }}">
-            <p id="state-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.state.msg }}</p>
+            <p id="state-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.state.msg }}</p>
             </x-if>
           </div>
 
           <div>
-            <label for="district" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">District <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
+            <label for="district" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">District <span class="ux4g-text-error" aria-hidden="true">*</span></label>
             <div class="{{ combo.district.cls }}">
               <div class="ux4g-combobox-control" on-click="{{ combo.district.open }}">
                 <div class="ux4g-combobox-value">
@@ -249,33 +274,38 @@
                 </x-if>
               </div>
             </div><x-if value="{{ errs.district.show }}">
-            <p id="district-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.district.msg }}</p>
+            <p id="district-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.district.msg }}</p>
             </x-if>
           </div>
 
           <fieldset style="margin: 0; padding: 0; border: none;">
             <legend style="padding: 0; margin-bottom: 12px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">
               <span style="display: inline-flex; align-items: center; gap: 8px;">
-                <span>Which constituency are you registering in <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></span>
-                <span data-no-summary style="position: relative; display: inline-flex;" on-mouseenter="{{ tipType }}" on-mouseleave="{{ hideTip }}">
-                  <button type="button" aria-label="What is a constituency?" aria-describedby="constituency-type-tip" on-focus="{{ tipType }}" on-blur="{{ hideTip }}" style="width: 20px; height: 20px; padding: 0; display: flex; align-items: center; justify-content: center; border: 1px solid #4A2BC2; border-radius: 999px; background: #FFFFFF; font-size: 11px; font-weight: 700; color: #4A2BC2; cursor: help;">i</button>
-                  <x-if value="{{ tips.type }}">
-                  <span role="tooltip" id="constituency-type-tip" style="position: absolute; bottom: 28px; left: -8px; z-index: 20; width: 300px; padding: 10px 12px; border-radius: 8px; background: #171717; color: #FAFAFA; font-size: 12px; line-height: 18px; font-weight: 400; box-shadow: 0 4px 12px rgba(23,23,23,0.2);">A constituency is the area you vote in. An assembly constituency elects your MLA to the state assembly. A parliamentary constituency elects your MP to the Lok Sabha. Choose parliamentary only where there is no legislative assembly.</span>
-                  </x-if>
+                <span>Which constituency are you registering in <span class="ux4g-text-error" aria-hidden="true">*</span></span>
+                <span class="ux4g-tooltip-wrapper info-tip" data-no-summary>
+                  <button type="button" class="ux4g-icon-btn ux4g-icon-btn-xs ux4g-icon-btn-text-primary" aria-label="What is a constituency?" aria-describedby="constituency-type-tip"><i class="ux4g-icon-outlined" aria-hidden="true">info</i></button>
+                  <span role="tooltip" id="constituency-type-tip" class="ux4g-tooltip ux4g-tooltip-s ux4g-tooltip-top-left">A constituency is the area you vote in. An assembly constituency elects your MLA to the state assembly. A parliamentary constituency elects your MP to the Lok Sabha. Choose parliamentary only where there is no legislative assembly.</span>
                 </span>
               </span>
             </legend>
             <div style="display: flex; flex-direction: column; gap: 20px;">
 
               <div>
-                <label style="display: flex; gap: 10px; align-items: flex-start; cursor: pointer;">
-                  <input type="radio" name="constituency-type" required="{{ true }}" aria-invalid="{{ errs.constituencyType.show }}" aria-describedby="constituency-type-error" checked="{{ isAssembly }}" on-change="{{ chooseAssembly }}" style="flex: 0 0 auto; width: 20px; height: 20px; margin: 1px 0 0; accent-color: #4A2BC2; cursor: pointer;">
-                  <span style="font-size: 15px; line-height: 22px; font-weight: 500; color: #171717;">Assembly constituency</span>
+                <label class="{{ errs.constituencyType.radioClass }}">
+                  <input class="ux4g-radio-input" type="radio" name="constituency-type" required="{{ true }}" aria-invalid="{{ errs.constituencyType.show }}" aria-describedby="constituency-type-error" checked="{{ isAssembly }}" on-change="{{ chooseAssembly }}">
+                  <div class="ux4g-radio-control">
+                    <span class="ux4g-radiomark"></span>
+                  </div>
+                  <div class="ux4g-radio-content">
+                    <div class="ux4g-radio-header">
+                      <span class="ux4g-radio-label">Assembly constituency</span>
+                    </div>
+                  </div>
                 </label>
                 <x-if value="{{ isAssembly }}">
                 <div style="margin: 12px 0 0 30px; display: flex; flex-direction: column; gap: 20px;">
                   <div>
-                    <label for="ac-name" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Assembly constituency name <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
+                    <label for="ac-name" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Assembly constituency name <span class="ux4g-text-error" aria-hidden="true">*</span></label>
                     <div class="{{ combo.acName.cls }}">
                       <div class="ux4g-combobox-control" on-click="{{ combo.acName.open }}">
                         <div class="ux4g-combobox-value">
@@ -292,22 +322,22 @@
                         </x-if>
                       </div>
                     </div><x-if value="{{ errs.acName.show }}">
-            <p id="ac-name-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.acName.msg }}</p>
+            <p id="ac-name-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.acName.msg }}</p>
             </x-if>
                   </div>
-                  <div>
+                  <div class="{{ errs.acNumber.inputClass }}">
                     <span style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-                      <label for="ac-number" style="font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Assembly constituency number <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-                      <span style="position: relative; display: inline-flex;" on-mouseenter="{{ tipAc }}" on-mouseleave="{{ hideTip }}" on-focus="{{ tipAc }}" on-blur="{{ hideTip }}">
-                        <button type="button" aria-label="About the constituency number" aria-describedby="ac-number-tip" style="width: 20px; height: 20px; padding: 0; display: flex; align-items: center; justify-content: center; border: 1px solid #4A2BC2; border-radius: 999px; background: #FFFFFF; font-size: 11px; font-weight: 700; color: #4A2BC2; cursor: help;">i</button>
-                        <x-if value="{{ tips.ac }}">
-                        <span role="tooltip" id="ac-number-tip" style="position: absolute; bottom: 28px; left: -8px; z-index: 20; width: 280px; padding: 10px 12px; border-radius: 8px; background: #171717; color: #FAFAFA; font-size: 12px; line-height: 18px; font-weight: 400; box-shadow: 0 4px 12px rgba(23,23,23,0.2);">Each assembly constituency has a number used on the electoral roll. It fills in automatically once you choose the constituency name, and is also printed on the voter ID of anyone registered at your address.</span>
-                        </x-if>
+                      <label class="ux4g-label-m-default" for="ac-number">Assembly constituency number <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+                      <span class="ux4g-tooltip-wrapper info-tip">
+                        <button type="button" class="ux4g-icon-btn ux4g-icon-btn-xs ux4g-icon-btn-text-primary" aria-label="About the constituency number" aria-describedby="ac-number-tip"><i class="ux4g-icon-outlined" aria-hidden="true">info</i></button>
+                        <span role="tooltip" id="ac-number-tip" class="ux4g-tooltip ux4g-tooltip-s ux4g-tooltip-top-left">Each assembly constituency has a number used on the electoral roll. It fills in automatically once you choose the constituency name, and is also printed on the voter ID of anyone registered at your address.</span>
                       </span>
                     </span>
-                    <input id="ac-number" aria-describedby="ac-number-error" aria-invalid="{{ errs.acNumber.show }}" required="{{ true }}" inputmode="numeric" pattern="[0-9]{1,4}" type="tel" placeholder="155" value="{{ v.acNumber }}" on-change="{{ on.acNumber }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; color: #171717;">
+                    <div class="ux4g-input">
+                      <input class="ux4g-input-input" id="ac-number" aria-describedby="ac-number-error" aria-invalid="{{ errs.acNumber.show }}" required="{{ true }}" inputmode="numeric" pattern="[0-9]{1,4}" type="tel" placeholder="155" value="{{ v.acNumber }}" on-change="{{ on.acNumber }}">
+                    </div>
             <x-if value="{{ errs.acNumber.show }}">
-            <p id="ac-number-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.acNumber.msg }}</p>
+            <div id="ac-number-error" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ errs.acNumber.msg }}</span></div>
             </x-if>
                   </div>
                 </div>
@@ -315,14 +345,21 @@
               </div>
 
               <div>
-                <label style="display: flex; gap: 10px; align-items: flex-start; cursor: pointer;">
-                  <input type="radio" name="constituency-type" required="{{ true }}" aria-invalid="{{ errs.constituencyType.show }}" aria-describedby="constituency-type-error" checked="{{ isParliamentary }}" on-change="{{ chooseParliamentary }}" style="flex: 0 0 auto; width: 20px; height: 20px; margin: 1px 0 0; accent-color: #4A2BC2; cursor: pointer;">
-                  <span style="font-size: 15px; line-height: 22px; font-weight: 500; color: #171717;">Parliamentary constituency</span>
+                <label class="{{ errs.constituencyType.radioClass }}">
+                  <input class="ux4g-radio-input" type="radio" name="constituency-type" required="{{ true }}" aria-invalid="{{ errs.constituencyType.show }}" aria-describedby="constituency-type-error" checked="{{ isParliamentary }}" on-change="{{ chooseParliamentary }}">
+                  <div class="ux4g-radio-control">
+                    <span class="ux4g-radiomark"></span>
+                  </div>
+                  <div class="ux4g-radio-content">
+                    <div class="ux4g-radio-header">
+                      <span class="ux4g-radio-label">Parliamentary constituency</span>
+                    </div>
+                  </div>
                 </label>
                 <x-if value="{{ isParliamentary }}">
                 <div style="margin: 12px 0 0 30px; display: flex; flex-direction: column; gap: 20px;">
                   <div>
-                    <label for="pc-name" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Parliamentary constituency name <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
+                    <label for="pc-name" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Parliamentary constituency name <span class="ux4g-text-error" aria-hidden="true">*</span></label>
                     <div class="{{ combo.pcName.cls }}">
                       <div class="ux4g-combobox-control" on-click="{{ combo.pcName.open }}">
                         <div class="ux4g-combobox-value">
@@ -339,14 +376,16 @@
                         </x-if>
                       </div>
                     </div><x-if value="{{ errs.pcName.show }}">
-            <p id="pc-name-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.pcName.msg }}</p>
+            <p id="pc-name-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.pcName.msg }}</p>
             </x-if>
                   </div>
-                  <div>
-                    <label for="pc-number" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Parliamentary constituency number <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-                    <input id="pc-number" aria-describedby="pc-number-error" aria-invalid="{{ errs.pcNumber.show }}" required="{{ true }}" inputmode="numeric" pattern="[0-9]{1,3}" type="tel" placeholder="1" value="{{ v.pcNumber }}" on-change="{{ on.pcNumber }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; color: #171717;">
+                  <div class="{{ errs.pcNumber.inputClass }}">
+                    <label class="ux4g-label-m-default" for="pc-number">Parliamentary constituency number <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+                    <div class="ux4g-input">
+                      <input class="ux4g-input-input" id="pc-number" aria-describedby="pc-number-error" aria-invalid="{{ errs.pcNumber.show }}" required="{{ true }}" inputmode="numeric" pattern="[0-9]{1,3}" type="tel" placeholder="1" value="{{ v.pcNumber }}" on-change="{{ on.pcNumber }}">
+                    </div>
             <x-if value="{{ errs.pcNumber.show }}">
-            <p id="pc-number-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.pcNumber.msg }}</p>
+            <div id="pc-number-error" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ errs.pcNumber.msg }}</span></div>
             </x-if>
                   </div>
                 </div>
@@ -359,24 +398,25 @@
             </x-if>
           </fieldset>
 
-          <p style="margin: 0; font-size: 14px; line-height: 22px; color: #262626; text-wrap: pretty;">You are applying for your name to be included in the electoral roll for the constituency selected above.</p>
+          <p style="margin: 0; font-size: 14px; line-height: 22px; color: #262626;">You are applying for your name to be included in the electoral roll for the constituency selected above.</p>
 
           <div style="display: flex;">
-            <button type="button" on-click="{{ heads.constituency.onSave }}" style="display: inline-flex; align-items: center; justify-content: center; margin-left: auto; min-height: 48px; padding: 0 28px; border: none; border-radius: 8px; background: #4A2BC2; color: #FAFAFA; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;" class-hover="hv-3">Save and continue</button>
+            <button type="button" on-click="{{ heads.constituency.onSave }}" class="ux4g-btn ux4g-btn-primary ux4g-btn-lg ux4g-ml-auto">Save and continue</button>
           </div>
+        </div>
         </div>
         </x-if>
       </section>
 
-      <section id="your-details" style="{{ heads.personal.cardStyle }}">
-        <h2 style="margin: 0;">
-          <button type="button" on-click="{{ heads.personal.onClick }}" aria-expanded="{{ heads.personal.open }}" style="{{ heads.personal.rowStyle }}" class-hover="hv-1">
-            <span style="{{ heads.personal.titleStyle }}">Personal details</span>
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#4A2BC2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{ heads.personal.chevStyle }}"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      <section id="your-details" class="ux4g-accordion__item">
+        <h2 class="ux4g-accordion__header">
+          <button type="button" class="{{ heads.personal.buttonClass }}" on-click="{{ heads.personal.onClick }}" aria-expanded="{{ heads.personal.open }}" aria-controls="your-details-panel">
+            <span class="ux4g-accordion__button-content"><span class="ux4g-accordion__title">{{ heads.personal.label }}</span></span>
           </button>
         </h2>
         <x-if value="{{ heads.personal.open }}">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">
+        <div id="your-details-panel" class="ux4g-accordion__collapse collapse show">
+        <div class="ux4g-accordion__body section-body">
           <x-if value="{{ heads.personal.hasErrors }}">
           <div class="ux4g-alert ux4g-alert-error error-summary" role="alert">
             <span class="ux4g-alert-icon ux4g-icon-outlined" aria-hidden="true">error</span>
@@ -390,84 +430,135 @@
             </div>
           </div>
           </x-if>
-          <div>
+          <div class="{{ errs.firstName.inputClass }}">
             <span style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-              <label for="first-name" style="font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">First name and middle name <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-              <span style="position: relative; display: inline-flex;" on-mouseenter="{{ tipFirst }}" on-mouseleave="{{ hideTip }}" on-focus="{{ tipFirst }}" on-blur="{{ hideTip }}">
-                <button type="button" aria-label="About the name field" aria-describedby="first-name-tip" style="width: 20px; height: 20px; padding: 0; display: flex; align-items: center; justify-content: center; border: 1px solid #4A2BC2; border-radius: 999px; background: #FFFFFF; font-size: 11px; font-weight: 700; color: #4A2BC2; cursor: help;">i</button>
-                <x-if value="{{ tips.first }}">
-                <span role="tooltip" id="first-name-tip" style="position: absolute; bottom: 28px; left: -8px; z-index: 20; width: 280px; padding: 10px 12px; border-radius: 8px; background: #171717; color: #FAFAFA; font-size: 12px; line-height: 18px; font-weight: 400; box-shadow: 0 4px 12px rgba(23,23,23,0.2);">Enter your first name and any middle name together in this one field, in the same order as they appear on your Aadhaar card.</span>
-                </x-if>
+              <label class="ux4g-label-m-default" for="first-name">First name and middle name <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+              <span class="ux4g-tooltip-wrapper info-tip">
+                <button type="button" class="ux4g-icon-btn ux4g-icon-btn-xs ux4g-icon-btn-text-primary" aria-label="About the name field" aria-describedby="first-name-tip"><i class="ux4g-icon-outlined" aria-hidden="true">info</i></button>
+                <span role="tooltip" id="first-name-tip" class="ux4g-tooltip ux4g-tooltip-s ux4g-tooltip-top-left">Enter your first name and any middle name together in this one field, in the same order as they appear on your Aadhaar card.</span>
               </span>
             </span>
-            <input id="first-name" aria-describedby="first-name-hint first-name-error" aria-invalid="{{ errs.firstName.show }}" required="{{ true }}" type="text" autocomplete="given-name" placeholder="Ananya Devi" value="{{ v.firstName }}" on-change="{{ on.firstName }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; color: #171717;">
-            <p id="first-name-hint" style="margin: 6px 0 0; font-size: 13px; line-height: 19px; color: #737373; text-wrap: pretty;">Your name must match your Aadhaar card exactly.</p>
+            <div class="ux4g-input">
+              <input class="ux4g-input-input" id="first-name" aria-describedby="first-name-hint first-name-error" aria-invalid="{{ errs.firstName.show }}" required="{{ true }}" type="text" autocomplete="given-name" placeholder="Ananya Devi" value="{{ v.firstName }}" on-change="{{ on.firstName }}">
+            </div>
+            <x-if value="{{ errs.firstName.ok }}">
+            <div id="first-name-hint" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">info</span><span class="ux4g-input-helper-text">Your name must match your Aadhaar card exactly.</span></div>
+            </x-if>
             <x-if value="{{ errs.firstName.show }}">
-            <p id="first-name-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.firstName.msg }}</p>
+            <div id="first-name-error" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ errs.firstName.msg }}</span></div>
             </x-if>
           </div>
-          <div>
-            <label for="surname" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Surname <span class="optional">(optional)</span></label>
-            <input id="surname" aria-describedby="surname-error" aria-invalid="{{ errs.surname.show }}" type="text" autocomplete="family-name" placeholder="Rao" value="{{ v.surname }}" on-change="{{ on.surname }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; color: #171717;">
+          <div class="{{ errs.surname.inputClass }}">
+            <label class="ux4g-label-m-default" for="surname">Surname <span class="optional">(optional)</span></label>
+            <div class="ux4g-input">
+              <input class="ux4g-input-input" id="surname" aria-describedby="surname-error" aria-invalid="{{ errs.surname.show }}" type="text" autocomplete="family-name" placeholder="Rao" value="{{ v.surname }}" on-change="{{ on.surname }}">
+            </div>
             <x-if value="{{ errs.surname.show }}">
-            <p id="surname-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.surname.msg }}</p>
+            <div id="surname-error" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ errs.surname.msg }}</span></div>
             </x-if>
           </div>
-          <div>
+          <div class="{{ errs.nameRegional.inputClass }}">
             <span style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-              <label for="name-regional" style="font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Name in your regional language <span class="optional">(optional)</span></label>
-              <span style="position: relative; display: inline-flex;" on-mouseenter="{{ tipName }}" on-mouseleave="{{ hideTip }}" on-focus="{{ tipName }}" on-blur="{{ hideTip }}">
-                <button type="button" aria-label="About the regional language name" aria-describedby="name-regional-tip" style="width: 20px; height: 20px; padding: 0; display: flex; align-items: center; justify-content: center; border: 1px solid #4A2BC2; border-radius: 999px; background: #FFFFFF; font-size: 11px; font-weight: 700; color: #4A2BC2; cursor: help;">i</button>
-                <x-if value="{{ tips.name }}">
-                <span role="tooltip" id="name-regional-tip" style="position: absolute; bottom: 28px; left: -8px; z-index: 20; width: 280px; padding: 10px 12px; border-radius: 8px; background: #171717; color: #FAFAFA; font-size: 12px; line-height: 18px; font-weight: 400; box-shadow: 0 4px 12px rgba(23,23,23,0.2);">The electoral roll for your constituency is published in the official language of the state, so your name is printed in that script alongside the English spelling.</span>
-                </x-if>
+              <label class="ux4g-label-m-default" for="name-regional">Name in your regional language <span class="optional">(optional)</span></label>
+              <span class="ux4g-tooltip-wrapper info-tip">
+                <button type="button" class="ux4g-icon-btn ux4g-icon-btn-xs ux4g-icon-btn-text-primary" aria-label="About the regional language name" aria-describedby="name-regional-tip"><i class="ux4g-icon-outlined" aria-hidden="true">info</i></button>
+                <span role="tooltip" id="name-regional-tip" class="ux4g-tooltip ux4g-tooltip-s ux4g-tooltip-top-left">The electoral roll for your constituency is published in the official language of the state, so your name is printed in that script alongside the English spelling.</span>
               </span>
             </span>
-            <input id="name-regional" aria-describedby="name-regional-error" aria-invalid="{{ errs.nameRegional.show }}" type="text" placeholder="अनन्या देवी राव" value="{{ v.nameRegional }}" on-change="{{ on.nameRegional }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; color: #171717;">
+            <div class="ux4g-input">
+              <input class="ux4g-input-input" id="name-regional" aria-describedby="name-regional-error" aria-invalid="{{ errs.nameRegional.show }}" type="text" placeholder="अनन्या देवी राव" value="{{ v.nameRegional }}" on-change="{{ on.nameRegional }}">
+            </div>
             <x-if value="{{ errs.nameRegional.show }}">
-            <p id="name-regional-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.nameRegional.msg }}</p>
+            <div id="name-regional-error" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ errs.nameRegional.msg }}</span></div>
             </x-if>
           </div>
           <div>
-            <label for="photo" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Passport size photograph <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-            <input id="photo" aria-describedby="photo-hint photo-error" aria-invalid="{{ errs.photo.show }}" type="file" accept=".jpg,.jpeg" on-change="{{ onFile.photo }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 12px; border: 1px dashed #737373; border-radius: 8px; background: #FAFAFA; font-family: inherit; font-size: 14px; line-height: 20px; color: #404040;">
-            <p id="photo-hint" style="margin: 6px 0 0; font-size: 13px; line-height: 19px; color: #737373; text-wrap: pretty;">JPG or JPEG only, under 2 MB. Plain light background, face clearly visible.</p>
-            <div role="status" aria-live="polite">
-              <x-if value="{{ docs.photo.scanning }}">
-              <p class="doc-scanning"><span class="ux4g-spinner-primary-full ux4g-spinner-xs" aria-hidden="true"></span>Checking {{ docs.photo.name }}</p>
+            <label for="photo-btn" id="photo-label" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Passport size photograph <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+            <p id="photo-hint" class="upload-field-hint">Plain light background, face clearly visible.</p>
+            <!-- UX4G file upload. States follow the component: default, selecting (a file dragged
+                 over), scanning (the scripted check), error (wrong size or type). Once a file is
+                 held, the panel gives way to the UX4G file list with a Remove control. -->
+            <div class="{{ docs.photo.uploadClass }}">
+              <input type="file" id="photo" class="ux4g-upload-input ux4g-d-none" accept=".jpg,.jpeg" aria-describedby="photo-hint photo-error" aria-invalid="{{ errs.photo.show }}" on-change="{{ onFile.photo }}">
+              <x-if value="{{ docs.photo.showPanel }}">
+              <div class="ux4g-upload-panel" on-dragover="{{ docs.photo.dragOver }}" on-dragleave="{{ docs.photo.dragLeave }}" on-drop="{{ docs.photo.drop }}">
+                <div class="ux4g-upload-content">
+                  <div class="ux4g-upload-icon-wrap">
+                    <x-if value="{{ docs.photo.scanning }}"><i class="ux4g-spinner-primary-split ux4g-spinner-md ux4g-upload-spinner" aria-hidden="true"></i></x-if>
+                    <x-if value="{{ docs.photo.notScanning }}"><span class="ux4g-icon-outlined ux4g-upload-icon" aria-hidden="true">cloud_upload</span></x-if>
+                  </div>
+                  <div class="ux4g-upload-option">
+                    <div class="ux4g-upload-titleblock">
+                      <p class="ux4g-title-s-strong ux4g-upload-heading">{{ docs.photo.panelHeading }}</p>
+                      <p id="photo-types" class="ux4g-body-s-default ux4g-text-neutral-secondary ux4g-upload-hint">{{ docs.photo.panelHint }}</p>
+                    </div>
+                    <x-if value="{{ docs.photo.idle }}">
+                    <div class="ux4g-upload-divider">
+                      <span class="ux4g-upload-divider-line"></span>
+                      <span class="ux4g-body-s-default ux4g-text-neutral-secondary">Or</span>
+                      <span class="ux4g-upload-divider-line"></span>
+                    </div>
+                    <button type="button" id="photo-btn" class="ux4g-btn-outline-primary ux4g-upload-btn" aria-labelledby="photo-btn photo-label" aria-describedby="photo-hint photo-types photo-error" on-click="{{ docs.photo.pick }}">
+                      <span class="ux4g-icon-outlined" aria-hidden="true">cloud_upload</span>
+                      Upload
+                    </button>
+                    </x-if>
+                  </div>
+                </div>
+              </div>
+              </x-if>
+              <x-if value="{{ errs.photo.show }}">
+              <p id="photo-error" class="ux4g-body-s-default ux4g-upload-error-msg" role="alert">
+                <span class="ux4g-icon-outlined" aria-hidden="true">error_outline</span>
+                <span class="ux4g-upload-error-text">{{ errs.photo.msg }}</span>
+              </p>
+              </x-if>
+              <x-if value="{{ docs.photo.done }}">
+              <ul class="ux4g-upload-file-list" aria-label="Uploaded file" role="list">
+                <li class="{{ docs.photo.itemClass }}" role="listitem">
+                  <div class="ux4g-upload-file-row">
+                    <span class="ux4g-upload-file-leading" aria-hidden="true"><span class="ux4g-icon-outlined ux4g-upload-file-icon">description</span></span>
+                    <span class="ux4g-upload-file-copy">
+                      <span class="ux4g-body-m-strong ux4g-upload-file-name">{{ docs.photo.name }}</span>
+                      <span class="ux4g-body-s-default ux4g-upload-file-description">{{ docs.photo.size }}<x-if value="{{ docs.photo.clean }}"><span class="doc-file-ok"><span class="ux4g-icon-outlined" aria-hidden="true">check_circle</span>Document verified.</span></x-if></span>
+                    </span>
+                    <div class="ux4g-tooltip-wrapper doc-remove-wrap"><button type="button" class="ux4g-upload-file-remove doc-remove" aria-label="Remove file" on-click="{{ docs.photo.remove }}"><span class="ux4g-icon-outlined" aria-hidden="true">close</span></button><div class="ux4g-tooltip ux4g-tooltip-xs ux4g-tooltip-top-right" aria-hidden="true">Remove file</div></div>
+                  </div>
+                </li>
+              </ul>
               </x-if>
               <x-if value="{{ docs.photo.hasWarnings }}">
               <div class="ux4g-alert ux4g-alert-warning doc-warning">
                 <span class="ux4g-alert-icon ux4g-icon-outlined" aria-hidden="true">warning</span>
                 <div class="ux4g-alert-content">
-                  <span class="ux4g-alert-title">This photo might cause a delay</span>
-                  <x-for list="{{ docs.photo.warnings }}" as="w"><span class="ux4g-alert-message">{{ w.text }}</span></x-for>
-                  <span class="ux4g-alert-message">You can still continue, or upload a clearer one.</span>
+                  <span class="ux4g-alert-message">{{ docs.photo.warning }}</span>
+                </div>
+                <div class="ux4g-alert-actions">
+                  <button type="button" class="doc-reupload" on-click="{{ docs.photo.reupload }}">{{ docs.photo.actionLabel }}</button>
                 </div>
               </div>
               </x-if>
+              <span class="ux4g-sr-only" role="status" aria-live="polite">{{ docs.photo.announce }}</span>
             </div>
-            <x-if value="{{ errs.photo.show }}">
-            <p id="photo-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.photo.msg }}</p>
-            </x-if>
           </div>
           <div style="display: flex; align-items: center; gap: 16px;">
-            <button type="button" on-click="{{ heads.personal.onPrevious }}" style="min-height: 44px; padding: 0 4px; border: none; background: transparent; font-family: inherit; font-size: 14px; font-weight: 500; color: #4A2BC2; cursor: pointer;">Previous section</button>
-            <button type="button" on-click="{{ heads.personal.onSave }}" style="display: inline-flex; align-items: center; justify-content: center; margin-left: auto; min-height: 48px; padding: 0 28px; border: none; border-radius: 8px; background: #4A2BC2; color: #FAFAFA; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;" class-hover="hv-3">Save and continue</button>
+            <button type="button" on-click="{{ heads.personal.onPrevious }}" class="ux4g-btn ux4g-btn-text-primary ux4g-btn-lg">Previous section</button>
+            <button type="button" on-click="{{ heads.personal.onSave }}" class="ux4g-btn ux4g-btn-primary ux4g-btn-lg ux4g-ml-auto">Save and continue</button>
           </div>
+        </div>
         </div>
         </x-if>
       </section>
 
-      <section id="relative" style="{{ heads.relative.cardStyle }}">
-        <h2 style="margin: 0;">
-          <button type="button" on-click="{{ heads.relative.onClick }}" aria-expanded="{{ heads.relative.open }}" style="{{ heads.relative.rowStyle }}" class-hover="hv-1">
-            <span style="{{ heads.relative.titleStyle }}">Parent or spouse details</span>
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#4A2BC2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{ heads.relative.chevStyle }}"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      <section id="relative" class="ux4g-accordion__item">
+        <h2 class="ux4g-accordion__header">
+          <button type="button" class="{{ heads.relative.buttonClass }}" on-click="{{ heads.relative.onClick }}" aria-expanded="{{ heads.relative.open }}" aria-controls="relative-panel">
+            <span class="ux4g-accordion__button-content"><span class="ux4g-accordion__title">{{ heads.relative.label }}</span></span>
           </button>
         </h2>
         <x-if value="{{ heads.relative.open }}">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">
+        <div id="relative-panel" class="ux4g-accordion__collapse collapse show">
+        <div class="ux4g-accordion__body section-body">
           <x-if value="{{ heads.relative.hasErrors }}">
           <div class="ux4g-alert ux4g-alert-error error-summary" role="alert">
             <span class="ux4g-alert-icon ux4g-icon-outlined" aria-hidden="true">error</span>
@@ -481,10 +572,10 @@
             </div>
           </div>
           </x-if>
-          <p style="margin: 0; font-size: 14px; line-height: 22px; color: #262626; text-wrap: pretty;">On the electoral roll, your entry is shown with the name of your father, mother or husband. It is how your entry is told apart from others with the same name.</p>
+          <p style="margin: 0; font-size: 14px; line-height: 22px; color: #262626;">On the electoral roll, your entry is shown with the name of your father, mother or husband. It is how your entry is told apart from others with the same name.</p>
           <div>
-            <label for="rel-type" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Relationship to you <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-            <select id="rel-type" aria-describedby="rel-type-error" aria-invalid="{{ errs.relType.show }}" required="{{ true }}" value="{{ v.relativeRelation }}" on-change="{{ on.relativeRelation }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; padding-right: 42px; background-color: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; color: #171717;">
+            <label for="rel-type" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Relationship to you <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+            <select id="rel-type" aria-describedby="rel-type-error" aria-invalid="{{ errs.relType.show }}" required="{{ true }}" value="{{ v.relativeRelation }}" on-change="{{ on.relativeRelation }}" class="ux4g-form-select ux4g-form-select-lg">
               <option value="">Select a relationship</option>
               <option value="father">Father</option>
               <option value="mother">Mother</option>
@@ -492,33 +583,36 @@
               <option value="wife">Wife</option>
               <option value="guardian">Legal guardian</option>
             </select><x-if value="{{ errs.relType.show }}">
-            <p id="rel-type-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.relType.msg }}</p>
+            <p id="rel-type-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.relType.msg }}</p>
             </x-if>
           </div>
-          <div>
-            <label for="rel-name" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">{{ relNameLabel }} <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-            <input id="rel-name" aria-describedby="rel-name-error" aria-invalid="{{ errs.relName.show }}" required="{{ true }}" type="text" placeholder="Suresh Rao" value="{{ v.relativeName }}" on-change="{{ on.relativeName }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; color: #171717;">
+          <div class="{{ errs.relName.inputClass }}">
+            <label class="ux4g-label-m-default" for="rel-name">{{ relNameLabel }} <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+            <div class="ux4g-input">
+              <input class="ux4g-input-input" id="rel-name" aria-describedby="rel-name-error" aria-invalid="{{ errs.relName.show }}" required="{{ true }}" type="text" placeholder="Suresh Rao" value="{{ v.relativeName }}" on-change="{{ on.relativeName }}">
+            </div>
             <x-if value="{{ errs.relName.show }}">
-            <p id="rel-name-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.relName.msg }}</p>
+            <div id="rel-name-error" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ errs.relName.msg }}</span></div>
             </x-if>
           </div>
           <div style="display: flex; align-items: center; gap: 16px;">
-            <button type="button" on-click="{{ heads.relative.onPrevious }}" style="min-height: 44px; padding: 0 4px; border: none; background: transparent; font-family: inherit; font-size: 14px; font-weight: 500; color: #4A2BC2; cursor: pointer;">Previous section</button>
-            <button type="button" on-click="{{ heads.relative.onSave }}" style="display: inline-flex; align-items: center; justify-content: center; margin-left: auto; min-height: 48px; padding: 0 28px; border: none; border-radius: 8px; background: #4A2BC2; color: #FAFAFA; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;" class-hover="hv-3">Save and continue</button>
+            <button type="button" on-click="{{ heads.relative.onPrevious }}" class="ux4g-btn ux4g-btn-text-primary ux4g-btn-lg">Previous section</button>
+            <button type="button" on-click="{{ heads.relative.onSave }}" class="ux4g-btn ux4g-btn-primary ux4g-btn-lg ux4g-ml-auto">Save and continue</button>
           </div>
+        </div>
         </div>
         </x-if>
       </section>
 
-      <section id="contact" style="{{ heads.contact.cardStyle }}">
-        <h2 style="margin: 0;">
-          <button type="button" on-click="{{ heads.contact.onClick }}" aria-expanded="{{ heads.contact.open }}" style="{{ heads.contact.rowStyle }}" class-hover="hv-1">
-            <span style="{{ heads.contact.titleStyle }}">Contact details</span>
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#4A2BC2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{ heads.contact.chevStyle }}"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      <section id="contact" class="ux4g-accordion__item">
+        <h2 class="ux4g-accordion__header">
+          <button type="button" class="{{ heads.contact.buttonClass }}" on-click="{{ heads.contact.onClick }}" aria-expanded="{{ heads.contact.open }}" aria-controls="contact-panel">
+            <span class="ux4g-accordion__button-content"><span class="ux4g-accordion__title">{{ heads.contact.label }}</span></span>
           </button>
         </h2>
         <x-if value="{{ heads.contact.open }}">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">
+        <div id="contact-panel" class="ux4g-accordion__collapse collapse show">
+        <div class="ux4g-accordion__body section-body">
           <x-if value="{{ heads.contact.hasErrors }}">
           <div class="ux4g-alert ux4g-alert-error error-summary" role="alert">
             <span class="ux4g-alert-icon ux4g-icon-outlined" aria-hidden="true">error</span>
@@ -532,38 +626,45 @@
             </div>
           </div>
           </x-if>
-          <div>
-            <label for="mobile" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Mobile number <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-            <input id="mobile" aria-describedby="mobile-hint mobile-error" aria-invalid="{{ errs.mobile.show }}" required="{{ true }}" inputmode="numeric" pattern="[0-9 ]{10,13}" type="tel" autocomplete="tel" placeholder="98765 43210" value="{{ v.mobile }}" on-change="{{ on.mobile }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; color: #171717;">
-            <p id="mobile-hint" style="margin: 6px 0 0; font-size: 13px; line-height: 19px; color: #737373; text-wrap: pretty;">Use the number linked to your Aadhaar card. The one-time password is sent to that number.</p>
+          <div class="{{ errs.mobile.inputClass }}">
+            <label class="ux4g-label-m-default" for="mobile">Mobile number <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+            <div class="ux4g-input">
+              <input class="ux4g-input-input" id="mobile" aria-describedby="mobile-hint mobile-error" aria-invalid="{{ errs.mobile.show }}" required="{{ true }}" inputmode="numeric" pattern="[0-9 ]{10,13}" type="tel" autocomplete="tel" placeholder="98765 43210" value="{{ v.mobile }}" on-change="{{ on.mobile }}">
+            </div>
+            <x-if value="{{ errs.mobile.ok }}">
+            <div id="mobile-hint" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">info</span><span class="ux4g-input-helper-text">Use the number linked to your Aadhaar card. The one-time password is sent to that number.</span></div>
+            </x-if>
             <x-if value="{{ errs.mobile.show }}">
-            <p id="mobile-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.mobile.msg }}</p>
+            <div id="mobile-error" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ errs.mobile.msg }}</span></div>
             </x-if>
           </div>
-          <div>
-            <label for="email" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Email address <span class="optional">(optional)</span></label>
-            <input id="email" aria-describedby="email-error" aria-invalid="{{ errs.email.show }}" type="email" autocomplete="email" placeholder="ananya.rao@example.com" value="{{ v.email }}" on-change="{{ on.email }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; color: #171717;">
+          <div class="{{ errs.email.inputClass }}">
+            <label class="ux4g-label-m-default" for="email">Email address <span class="optional">(optional)</span></label>
+            <div class="ux4g-input">
+              <input class="ux4g-input-input" id="email" aria-describedby="email-error" aria-invalid="{{ errs.email.show }}" type="email" autocomplete="email" placeholder="ananya.rao@example.com" value="{{ v.email }}" on-change="{{ on.email }}">
+            </div>
             <x-if value="{{ errs.email.show }}">
-            <p id="email-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.email.msg }}</p>
+            <div id="email-error" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ errs.email.msg }}</span></div>
             </x-if>
           </div>
           <div style="display: flex; align-items: center; gap: 16px;">
-            <button type="button" on-click="{{ heads.contact.onPrevious }}" style="min-height: 44px; padding: 0 4px; border: none; background: transparent; font-family: inherit; font-size: 14px; font-weight: 500; color: #4A2BC2; cursor: pointer;">Previous section</button>
-            <button type="button" on-click="{{ heads.contact.onSave }}" style="display: inline-flex; align-items: center; justify-content: center; margin-left: auto; min-height: 48px; padding: 0 28px; border: none; border-radius: 8px; background: #4A2BC2; color: #FAFAFA; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;" class-hover="hv-3">Save and continue</button>
+            <button type="button" on-click="{{ heads.contact.onPrevious }}" class="ux4g-btn ux4g-btn-text-primary ux4g-btn-lg">Previous section</button>
+            <button type="button" on-click="{{ heads.contact.onSave }}" class="ux4g-btn ux4g-btn-primary ux4g-btn-lg ux4g-ml-auto">Save and continue</button>
           </div>
+        </div>
         </div>
         </x-if>
       </section>
 
-      <section id="aadhaar" style="{{ heads.aadhaar.cardStyle }}">
-        <h2 style="margin: 0;">
-          <button type="button" on-click="{{ heads.aadhaar.onClick }}" aria-expanded="{{ heads.aadhaar.open }}" style="{{ heads.aadhaar.rowStyle }}" class-hover="hv-1">
-            <span style="{{ heads.aadhaar.titleStyle }}">Aadhaar details</span>
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#4A2BC2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{ heads.aadhaar.chevStyle }}"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      <section id="aadhaar" class="ux4g-accordion__item">
+        <h2 class="ux4g-accordion__header">
+          <button type="button" class="{{ heads.aadhaar.buttonClass }}" on-click="{{ heads.aadhaar.onClick }}" aria-expanded="{{ heads.aadhaar.open }}" aria-controls="aadhaar-panel">
+            <span class="ux4g-accordion__button-content"><span class="ux4g-accordion__title">{{ heads.aadhaar.label }}</span></span>
           </button>
         </h2>
         <x-if value="{{ heads.aadhaar.open }}">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">
+        <div id="aadhaar-panel" class="ux4g-accordion__collapse collapse show">
+        <div class="ux4g-accordion__body section-body">
           <x-if value="{{ heads.aadhaar.hasErrors }}">
           <div class="ux4g-alert ux4g-alert-error error-summary" role="alert">
             <span class="ux4g-alert-icon ux4g-icon-outlined" aria-hidden="true">error</span>
@@ -578,36 +679,48 @@
           </div>
           </x-if>
           <x-if value="{{ hasAadhaar }}">
-          <div>
-            <label for="aadhaar-number" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Aadhaar number <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-            <input id="aadhaar-number" aria-describedby="aadhaar-number-hint aadhaar-number-error" aria-invalid="{{ errs.aadhaarNumber.show }}" required="{{ true }}" inputmode="numeric" pattern="[0-9 ]{14}" type="tel" autocomplete="off" placeholder="2345 6789 0123" value="{{ v.aadhaar }}" on-change="{{ onAadhaar }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; letter-spacing: 0.04em; color: #171717;">
-            <p id="aadhaar-number-hint" style="margin: 6px 0 0; font-size: 13px; line-height: 19px; color: #737373; text-wrap: pretty;">Twelve digits, spaced in groups of four as you type.</p>
+          <div class="{{ errs.aadhaarNumber.inputClass }}">
+            <label class="ux4g-label-m-default" for="aadhaar-number">Aadhaar number <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+            <div class="ux4g-input">
+              <input class="ux4g-input-input" id="aadhaar-number" aria-describedby="aadhaar-number-hint aadhaar-number-error" aria-invalid="{{ errs.aadhaarNumber.show }}" required="{{ true }}" inputmode="numeric" pattern="[0-9 ]{14}" type="tel" autocomplete="off" placeholder="2345 6789 0123" value="{{ v.aadhaar }}" on-change="{{ onAadhaar }}">
+            </div>
+            <x-if value="{{ errs.aadhaarNumber.ok }}">
+            <div id="aadhaar-number-hint" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">info</span><span class="ux4g-input-helper-text">Twelve digits, spaced in groups of four as you type.</span></div>
+            </x-if>
             <x-if value="{{ errs.aadhaarNumber.show }}">
-            <p id="aadhaar-number-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.aadhaarNumber.msg }}</p>
+            <div id="aadhaar-number-error" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ errs.aadhaarNumber.msg }}</span></div>
             </x-if>
           </div>
           </x-if>
-          <label style="display: flex; gap: 10px; align-items: flex-start; cursor: pointer;">
-            <input type="checkbox" checked="{{ noAadhaar }}" on-change="{{ toggleNoAadhaar }}" style="flex: 0 0 auto; width: 20px; height: 20px; margin: 1px 0 0; accent-color: #4A2BC2; cursor: pointer;">
-            <span style="font-size: 15px; line-height: 22px; color: #171717; text-wrap: pretty;">I am not able to provide an Aadhaar number because I do not have one</span>
+          <label class="ux4g-checkbox ux4g-checkbox-md">
+            <input class="ux4g-checkbox-input" type="checkbox" checked="{{ noAadhaar }}" on-change="{{ toggleNoAadhaar }}">
+            <div class="ux4g-checkbox-control">
+              <span class="ux4g-checkmark"></span>
+            </div>
+            <div class="ux4g-checkbox-content">
+              <div class="ux4g-checkbox-header">
+                <span class="ux4g-checkbox-label">I am not able to provide an Aadhaar number because I do not have one</span>
+              </div>
+            </div>
           </label>
           <div style="display: flex; align-items: center; gap: 16px;">
-            <button type="button" on-click="{{ heads.aadhaar.onPrevious }}" style="min-height: 44px; padding: 0 4px; border: none; background: transparent; font-family: inherit; font-size: 14px; font-weight: 500; color: #4A2BC2; cursor: pointer;">Previous section</button>
-            <button type="button" on-click="{{ heads.aadhaar.onSave }}" style="display: inline-flex; align-items: center; justify-content: center; margin-left: auto; min-height: 48px; padding: 0 28px; border: none; border-radius: 8px; background: #4A2BC2; color: #FAFAFA; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;" class-hover="hv-3">Save and continue</button>
+            <button type="button" on-click="{{ heads.aadhaar.onPrevious }}" class="ux4g-btn ux4g-btn-text-primary ux4g-btn-lg">Previous section</button>
+            <button type="button" on-click="{{ heads.aadhaar.onSave }}" class="ux4g-btn ux4g-btn-primary ux4g-btn-lg ux4g-ml-auto">Save and continue</button>
           </div>
+        </div>
         </div>
         </x-if>
       </section>
 
-      <section id="gender" style="{{ heads.gender.cardStyle }}">
-        <h2 style="margin: 0;">
-          <button type="button" on-click="{{ heads.gender.onClick }}" aria-expanded="{{ heads.gender.open }}" style="{{ heads.gender.rowStyle }}" class-hover="hv-1">
-            <span style="{{ heads.gender.titleStyle }}">Gender</span>
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#4A2BC2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{ heads.gender.chevStyle }}"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      <section id="gender" class="ux4g-accordion__item">
+        <h2 class="ux4g-accordion__header">
+          <button type="button" class="{{ heads.gender.buttonClass }}" on-click="{{ heads.gender.onClick }}" aria-expanded="{{ heads.gender.open }}" aria-controls="gender-panel">
+            <span class="ux4g-accordion__button-content"><span class="ux4g-accordion__title">{{ heads.gender.label }}</span></span>
           </button>
         </h2>
         <x-if value="{{ heads.gender.open }}">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">
+        <div id="gender-panel" class="ux4g-accordion__collapse collapse show">
+        <div class="ux4g-accordion__body section-body">
           <x-if value="{{ heads.gender.hasErrors }}">
           <div class="ux4g-alert ux4g-alert-error error-summary" role="alert">
             <span class="ux4g-alert-icon ux4g-icon-outlined" aria-hidden="true">error</span>
@@ -622,19 +735,40 @@
           </div>
           </x-if>
           <fieldset style="margin: 0; padding: 0; border: none;">
-            <legend style="padding: 0; margin-bottom: 12px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Gender <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></legend>
+            <legend style="padding: 0; margin-bottom: 12px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Gender <span class="ux4g-text-error" aria-hidden="true">*</span></legend>
             <div style="display: flex; flex-direction: column; gap: 14px;">
-              <label style="display: flex; gap: 10px; align-items: center; cursor: pointer;">
-                <input type="radio" name="gender" required="{{ true }}" checked="{{ g.male }}" on-change="{{ on.genderMale }}" style="flex: 0 0 auto; width: 20px; height: 20px; accent-color: #4A2BC2; cursor: pointer;">
-                <span style="font-size: 15px; line-height: 22px; color: #171717;">Male</span>
+              <label class="{{ errs.gender.radioClass }}">
+                <input class="ux4g-radio-input" type="radio" name="gender" required="{{ true }}" aria-invalid="{{ errs.gender.show }}" aria-describedby="gender-error" checked="{{ g.male }}" on-change="{{ on.genderMale }}">
+                <div class="ux4g-radio-control">
+                  <span class="ux4g-radiomark"></span>
+                </div>
+                <div class="ux4g-radio-content">
+                  <div class="ux4g-radio-header">
+                    <span class="ux4g-radio-label">Male</span>
+                  </div>
+                </div>
               </label>
-              <label style="display: flex; gap: 10px; align-items: center; cursor: pointer;">
-                <input type="radio" name="gender" required="{{ true }}" checked="{{ g.female }}" on-change="{{ on.genderFemale }}" style="flex: 0 0 auto; width: 20px; height: 20px; accent-color: #4A2BC2; cursor: pointer;">
-                <span style="font-size: 15px; line-height: 22px; color: #171717;">Female</span>
+              <label class="{{ errs.gender.radioClass }}">
+                <input class="ux4g-radio-input" type="radio" name="gender" required="{{ true }}" aria-invalid="{{ errs.gender.show }}" aria-describedby="gender-error" checked="{{ g.female }}" on-change="{{ on.genderFemale }}">
+                <div class="ux4g-radio-control">
+                  <span class="ux4g-radiomark"></span>
+                </div>
+                <div class="ux4g-radio-content">
+                  <div class="ux4g-radio-header">
+                    <span class="ux4g-radio-label">Female</span>
+                  </div>
+                </div>
               </label>
-              <label style="display: flex; gap: 10px; align-items: center; cursor: pointer;">
-                <input type="radio" name="gender" required="{{ true }}" checked="{{ g.third }}" on-change="{{ on.genderThird }}" style="flex: 0 0 auto; width: 20px; height: 20px; accent-color: #4A2BC2; cursor: pointer;">
-                <span style="font-size: 15px; line-height: 22px; color: #171717;">Third gender</span>
+              <label class="{{ errs.gender.radioClass }}">
+                <input class="ux4g-radio-input" type="radio" name="gender" required="{{ true }}" aria-invalid="{{ errs.gender.show }}" aria-describedby="gender-error" checked="{{ g.third }}" on-change="{{ on.genderThird }}">
+                <div class="ux4g-radio-control">
+                  <span class="ux4g-radiomark"></span>
+                </div>
+                <div class="ux4g-radio-content">
+                  <div class="ux4g-radio-header">
+                    <span class="ux4g-radio-label">Third gender</span>
+                  </div>
+                </div>
               </label>
             </div>
             <x-if value="{{ errs.gender.show }}">
@@ -642,22 +776,23 @@
             </x-if>
           </fieldset>
           <div style="display: flex; align-items: center; gap: 16px;">
-            <button type="button" on-click="{{ heads.gender.onPrevious }}" style="min-height: 44px; padding: 0 4px; border: none; background: transparent; font-family: inherit; font-size: 14px; font-weight: 500; color: #4A2BC2; cursor: pointer;">Previous section</button>
-            <button type="button" on-click="{{ heads.gender.onSave }}" style="display: inline-flex; align-items: center; justify-content: center; margin-left: auto; min-height: 48px; padding: 0 28px; border: none; border-radius: 8px; background: #4A2BC2; color: #FAFAFA; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;" class-hover="hv-3">Save and continue</button>
+            <button type="button" on-click="{{ heads.gender.onPrevious }}" class="ux4g-btn ux4g-btn-text-primary ux4g-btn-lg">Previous section</button>
+            <button type="button" on-click="{{ heads.gender.onSave }}" class="ux4g-btn ux4g-btn-primary ux4g-btn-lg ux4g-ml-auto">Save and continue</button>
           </div>
+        </div>
         </div>
         </x-if>
       </section>
 
-      <section id="dob" style="{{ heads.dob.cardStyle }}">
-        <h2 style="margin: 0;">
-          <button type="button" on-click="{{ heads.dob.onClick }}" aria-expanded="{{ heads.dob.open }}" style="{{ heads.dob.rowStyle }}" class-hover="hv-1">
-            <span style="{{ heads.dob.titleStyle }}">Date of birth details</span>
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#4A2BC2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{ heads.dob.chevStyle }}"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      <section id="dob" class="ux4g-accordion__item">
+        <h2 class="ux4g-accordion__header">
+          <button type="button" class="{{ heads.dob.buttonClass }}" on-click="{{ heads.dob.onClick }}" aria-expanded="{{ heads.dob.open }}" aria-controls="dob-panel">
+            <span class="ux4g-accordion__button-content"><span class="ux4g-accordion__title">{{ heads.dob.label }}</span></span>
           </button>
         </h2>
         <x-if value="{{ heads.dob.open }}">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">
+        <div id="dob-panel" class="ux4g-accordion__collapse collapse show">
+        <div class="ux4g-accordion__body section-body">
           <x-if value="{{ heads.dob.hasErrors }}">
           <div class="ux4g-alert ux4g-alert-error error-summary" role="alert">
             <span class="ux4g-alert-icon ux4g-icon-outlined" aria-hidden="true">error</span>
@@ -671,54 +806,105 @@
             </div>
           </div>
           </x-if>
-          <div>
-            <label for="dob-date" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Date of birth <span class="label-note">(DD/MM/YYYY)</span> <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-            <input id="dob-date" data-date aria-describedby="dob-date-hint dob-date-error" aria-invalid="{{ errs.dobDate.show }}" required="{{ true }}" type="text" inputmode="numeric" autocomplete="bday" placeholder="DD/MM/YYYY" maxlength="10" pattern="\d{2}/\d{2}/\d{4}" value="{{ v.dob }}" on-input="{{ on.dob }}" style="display: block; width: 100%; max-width: 220px; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; letter-spacing: 0.04em; color: #171717;">
-            <p id="dob-date-hint" style="margin: 6px 0 0; font-size: 13px; line-height: 19px; color: #737373; text-wrap: pretty;">You must be 18 or older on the qualifying date to be included in the roll.</p>
+          <div class="{{ errs.dobDate.inputClass }}">
+            <label class="ux4g-label-m-default" for="dob-date">Date of birth <span class="label-note">(DD/MM/YYYY)</span> <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+            <div class="ux4g-input">
+              <input class="ux4g-input-input" id="dob-date" data-date aria-describedby="dob-date-hint dob-date-error" aria-invalid="{{ errs.dobDate.show }}" required="{{ true }}" type="text" inputmode="numeric" autocomplete="bday" placeholder="DD/MM/YYYY" maxlength="10" pattern="\d{2}/\d{2}/\d{4}" value="{{ v.dob }}" on-input="{{ on.dob }}">
+            </div>
+            <x-if value="{{ errs.dobDate.ok }}">
+            <div id="dob-date-hint" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">info</span><span class="ux4g-input-helper-text">You must be 18 or older on the qualifying date to be included in the roll.</span></div>
+            </x-if>
             <x-if value="{{ errs.dobDate.show }}">
-            <p id="dob-date-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.dobDate.msg }}</p>
+            <div id="dob-date-error" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ errs.dobDate.msg }}</span></div>
             </x-if>
           </div>
           <div>
-            <label for="dob-proof" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Proof of date of birth <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-            <input id="dob-proof" aria-describedby="dob-proof-hint dob-proof-error" aria-invalid="{{ errs.dobProof.show }}" type="file" accept=".jpg,.jpeg,.pdf" on-change="{{ onFile.dobProof }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 12px; border: 1px dashed #737373; border-radius: 8px; background: #FAFAFA; font-family: inherit; font-size: 14px; line-height: 20px; color: #404040;">
-            <p id="dob-proof-hint" style="margin: 6px 0 0; font-size: 13px; line-height: 19px; color: #737373; text-wrap: pretty;">Birth certificate, class 10 certificate, passport or Aadhaar card. JPG, JPEG or PDF under 2 MB.</p>
-            <div role="status" aria-live="polite">
-              <x-if value="{{ docs.dobProof.scanning }}">
-              <p class="doc-scanning"><span class="ux4g-spinner-primary-full ux4g-spinner-xs" aria-hidden="true"></span>Checking {{ docs.dobProof.name }}</p>
+            <label for="dob-proof-btn" id="dob-proof-label" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Proof of date of birth <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+            <p id="dob-proof-hint" class="upload-field-hint">Birth certificate, class 10 certificate, passport or Aadhaar card.</p>
+            <!-- UX4G file upload. States follow the component: default, selecting (a file dragged
+                 over), scanning (the scripted check), error (wrong size or type). Once a file is
+                 held, the panel gives way to the UX4G file list with a Remove control. -->
+            <div class="{{ docs.dobProof.uploadClass }}">
+              <input type="file" id="dob-proof" class="ux4g-upload-input ux4g-d-none" accept=".jpg,.jpeg,.pdf" aria-describedby="dob-proof-hint dob-proof-error" aria-invalid="{{ errs.dobProof.show }}" on-change="{{ onFile.dobProof }}">
+              <x-if value="{{ docs.dobProof.showPanel }}">
+              <div class="ux4g-upload-panel" on-dragover="{{ docs.dobProof.dragOver }}" on-dragleave="{{ docs.dobProof.dragLeave }}" on-drop="{{ docs.dobProof.drop }}">
+                <div class="ux4g-upload-content">
+                  <div class="ux4g-upload-icon-wrap">
+                    <x-if value="{{ docs.dobProof.scanning }}"><i class="ux4g-spinner-primary-split ux4g-spinner-md ux4g-upload-spinner" aria-hidden="true"></i></x-if>
+                    <x-if value="{{ docs.dobProof.notScanning }}"><span class="ux4g-icon-outlined ux4g-upload-icon" aria-hidden="true">cloud_upload</span></x-if>
+                  </div>
+                  <div class="ux4g-upload-option">
+                    <div class="ux4g-upload-titleblock">
+                      <p class="ux4g-title-s-strong ux4g-upload-heading">{{ docs.dobProof.panelHeading }}</p>
+                      <p id="dob-proof-types" class="ux4g-body-s-default ux4g-text-neutral-secondary ux4g-upload-hint">{{ docs.dobProof.panelHint }}</p>
+                    </div>
+                    <x-if value="{{ docs.dobProof.idle }}">
+                    <div class="ux4g-upload-divider">
+                      <span class="ux4g-upload-divider-line"></span>
+                      <span class="ux4g-body-s-default ux4g-text-neutral-secondary">Or</span>
+                      <span class="ux4g-upload-divider-line"></span>
+                    </div>
+                    <button type="button" id="dob-proof-btn" class="ux4g-btn-outline-primary ux4g-upload-btn" aria-labelledby="dob-proof-btn dob-proof-label" aria-describedby="dob-proof-hint dob-proof-types dob-proof-error" on-click="{{ docs.dobProof.pick }}">
+                      <span class="ux4g-icon-outlined" aria-hidden="true">cloud_upload</span>
+                      Upload
+                    </button>
+                    </x-if>
+                  </div>
+                </div>
+              </div>
+              </x-if>
+              <x-if value="{{ errs.dobProof.show }}">
+              <p id="dob-proof-error" class="ux4g-body-s-default ux4g-upload-error-msg" role="alert">
+                <span class="ux4g-icon-outlined" aria-hidden="true">error_outline</span>
+                <span class="ux4g-upload-error-text">{{ errs.dobProof.msg }}</span>
+              </p>
+              </x-if>
+              <x-if value="{{ docs.dobProof.done }}">
+              <ul class="ux4g-upload-file-list" aria-label="Uploaded file" role="list">
+                <li class="{{ docs.dobProof.itemClass }}" role="listitem">
+                  <div class="ux4g-upload-file-row">
+                    <span class="ux4g-upload-file-leading" aria-hidden="true"><span class="ux4g-icon-outlined ux4g-upload-file-icon">description</span></span>
+                    <span class="ux4g-upload-file-copy">
+                      <span class="ux4g-body-m-strong ux4g-upload-file-name">{{ docs.dobProof.name }}</span>
+                      <span class="ux4g-body-s-default ux4g-upload-file-description">{{ docs.dobProof.size }}<x-if value="{{ docs.dobProof.clean }}"><span class="doc-file-ok"><span class="ux4g-icon-outlined" aria-hidden="true">check_circle</span>Document verified.</span></x-if></span>
+                    </span>
+                    <div class="ux4g-tooltip-wrapper doc-remove-wrap"><button type="button" class="ux4g-upload-file-remove doc-remove" aria-label="Remove file" on-click="{{ docs.dobProof.remove }}"><span class="ux4g-icon-outlined" aria-hidden="true">close</span></button><div class="ux4g-tooltip ux4g-tooltip-xs ux4g-tooltip-top-right" aria-hidden="true">Remove file</div></div>
+                  </div>
+                </li>
+              </ul>
               </x-if>
               <x-if value="{{ docs.dobProof.hasWarnings }}">
               <div class="ux4g-alert ux4g-alert-warning doc-warning">
                 <span class="ux4g-alert-icon ux4g-icon-outlined" aria-hidden="true">warning</span>
                 <div class="ux4g-alert-content">
-                  <span class="ux4g-alert-title">This document might cause a delay</span>
-                  <x-for list="{{ docs.dobProof.warnings }}" as="w"><span class="ux4g-alert-message">{{ w.text }}</span></x-for>
-                  <span class="ux4g-alert-message">You can still continue, or upload a clearer copy.</span>
+                  <span class="ux4g-alert-message">{{ docs.dobProof.warning }}</span>
+                </div>
+                <div class="ux4g-alert-actions">
+                  <button type="button" class="doc-reupload" on-click="{{ docs.dobProof.reupload }}">{{ docs.dobProof.actionLabel }}</button>
                 </div>
               </div>
               </x-if>
+              <span class="ux4g-sr-only" role="status" aria-live="polite">{{ docs.dobProof.announce }}</span>
             </div>
-            <x-if value="{{ errs.dobProof.show }}">
-            <p id="dob-proof-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.dobProof.msg }}</p>
-            </x-if>
           </div>
           <div style="display: flex; align-items: center; gap: 16px;">
-            <button type="button" on-click="{{ heads.dob.onPrevious }}" style="min-height: 44px; padding: 0 4px; border: none; background: transparent; font-family: inherit; font-size: 14px; font-weight: 500; color: #4A2BC2; cursor: pointer;">Previous section</button>
-            <button type="button" on-click="{{ heads.dob.onSave }}" style="display: inline-flex; align-items: center; justify-content: center; margin-left: auto; min-height: 48px; padding: 0 28px; border: none; border-radius: 8px; background: #4A2BC2; color: #FAFAFA; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;" class-hover="hv-3">Save and continue</button>
+            <button type="button" on-click="{{ heads.dob.onPrevious }}" class="ux4g-btn ux4g-btn-text-primary ux4g-btn-lg">Previous section</button>
+            <button type="button" on-click="{{ heads.dob.onSave }}" class="ux4g-btn ux4g-btn-primary ux4g-btn-lg ux4g-ml-auto">Save and continue</button>
           </div>
+        </div>
         </div>
         </x-if>
       </section>
 
-      <section id="address" style="{{ heads.address.cardStyle }}">
-        <h2 style="margin: 0;">
-          <button type="button" on-click="{{ heads.address.onClick }}" aria-expanded="{{ heads.address.open }}" style="{{ heads.address.rowStyle }}" class-hover="hv-1">
-            <span style="{{ heads.address.titleStyle }}">Current address details</span>
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#4A2BC2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{ heads.address.chevStyle }}"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      <section id="address" class="ux4g-accordion__item">
+        <h2 class="ux4g-accordion__header">
+          <button type="button" class="{{ heads.address.buttonClass }}" on-click="{{ heads.address.onClick }}" aria-expanded="{{ heads.address.open }}" aria-controls="address-panel">
+            <span class="ux4g-accordion__button-content"><span class="ux4g-accordion__title">{{ heads.address.label }}</span></span>
           </button>
         </h2>
         <x-if value="{{ heads.address.open }}">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">
+        <div id="address-panel" class="ux4g-accordion__collapse collapse show">
+        <div class="ux4g-accordion__body section-body">
           <x-if value="{{ heads.address.hasErrors }}">
           <div class="ux4g-alert ux4g-alert-error error-summary" role="alert">
             <span class="ux4g-alert-icon ux4g-icon-outlined" aria-hidden="true">error</span>
@@ -732,43 +918,53 @@
             </div>
           </div>
           </x-if>
-          <div>
-            <label for="house" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">House or flat number <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-            <input id="house" aria-describedby="house-error" aria-invalid="{{ errs.house.show }}" required="{{ true }}" type="text" placeholder="14-B, Ashoka Apartments" value="{{ v.house }}" on-change="{{ on.house }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; color: #171717;">
+          <div class="{{ errs.house.inputClass }}">
+            <label class="ux4g-label-m-default" for="house">House or flat number <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+            <div class="ux4g-input">
+              <input class="ux4g-input-input" id="house" aria-describedby="house-error" aria-invalid="{{ errs.house.show }}" required="{{ true }}" type="text" placeholder="14-B, Ashoka Apartments" value="{{ v.house }}" on-change="{{ on.house }}">
+            </div>
             <x-if value="{{ errs.house.show }}">
-            <p id="house-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.house.msg }}</p>
+            <div id="house-error" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ errs.house.msg }}</span></div>
             </x-if>
           </div>
-          <div>
-            <label for="street" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Street or locality <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-            <input id="street" aria-describedby="street-error" aria-invalid="{{ errs.street.show }}" required="{{ true }}" type="text" placeholder="Shivaji Nagar" value="{{ v.street }}" on-change="{{ on.street }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; color: #171717;">
+          <div class="{{ errs.street.inputClass }}">
+            <label class="ux4g-label-m-default" for="street">Street or locality <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+            <div class="ux4g-input">
+              <input class="ux4g-input-input" id="street" aria-describedby="street-error" aria-invalid="{{ errs.street.show }}" required="{{ true }}" type="text" placeholder="Shivaji Nagar" value="{{ v.street }}" on-change="{{ on.street }}">
+            </div>
             <x-if value="{{ errs.street.show }}">
-            <p id="street-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.street.msg }}</p>
+            <div id="street-error" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ errs.street.msg }}</span></div>
             </x-if>
           </div>
-          <div>
-            <label for="town" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Town or village <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-            <input id="town" aria-describedby="town-error" aria-invalid="{{ errs.town.show }}" required="{{ true }}" type="text" placeholder="Bhopal" value="{{ v.town }}" on-change="{{ on.town }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; color: #171717;">
+          <div class="{{ errs.town.inputClass }}">
+            <label class="ux4g-label-m-default" for="town">Town or village <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+            <div class="ux4g-input">
+              <input class="ux4g-input-input" id="town" aria-describedby="town-error" aria-invalid="{{ errs.town.show }}" required="{{ true }}" type="text" placeholder="Bhopal" value="{{ v.town }}" on-change="{{ on.town }}">
+            </div>
             <x-if value="{{ errs.town.show }}">
-            <p id="town-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.town.msg }}</p>
+            <div id="town-error" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ errs.town.msg }}</span></div>
             </x-if>
           </div>
-          <div>
-            <label for="post-office" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Post office <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-            <input id="post-office" aria-describedby="post-office-error" aria-invalid="{{ errs.postOffice.show }}" required="{{ true }}" type="text" placeholder="Shivaji Nagar" value="{{ v.postOffice }}" on-change="{{ on.postOffice }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; color: #171717;">
+          <div class="{{ errs.postOffice.inputClass }}">
+            <label class="ux4g-label-m-default" for="post-office">Post office <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+            <div class="ux4g-input">
+              <input class="ux4g-input-input" id="post-office" aria-describedby="post-office-error" aria-invalid="{{ errs.postOffice.show }}" required="{{ true }}" type="text" placeholder="Shivaji Nagar" value="{{ v.postOffice }}" on-change="{{ on.postOffice }}">
+            </div>
             <x-if value="{{ errs.postOffice.show }}">
-            <p id="post-office-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.postOffice.msg }}</p>
+            <div id="post-office-error" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ errs.postOffice.msg }}</span></div>
             </x-if>
           </div>
-          <div>
-            <label for="pin" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Pin code <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-            <input id="pin" aria-describedby="pin-error" aria-invalid="{{ errs.pin.show }}" required="{{ true }}" inputmode="numeric" pattern="[0-9]{6}" type="tel" placeholder="462016" value="{{ v.pin }}" on-change="{{ onPin }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; color: #171717;">
+          <div class="{{ errs.pin.inputClass }}">
+            <label class="ux4g-label-m-default" for="pin">Pin code <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+            <div class="ux4g-input">
+              <input class="ux4g-input-input" id="pin" aria-describedby="pin-error" aria-invalid="{{ errs.pin.show }}" required="{{ true }}" inputmode="numeric" pattern="[0-9]{6}" type="tel" placeholder="462016" value="{{ v.pin }}" on-change="{{ onPin }}">
+            </div>
             <x-if value="{{ errs.pin.show }}">
-            <p id="pin-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.pin.msg }}</p>
+            <div id="pin-error" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ errs.pin.msg }}</span></div>
             </x-if>
           </div>
           <div>
-            <label for="addr-district" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">District <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
+            <label for="addr-district" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">District <span class="ux4g-text-error" aria-hidden="true">*</span></label>
             <div class="{{ combo.addrDistrict.cls }}">
               <div class="ux4g-combobox-control" on-click="{{ combo.addrDistrict.open }}">
                 <div class="ux4g-combobox-value">
@@ -785,49 +981,96 @@
                 </x-if>
               </div>
             </div><x-if value="{{ errs.addrDistrict.show }}">
-            <p id="addr-district-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.addrDistrict.msg }}</p>
+            <p id="addr-district-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.addrDistrict.msg }}</p>
             </x-if>
           </div>
           <div>
-            <label for="addr-proof" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Proof of current address <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-            <input id="addr-proof" aria-describedby="addr-proof-hint addr-proof-error" aria-invalid="{{ errs.addrProof.show }}" type="file" accept=".jpg,.jpeg,.pdf" on-change="{{ onFile.addrProof }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 12px; border: 1px dashed #737373; border-radius: 8px; background: #FAFAFA; font-family: inherit; font-size: 14px; line-height: 20px; color: #404040;">
-            <p id="addr-proof-hint" style="margin: 6px 0 0; font-size: 13px; line-height: 19px; color: #737373; text-wrap: pretty;">Water, electricity or gas bill from the last year, passbook, passport or rent agreement. JPG, JPEG or PDF under 2 MB.</p>
-            <div role="status" aria-live="polite">
-              <x-if value="{{ docs.addrProof.scanning }}">
-              <p class="doc-scanning"><span class="ux4g-spinner-primary-full ux4g-spinner-xs" aria-hidden="true"></span>Checking {{ docs.addrProof.name }}</p>
+            <label for="addr-proof-btn" id="addr-proof-label" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Proof of current address <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+            <p id="addr-proof-hint" class="upload-field-hint">Water, electricity or gas bill from the last year, passbook, passport or rent agreement.</p>
+            <!-- UX4G file upload. States follow the component: default, selecting (a file dragged
+                 over), scanning (the scripted check), error (wrong size or type). Once a file is
+                 held, the panel gives way to the UX4G file list with a Remove control. -->
+            <div class="{{ docs.addrProof.uploadClass }}">
+              <input type="file" id="addr-proof" class="ux4g-upload-input ux4g-d-none" accept=".jpg,.jpeg,.pdf" aria-describedby="addr-proof-hint addr-proof-error" aria-invalid="{{ errs.addrProof.show }}" on-change="{{ onFile.addrProof }}">
+              <x-if value="{{ docs.addrProof.showPanel }}">
+              <div class="ux4g-upload-panel" on-dragover="{{ docs.addrProof.dragOver }}" on-dragleave="{{ docs.addrProof.dragLeave }}" on-drop="{{ docs.addrProof.drop }}">
+                <div class="ux4g-upload-content">
+                  <div class="ux4g-upload-icon-wrap">
+                    <x-if value="{{ docs.addrProof.scanning }}"><i class="ux4g-spinner-primary-split ux4g-spinner-md ux4g-upload-spinner" aria-hidden="true"></i></x-if>
+                    <x-if value="{{ docs.addrProof.notScanning }}"><span class="ux4g-icon-outlined ux4g-upload-icon" aria-hidden="true">cloud_upload</span></x-if>
+                  </div>
+                  <div class="ux4g-upload-option">
+                    <div class="ux4g-upload-titleblock">
+                      <p class="ux4g-title-s-strong ux4g-upload-heading">{{ docs.addrProof.panelHeading }}</p>
+                      <p id="addr-proof-types" class="ux4g-body-s-default ux4g-text-neutral-secondary ux4g-upload-hint">{{ docs.addrProof.panelHint }}</p>
+                    </div>
+                    <x-if value="{{ docs.addrProof.idle }}">
+                    <div class="ux4g-upload-divider">
+                      <span class="ux4g-upload-divider-line"></span>
+                      <span class="ux4g-body-s-default ux4g-text-neutral-secondary">Or</span>
+                      <span class="ux4g-upload-divider-line"></span>
+                    </div>
+                    <button type="button" id="addr-proof-btn" class="ux4g-btn-outline-primary ux4g-upload-btn" aria-labelledby="addr-proof-btn addr-proof-label" aria-describedby="addr-proof-hint addr-proof-types addr-proof-error" on-click="{{ docs.addrProof.pick }}">
+                      <span class="ux4g-icon-outlined" aria-hidden="true">cloud_upload</span>
+                      Upload
+                    </button>
+                    </x-if>
+                  </div>
+                </div>
+              </div>
+              </x-if>
+              <x-if value="{{ errs.addrProof.show }}">
+              <p id="addr-proof-error" class="ux4g-body-s-default ux4g-upload-error-msg" role="alert">
+                <span class="ux4g-icon-outlined" aria-hidden="true">error_outline</span>
+                <span class="ux4g-upload-error-text">{{ errs.addrProof.msg }}</span>
+              </p>
+              </x-if>
+              <x-if value="{{ docs.addrProof.done }}">
+              <ul class="ux4g-upload-file-list" aria-label="Uploaded file" role="list">
+                <li class="{{ docs.addrProof.itemClass }}" role="listitem">
+                  <div class="ux4g-upload-file-row">
+                    <span class="ux4g-upload-file-leading" aria-hidden="true"><span class="ux4g-icon-outlined ux4g-upload-file-icon">description</span></span>
+                    <span class="ux4g-upload-file-copy">
+                      <span class="ux4g-body-m-strong ux4g-upload-file-name">{{ docs.addrProof.name }}</span>
+                      <span class="ux4g-body-s-default ux4g-upload-file-description">{{ docs.addrProof.size }}<x-if value="{{ docs.addrProof.clean }}"><span class="doc-file-ok"><span class="ux4g-icon-outlined" aria-hidden="true">check_circle</span>Document verified.</span></x-if></span>
+                    </span>
+                    <div class="ux4g-tooltip-wrapper doc-remove-wrap"><button type="button" class="ux4g-upload-file-remove doc-remove" aria-label="Remove file" on-click="{{ docs.addrProof.remove }}"><span class="ux4g-icon-outlined" aria-hidden="true">close</span></button><div class="ux4g-tooltip ux4g-tooltip-xs ux4g-tooltip-top-right" aria-hidden="true">Remove file</div></div>
+                  </div>
+                </li>
+              </ul>
               </x-if>
               <x-if value="{{ docs.addrProof.hasWarnings }}">
               <div class="ux4g-alert ux4g-alert-warning doc-warning">
                 <span class="ux4g-alert-icon ux4g-icon-outlined" aria-hidden="true">warning</span>
                 <div class="ux4g-alert-content">
-                  <span class="ux4g-alert-title">This document might cause a delay</span>
-                  <x-for list="{{ docs.addrProof.warnings }}" as="w"><span class="ux4g-alert-message">{{ w.text }}</span></x-for>
-                  <span class="ux4g-alert-message">You can still continue, or upload a clearer copy.</span>
+                  <span class="ux4g-alert-message">{{ docs.addrProof.warning }}</span>
+                </div>
+                <div class="ux4g-alert-actions">
+                  <button type="button" class="doc-reupload" on-click="{{ docs.addrProof.reupload }}">{{ docs.addrProof.actionLabel }}</button>
                 </div>
               </div>
               </x-if>
+              <span class="ux4g-sr-only" role="status" aria-live="polite">{{ docs.addrProof.announce }}</span>
             </div>
-            <x-if value="{{ errs.addrProof.show }}">
-            <p id="addr-proof-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.addrProof.msg }}</p>
-            </x-if>
           </div>
           <div style="display: flex; align-items: center; gap: 16px;">
-            <button type="button" on-click="{{ heads.address.onPrevious }}" style="min-height: 44px; padding: 0 4px; border: none; background: transparent; font-family: inherit; font-size: 14px; font-weight: 500; color: #4A2BC2; cursor: pointer;">Previous section</button>
-            <button type="button" on-click="{{ heads.address.onSave }}" style="display: inline-flex; align-items: center; justify-content: center; margin-left: auto; min-height: 48px; padding: 0 28px; border: none; border-radius: 8px; background: #4A2BC2; color: #FAFAFA; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;" class-hover="hv-3">Save and continue</button>
+            <button type="button" on-click="{{ heads.address.onPrevious }}" class="ux4g-btn ux4g-btn-text-primary ux4g-btn-lg">Previous section</button>
+            <button type="button" on-click="{{ heads.address.onSave }}" class="ux4g-btn ux4g-btn-primary ux4g-btn-lg ux4g-ml-auto">Save and continue</button>
           </div>
+        </div>
         </div>
         </x-if>
       </section>
 
-      <section id="disability" style="{{ heads.disability.cardStyle }}">
-        <h2 style="margin: 0;">
-          <button type="button" on-click="{{ heads.disability.onClick }}" aria-expanded="{{ heads.disability.open }}" style="{{ heads.disability.rowStyle }}" class-hover="hv-1">
-            <span style="{{ heads.disability.titleStyle }}">Disability details</span>
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#4A2BC2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{ heads.disability.chevStyle }}"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      <section id="disability" class="ux4g-accordion__item">
+        <h2 class="ux4g-accordion__header">
+          <button type="button" class="{{ heads.disability.buttonClass }}" on-click="{{ heads.disability.onClick }}" aria-expanded="{{ heads.disability.open }}" aria-controls="disability-panel">
+            <span class="ux4g-accordion__button-content"><span class="ux4g-accordion__title">{{ heads.disability.label }}</span></span>
           </button>
         </h2>
         <x-if value="{{ heads.disability.open }}">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">
+        <div id="disability-panel" class="ux4g-accordion__collapse collapse show">
+        <div class="ux4g-accordion__body section-body">
           <x-if value="{{ heads.disability.hasErrors }}">
           <div class="ux4g-alert ux4g-alert-error error-summary" role="alert">
             <span class="ux4g-alert-icon ux4g-icon-outlined" aria-hidden="true">error</span>
@@ -842,52 +1085,141 @@
           </div>
           </x-if>
           <fieldset style="margin: 0; padding: 0; border: none;">
-            <legend style="padding: 0; margin-bottom: 4px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Do you have any of these disabilities <span class="optional">(optional)</span></legend>
-            <p style="margin: 0 0 12px; font-size: 13px; line-height: 19px; color: #737373; text-wrap: pretty;">Telling us helps your polling station arrange assistance on polling day.</p>
+            <legend style="padding: 0; margin-bottom: 4px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Do you have any of these disabilities</legend>
+            <p style="margin: 0 0 12px; font-size: 13px; line-height: 19px; color: #737373;">Telling us helps your polling station arrange assistance on polling day.</p>
             <div style="display: flex; flex-direction: column; gap: 14px;">
-              <label style="display: flex; gap: 10px; align-items: center; cursor: pointer;">
-                <input type="checkbox" checked="{{ d.visual }}" on-change="{{ on.dVisual }}" style="flex: 0 0 auto; width: 20px; height: 20px; accent-color: #4A2BC2; cursor: pointer;">
-                <span style="font-size: 15px; line-height: 22px; color: #171717;">Visual impairment</span>
+              <label class="ux4g-checkbox ux4g-checkbox-md">
+                <input class="ux4g-checkbox-input" type="checkbox" checked="{{ d.visual }}" on-change="{{ on.dVisual }}">
+                <div class="ux4g-checkbox-control">
+                  <span class="ux4g-checkmark"></span>
+                </div>
+                <div class="ux4g-checkbox-content">
+                  <div class="ux4g-checkbox-header">
+                    <span class="ux4g-checkbox-label">Visual impairment</span>
+                  </div>
+                </div>
               </label>
-              <label style="display: flex; gap: 10px; align-items: center; cursor: pointer;">
-                <input type="checkbox" checked="{{ d.hearing }}" on-change="{{ on.dHearing }}" style="flex: 0 0 auto; width: 20px; height: 20px; accent-color: #4A2BC2; cursor: pointer;">
-                <span style="font-size: 15px; line-height: 22px; color: #171717;">Speech or hearing disability</span>
+              <label class="ux4g-checkbox ux4g-checkbox-md">
+                <input class="ux4g-checkbox-input" type="checkbox" checked="{{ d.hearing }}" on-change="{{ on.dHearing }}">
+                <div class="ux4g-checkbox-control">
+                  <span class="ux4g-checkmark"></span>
+                </div>
+                <div class="ux4g-checkbox-content">
+                  <div class="ux4g-checkbox-header">
+                    <span class="ux4g-checkbox-label">Speech or hearing disability</span>
+                  </div>
+                </div>
               </label>
-              <label style="display: flex; gap: 10px; align-items: center; cursor: pointer;">
-                <input type="checkbox" checked="{{ d.locomotor }}" on-change="{{ on.dLocomotor }}" style="flex: 0 0 auto; width: 20px; height: 20px; accent-color: #4A2BC2; cursor: pointer;">
-                <span style="font-size: 15px; line-height: 22px; color: #171717;">Locomotor disability</span>
+              <label class="ux4g-checkbox ux4g-checkbox-md">
+                <input class="ux4g-checkbox-input" type="checkbox" checked="{{ d.locomotor }}" on-change="{{ on.dLocomotor }}">
+                <div class="ux4g-checkbox-control">
+                  <span class="ux4g-checkmark"></span>
+                </div>
+                <div class="ux4g-checkbox-content">
+                  <div class="ux4g-checkbox-header">
+                    <span class="ux4g-checkbox-label">Locomotor disability</span>
+                  </div>
+                </div>
               </label>
-              <label style="display: flex; gap: 10px; align-items: center; cursor: pointer;">
-                <input type="checkbox" checked="{{ d.other }}" on-change="{{ on.dOther }}" style="flex: 0 0 auto; width: 20px; height: 20px; accent-color: #4A2BC2; cursor: pointer;">
-                <span style="font-size: 15px; line-height: 22px; color: #171717;">Another disability</span>
+              <label class="ux4g-checkbox ux4g-checkbox-md">
+                <input class="ux4g-checkbox-input" type="checkbox" checked="{{ d.other }}" on-change="{{ on.dOther }}">
+                <div class="ux4g-checkbox-control">
+                  <span class="ux4g-checkmark"></span>
+                </div>
+                <div class="ux4g-checkbox-content">
+                  <div class="ux4g-checkbox-header">
+                    <span class="ux4g-checkbox-label">Another disability</span>
+                  </div>
+                </div>
               </label>
             </div>
           </fieldset>
           <div>
-            <label for="disability-cert" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Disability certificate <span class="optional">(optional)</span></label>
-            <input id="disability-cert" aria-describedby="disability-cert-hint disability-cert-error" aria-invalid="{{ errs.disabilityCert.show }}" type="file" accept=".jpg,.jpeg,.pdf" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 12px; border: 1px dashed #737373; border-radius: 8px; background: #FAFAFA; font-family: inherit; font-size: 14px; line-height: 20px; color: #404040;">
-            <p id="disability-cert-hint" style="margin: 6px 0 0; font-size: 13px; line-height: 19px; color: #737373; text-wrap: pretty;">JPG, JPEG or PDF under 2 MB.</p>
-            <x-if value="{{ errs.disabilityCert.show }}">
-            <p id="disability-cert-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.disabilityCert.msg }}</p>
-            </x-if>
+            <label for="disability-cert-btn" id="disability-cert-label" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Disability certificate</label>
+            <!-- UX4G file upload. States follow the component: default, selecting (a file dragged
+                 over), scanning (the scripted check), error (wrong size or type). Once a file is
+                 held, the panel gives way to the UX4G file list with a Remove control. -->
+            <div class="{{ docs.disabilityCert.uploadClass }}">
+              <input type="file" id="disability-cert" class="ux4g-upload-input ux4g-d-none" accept=".jpg,.jpeg,.pdf" aria-describedby="disability-cert-hint disability-cert-error" aria-invalid="{{ errs.disabilityCert.show }}" on-change="{{ onFile.disabilityCert }}">
+              <x-if value="{{ docs.disabilityCert.showPanel }}">
+              <div class="ux4g-upload-panel" on-dragover="{{ docs.disabilityCert.dragOver }}" on-dragleave="{{ docs.disabilityCert.dragLeave }}" on-drop="{{ docs.disabilityCert.drop }}">
+                <div class="ux4g-upload-content">
+                  <div class="ux4g-upload-icon-wrap">
+                    <x-if value="{{ docs.disabilityCert.scanning }}"><i class="ux4g-spinner-primary-split ux4g-spinner-md ux4g-upload-spinner" aria-hidden="true"></i></x-if>
+                    <x-if value="{{ docs.disabilityCert.notScanning }}"><span class="ux4g-icon-outlined ux4g-upload-icon" aria-hidden="true">cloud_upload</span></x-if>
+                  </div>
+                  <div class="ux4g-upload-option">
+                    <div class="ux4g-upload-titleblock">
+                      <p class="ux4g-title-s-strong ux4g-upload-heading">{{ docs.disabilityCert.panelHeading }}</p>
+                      <p id="disability-cert-types" class="ux4g-body-s-default ux4g-text-neutral-secondary ux4g-upload-hint">{{ docs.disabilityCert.panelHint }}</p>
+                    </div>
+                    <x-if value="{{ docs.disabilityCert.idle }}">
+                    <div class="ux4g-upload-divider">
+                      <span class="ux4g-upload-divider-line"></span>
+                      <span class="ux4g-body-s-default ux4g-text-neutral-secondary">Or</span>
+                      <span class="ux4g-upload-divider-line"></span>
+                    </div>
+                    <button type="button" id="disability-cert-btn" class="ux4g-btn-outline-primary ux4g-upload-btn" aria-labelledby="disability-cert-btn disability-cert-label" aria-describedby="disability-cert-hint disability-cert-types disability-cert-error" on-click="{{ docs.disabilityCert.pick }}">
+                      <span class="ux4g-icon-outlined" aria-hidden="true">cloud_upload</span>
+                      Upload
+                    </button>
+                    </x-if>
+                  </div>
+                </div>
+              </div>
+              </x-if>
+              <x-if value="{{ errs.disabilityCert.show }}">
+              <p id="disability-cert-error" class="ux4g-body-s-default ux4g-upload-error-msg" role="alert">
+                <span class="ux4g-icon-outlined" aria-hidden="true">error_outline</span>
+                <span class="ux4g-upload-error-text">{{ errs.disabilityCert.msg }}</span>
+              </p>
+              </x-if>
+              <x-if value="{{ docs.disabilityCert.done }}">
+              <ul class="ux4g-upload-file-list" aria-label="Uploaded file" role="list">
+                <li class="{{ docs.disabilityCert.itemClass }}" role="listitem">
+                  <div class="ux4g-upload-file-row">
+                    <span class="ux4g-upload-file-leading" aria-hidden="true"><span class="ux4g-icon-outlined ux4g-upload-file-icon">description</span></span>
+                    <span class="ux4g-upload-file-copy">
+                      <span class="ux4g-body-m-strong ux4g-upload-file-name">{{ docs.disabilityCert.name }}</span>
+                      <span class="ux4g-body-s-default ux4g-upload-file-description">{{ docs.disabilityCert.size }}<x-if value="{{ docs.disabilityCert.clean }}"><span class="doc-file-ok"><span class="ux4g-icon-outlined" aria-hidden="true">check_circle</span>Document verified.</span></x-if></span>
+                    </span>
+                    <div class="ux4g-tooltip-wrapper doc-remove-wrap"><button type="button" class="ux4g-upload-file-remove doc-remove" aria-label="Remove file" on-click="{{ docs.disabilityCert.remove }}"><span class="ux4g-icon-outlined" aria-hidden="true">close</span></button><div class="ux4g-tooltip ux4g-tooltip-xs ux4g-tooltip-top-right" aria-hidden="true">Remove file</div></div>
+                  </div>
+                </li>
+              </ul>
+              </x-if>
+              <x-if value="{{ docs.disabilityCert.hasWarnings }}">
+              <div class="ux4g-alert ux4g-alert-warning doc-warning">
+                <span class="ux4g-alert-icon ux4g-icon-outlined" aria-hidden="true">warning</span>
+                <div class="ux4g-alert-content">
+                  <span class="ux4g-alert-message">{{ docs.disabilityCert.warning }}</span>
+                </div>
+                <div class="ux4g-alert-actions">
+                  <button type="button" class="doc-reupload" on-click="{{ docs.disabilityCert.reupload }}">{{ docs.disabilityCert.actionLabel }}</button>
+                </div>
+              </div>
+              </x-if>
+              <span class="ux4g-sr-only" role="status" aria-live="polite">{{ docs.disabilityCert.announce }}</span>
+            </div>
           </div>
           <div style="display: flex; align-items: center; gap: 16px;">
-            <button type="button" on-click="{{ heads.disability.onPrevious }}" style="min-height: 44px; padding: 0 4px; border: none; background: transparent; font-family: inherit; font-size: 14px; font-weight: 500; color: #4A2BC2; cursor: pointer;">Previous section</button>
-            <button type="button" on-click="{{ heads.disability.onSave }}" style="display: inline-flex; align-items: center; justify-content: center; margin-left: auto; min-height: 48px; padding: 0 28px; border: none; border-radius: 8px; background: #4A2BC2; color: #FAFAFA; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;" class-hover="hv-3">Save and continue</button>
+            <button type="button" on-click="{{ heads.disability.onPrevious }}" class="ux4g-btn ux4g-btn-text-primary ux4g-btn-lg">Previous section</button>
+            <button type="button" on-click="{{ heads.disability.onSave }}" class="ux4g-btn ux4g-btn-primary ux4g-btn-lg ux4g-ml-auto">Save and continue</button>
           </div>
+        </div>
         </div>
         </x-if>
       </section>
 
-      <section id="family" style="{{ heads.family.cardStyle }}">
-        <h2 style="margin: 0;">
-          <button type="button" on-click="{{ heads.family.onClick }}" aria-expanded="{{ heads.family.open }}" style="{{ heads.family.rowStyle }}" class-hover="hv-1">
-            <span style="{{ heads.family.titleStyle }}">Family member details</span>
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#4A2BC2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{ heads.family.chevStyle }}"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      <section id="family" class="ux4g-accordion__item">
+        <h2 class="ux4g-accordion__header">
+          <button type="button" class="{{ heads.family.buttonClass }}" on-click="{{ heads.family.onClick }}" aria-expanded="{{ heads.family.open }}" aria-controls="family-panel">
+            <span class="ux4g-accordion__button-content"><span class="ux4g-accordion__title">{{ heads.family.label }}</span></span>
           </button>
         </h2>
         <x-if value="{{ heads.family.open }}">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">
+        <div id="family-panel" class="ux4g-accordion__collapse collapse show">
+        <div class="ux4g-accordion__body section-body">
           <x-if value="{{ heads.family.hasErrors }}">
           <div class="ux4g-alert ux4g-alert-error error-summary" role="alert">
             <span class="ux4g-alert-icon ux4g-icon-outlined" aria-hidden="true">error</span>
@@ -901,17 +1233,19 @@
             </div>
           </div>
           </x-if>
-          <p style="margin: 0; font-size: 14px; line-height: 22px; color: #262626; text-wrap: pretty;">A relative who is already on the electoral roll at this address helps confirm that you live here. Give the details of one such family member.</p>
-          <div>
-            <label for="family-name" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Name of the family member <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-            <input id="family-name" aria-describedby="family-name-error" aria-invalid="{{ errs.familyName.show }}" required="{{ true }}" type="text" placeholder="Suresh Rao" value="{{ v.familyName }}" on-change="{{ on.familyName }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; color: #171717;">
+          <p style="margin: 0; font-size: 14px; line-height: 22px; color: #262626;">A relative who is already on the electoral roll at this address helps confirm that you live here. Give the details of one such family member.</p>
+          <div class="{{ errs.familyName.inputClass }}">
+            <label class="ux4g-label-m-default" for="family-name">Name of the family member <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+            <div class="ux4g-input">
+              <input class="ux4g-input-input" id="family-name" aria-describedby="family-name-error" aria-invalid="{{ errs.familyName.show }}" required="{{ true }}" type="text" placeholder="Suresh Rao" value="{{ v.familyName }}" on-change="{{ on.familyName }}">
+            </div>
             <x-if value="{{ errs.familyName.show }}">
-            <p id="family-name-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.familyName.msg }}</p>
+            <div id="family-name-error" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ errs.familyName.msg }}</span></div>
             </x-if>
           </div>
           <div>
-            <label for="family-relation" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Relationship to you <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-            <select id="family-relation" aria-describedby="family-relation-error" aria-invalid="{{ errs.familyRelation.show }}" required="{{ true }}" value="{{ v.familyRelation }}" on-change="{{ on.familyRelation }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; padding-right: 42px; background-color: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; color: #171717;">
+            <label for="family-relation" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Relationship to you <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+            <select id="family-relation" aria-describedby="family-relation-error" aria-invalid="{{ errs.familyRelation.show }}" required="{{ true }}" value="{{ v.familyRelation }}" on-change="{{ on.familyRelation }}" class="ux4g-form-select ux4g-form-select-lg">
               <option value="">Select a relationship</option>
               <option value="father">Father</option>
               <option value="mother">Mother</option>
@@ -920,41 +1254,42 @@
               <option value="husband">Husband</option>
               <option value="wife">Wife</option>
             </select><x-if value="{{ errs.familyRelation.show }}">
-            <p id="family-relation-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.familyRelation.msg }}</p>
+            <p id="family-relation-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.familyRelation.msg }}</p>
             </x-if>
           </div>
-          <div>
+          <div class="{{ errs.familyEpic.inputClass }}">
             <span style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-              <label for="family-epic" style="font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Family member voter ID number <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-              <span style="position: relative; display: inline-flex;" on-mouseenter="{{ tipEpic }}" on-mouseleave="{{ hideTip }}" on-focus="{{ tipEpic }}" on-blur="{{ hideTip }}">
-                <button type="button" aria-label="About the voter ID number" aria-describedby="family-epic-tip" style="width: 20px; height: 20px; padding: 0; display: flex; align-items: center; justify-content: center; border: 1px solid #4A2BC2; border-radius: 999px; background: #FFFFFF; font-size: 11px; font-weight: 700; color: #4A2BC2; cursor: help;">i</button>
-                <x-if value="{{ tips.epic }}">
-                <span role="tooltip" id="family-epic-tip" style="position: absolute; bottom: 28px; left: -8px; z-index: 20; width: 280px; padding: 10px 12px; border-radius: 8px; background: #171717; color: #FAFAFA; font-size: 12px; line-height: 18px; font-weight: 400; box-shadow: 0 4px 12px rgba(23,23,23,0.2);">Also called the EPIC number. It is the ten character code printed on the front of the voter ID card, made up of three letters followed by seven digits.</span>
-                </x-if>
+              <label class="ux4g-label-m-default" for="family-epic">Family member voter ID number <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+              <span class="ux4g-tooltip-wrapper info-tip">
+                <button type="button" class="ux4g-icon-btn ux4g-icon-btn-xs ux4g-icon-btn-text-primary" aria-label="About the voter ID number" aria-describedby="family-epic-tip"><i class="ux4g-icon-outlined" aria-hidden="true">info</i></button>
+                <span role="tooltip" id="family-epic-tip" class="ux4g-tooltip ux4g-tooltip-s ux4g-tooltip-top-left">Also called the EPIC number. It is the ten character code printed on the front of the voter ID card, made up of three letters followed by seven digits.</span>
               </span>
             </span>
-            <input id="family-epic" aria-describedby="family-epic-error" aria-invalid="{{ errs.familyEpic.show }}" required="{{ true }}" pattern="[A-Za-z]{3}[0-9]{7}" type="text" placeholder="MPZ1234567" value="{{ v.familyEpic }}" on-change="{{ on.familyEpic }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; letter-spacing: 0.04em; color: #171717;">
+            <div class="ux4g-input">
+              <input class="ux4g-input-input" id="family-epic" aria-describedby="family-epic-error" aria-invalid="{{ errs.familyEpic.show }}" required="{{ true }}" pattern="[A-Za-z]{3}[0-9]{7}" type="text" placeholder="MPZ1234567" value="{{ v.familyEpic }}" on-change="{{ on.familyEpic }}">
+            </div>
             <x-if value="{{ errs.familyEpic.show }}">
-            <p id="family-epic-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.familyEpic.msg }}</p>
+            <div id="family-epic-error" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ errs.familyEpic.msg }}</span></div>
             </x-if>
           </div>
           <div style="display: flex; align-items: center; gap: 16px;">
-            <button type="button" on-click="{{ heads.family.onPrevious }}" style="min-height: 44px; padding: 0 4px; border: none; background: transparent; font-family: inherit; font-size: 14px; font-weight: 500; color: #4A2BC2; cursor: pointer;">Previous section</button>
-            <button type="button" on-click="{{ heads.family.onSave }}" style="display: inline-flex; align-items: center; justify-content: center; margin-left: auto; min-height: 48px; padding: 0 28px; border: none; border-radius: 8px; background: #4A2BC2; color: #FAFAFA; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;" class-hover="hv-3">Save and continue</button>
+            <button type="button" on-click="{{ heads.family.onPrevious }}" class="ux4g-btn ux4g-btn-text-primary ux4g-btn-lg">Previous section</button>
+            <button type="button" on-click="{{ heads.family.onSave }}" class="ux4g-btn ux4g-btn-primary ux4g-btn-lg ux4g-ml-auto">Save and continue</button>
           </div>
+        </div>
         </div>
         </x-if>
       </section>
 
-      <section id="declaration" style="{{ heads.declaration.cardStyle }}">
-        <h2 style="margin: 0;">
-          <button type="button" on-click="{{ heads.declaration.onClick }}" aria-expanded="{{ heads.declaration.open }}" style="{{ heads.declaration.rowStyle }}" class-hover="hv-1">
-            <span style="{{ heads.declaration.titleStyle }}">Declaration</span>
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#4A2BC2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{ heads.declaration.chevStyle }}"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      <section id="declaration" class="ux4g-accordion__item">
+        <h2 class="ux4g-accordion__header">
+          <button type="button" class="{{ heads.declaration.buttonClass }}" on-click="{{ heads.declaration.onClick }}" aria-expanded="{{ heads.declaration.open }}" aria-controls="declaration-panel">
+            <span class="ux4g-accordion__button-content"><span class="ux4g-accordion__title">{{ heads.declaration.label }}</span></span>
           </button>
         </h2>
         <x-if value="{{ heads.declaration.open }}">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">
+        <div id="declaration-panel" class="ux4g-accordion__collapse collapse show">
+        <div class="ux4g-accordion__body section-body">
           <x-if value="{{ heads.declaration.hasErrors }}">
           <div class="ux4g-alert ux4g-alert-error error-summary" role="alert">
             <span class="ux4g-alert-icon ux4g-icon-outlined" aria-hidden="true">error</span>
@@ -968,32 +1303,44 @@
             </div>
           </div>
           </x-if>
-          <div>
-            <label for="decl-place" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Place <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-            <input id="decl-place" aria-describedby="decl-place-error" aria-invalid="{{ errs.declPlace.show }}" required="{{ true }}" type="text" placeholder="Bhopal" value="{{ v.place }}" on-change="{{ on.place }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; color: #171717;">
+          <div class="{{ errs.declPlace.inputClass }}">
+            <label class="ux4g-label-m-default" for="decl-place">Place <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+            <div class="ux4g-input">
+              <input class="ux4g-input-input" id="decl-place" aria-describedby="decl-place-error" aria-invalid="{{ errs.declPlace.show }}" required="{{ true }}" type="text" placeholder="Bhopal" value="{{ v.place }}" on-change="{{ on.place }}">
+            </div>
             <x-if value="{{ errs.declPlace.show }}">
-            <p id="decl-place-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.declPlace.msg }}</p>
+            <div id="decl-place-error" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ errs.declPlace.msg }}</span></div>
             </x-if>
           </div>
-          <div>
-            <label for="decl-date" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Date <span class="label-note">(DD/MM/YYYY)</span> <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-            <input id="decl-date" data-date aria-describedby="decl-date-error" aria-invalid="{{ errs.declDate.show }}" required="{{ true }}" type="text" inputmode="numeric" placeholder="DD/MM/YYYY" maxlength="10" pattern="\d{2}/\d{2}/\d{4}" value="{{ v.declDate }}" on-input="{{ on.declDate }}" style="display: block; width: 100%; max-width: 220px; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; letter-spacing: 0.04em; color: #171717;">
+          <div class="{{ errs.declDate.inputClass }}">
+            <label class="ux4g-label-m-default" for="decl-date">Date <span class="label-note">(DD/MM/YYYY)</span> <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+            <div class="ux4g-input">
+              <input class="ux4g-input-input" id="decl-date" data-date aria-describedby="decl-date-error" aria-invalid="{{ errs.declDate.show }}" required="{{ true }}" type="text" inputmode="numeric" placeholder="DD/MM/YYYY" maxlength="10" pattern="\d{2}/\d{2}/\d{4}" value="{{ v.declDate }}" on-input="{{ on.declDate }}">
+            </div>
             <x-if value="{{ errs.declDate.show }}">
-            <p id="decl-date-error" style="display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E; text-wrap: pretty;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.declDate.msg }}</p>
+            <div id="decl-date-error" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ errs.declDate.msg }}</span></div>
             </x-if>
           </div>
-          <label style="display: flex; gap: 10px; align-items: flex-start; cursor: pointer;">
-            <input id="declaration-confirm" data-label="Declaration" type="checkbox" required="{{ true }}" aria-describedby="declaration-confirm-error" aria-invalid="{{ errs.declarationConfirm.show }}" checked="{{ declared }}" on-change="{{ toggleDeclared }}" style="flex: 0 0 auto; width: 20px; height: 20px; margin: 2px 0 0; accent-color: #4A2BC2; cursor: pointer;">
-            <span style="font-size: 15px; line-height: 22px; color: #171717; text-wrap: pretty;">I declare that the information given above is true to the best of my knowledge, that I am a citizen of India, and that I am not registered in the electoral roll of any other constituency. <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></span>
+          <label class="ux4g-checkbox ux4g-checkbox-md">
+            <input class="ux4g-checkbox-input" id="declaration-confirm" data-label="Declaration" type="checkbox" required="{{ true }}" aria-describedby="declaration-confirm-error" aria-invalid="{{ errs.declarationConfirm.show }}" checked="{{ declared }}" on-change="{{ toggleDeclared }}">
+            <div class="ux4g-checkbox-control">
+              <span class="ux4g-checkmark"></span>
+            </div>
+            <div class="ux4g-checkbox-content">
+              <div class="ux4g-checkbox-header">
+                <span class="ux4g-checkbox-label">I declare that the information given above is true to the best of my knowledge, that I am a citizen of India, and that I am not registered in the electoral roll of any other constituency. <span class="ux4g-text-error" aria-hidden="true">*</span></span>
+              </div>
+            </div>
           </label>
-          <p style="margin: 0; font-size: 13px; line-height: 19px; color: #737373; text-wrap: pretty;">Giving false information is an offence under section 31 of the Representation of the People Act 1950, punishable by imprisonment of up to one year, a fine, or both.</p>
+          <p style="margin: 0; font-size: 13px; line-height: 19px; color: #737373;">Giving false information is an offence under section 31 of the Representation of the People Act 1950, punishable by imprisonment of up to one year, a fine, or both.</p>
           <x-if value="{{ errs.declarationConfirm.show }}">
           <p id="declaration-confirm-error" style="display: flex; align-items: flex-start; gap: 6px; margin: -8px 0 0; font-size: 13px; line-height: 19px; font-weight: 500; color: #B3261E;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 999px; background: #B3261E; color: #FFFFFF; font-size: 11px; font-weight: 700;">!</span>{{ errs.declarationConfirm.msg }}</p>
           </x-if>
           <div style="display: flex; align-items: center; gap: 16px;">
-            <button type="button" on-click="{{ heads.declaration.onPrevious }}" style="min-height: 44px; padding: 0 4px; border: none; background: transparent; font-family: inherit; font-size: 14px; font-weight: 500; color: #4A2BC2; cursor: pointer;">Previous section</button>
-            <button type="button" on-click="{{ heads.declaration.onSave }}" style="display: inline-flex; align-items: center; justify-content: center; margin-left: auto; min-height: 48px; padding: 0 28px; border: none; border-radius: 8px; background: #4A2BC2; color: #FAFAFA; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;" class-hover="hv-3">Preview application</button>
+            <button type="button" on-click="{{ heads.declaration.onPrevious }}" class="ux4g-btn ux4g-btn-text-primary ux4g-btn-lg">Previous section</button>
+            <button type="button" on-click="{{ heads.declaration.onSave }}" class="ux4g-btn ux4g-btn-primary ux4g-btn-lg ux4g-ml-auto">Preview application</button>
           </div>
+        </div>
         </div>
         </x-if>
       </section>
@@ -1008,9 +1355,9 @@
 <x-if value="{{ screenPreview }}">
 <div style="max-width: 900px; margin: 0 auto; padding: 24px 24px 72px;">
   <nav aria-label="Breadcrumb" class="ux4g-breadcrumb ux4g-breadcrumb-divider" style="margin-bottom: 16px;">
-    <ol class="ux4g-breadcrumb-list ux4g-d-flex ux4g-ai-center" style="margin: 0; padding: 0;">
-      <li class="ux4g-breadcrumb-item"><a class="ux4g-breadcrumb-link" href="index.html" on-click="{{ leaveTo.home }}"><span class="ux4g-icon-outlined" aria-hidden="true" style="font-size: 18px; margin-right: 4px;">home</span>Home</a></li>
-      <li class="ux4g-breadcrumb-item"><a class="ux4g-breadcrumb-link" href="#form" on-click="{{ backToForm }}">Application form</a></li>
+    <ol class="ux4g-breadcrumb-list ux4g-d-flex ux4g-ai-center ux4g-flex-wrap" style="margin: 0; padding: 0;">
+      <li class="ux4g-breadcrumb-item ux4g-d-flex ux4g-ai-center"><a class="ux4g-breadcrumb-link ux4g-d-flex ux4g-ai-center ux4g-gap-x-xs" href="index.html" on-click="{{ leaveTo.home }}"><span class="ux4g-icon-outlined" aria-hidden="true" style="font-size: 18px;">home</span>Home</a></li>
+      <li class="ux4g-breadcrumb-item ux4g-d-flex ux4g-ai-center"><a class="ux4g-breadcrumb-link" href="#form" on-click="{{ backToForm }}">Application form</a></li>
       <li class="ux4g-breadcrumb-item active" aria-current="page">Preview</li>
     </ol>
   </nav>
@@ -1018,18 +1365,16 @@
   <div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 16px; margin-bottom: 20px;">
     <div style="flex: 1 1 320px; min-width: 0;">
       <h1 style="margin: 0; font-size: 30px; line-height: 38px; font-weight: 600; color: #171717;">Preview your application</h1>
-      <p style="margin: 6px 0 0; font-size: 15px; line-height: 23px; color: #525252; text-wrap: pretty;">Check every section against your documents. This is how your Form 6 will be read by the electoral registration officer.</p>
+      <p style="margin: 6px 0 0; font-size: 15px; line-height: 23px; color: #525252;">Check every section against your documents. This is how your Form&nbsp;6 will be read by the electoral registration officer.</p>
     </div>
-    <button type="button" aria-label="Close application" on-click="{{ openLeave }}" style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; margin: -2px -8px 0 0; padding: 0; border: none; background: transparent; color: #737373; cursor: pointer;" class-hover="hv-2">
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
-    </button>
+    <button type="button" class="ux4g-icon-btn ux4g-icon-btn-md ux4g-icon-btn-text-primary close-app" aria-label="Close application" on-click="{{ openLeave }}"><i class="ux4g-icon-outlined" aria-hidden="true">close</i></button>
   </div>
 
   <article style="background: #FFFFFF; border: 1px solid #D4D4D4; border-radius: 12px; padding: 32px;">
-    <div style="text-align: center; padding-bottom: 20px; border-bottom: 1px solid #D4D4D4;">
-      <p style="margin: 0; font-size: 13px; line-height: 18px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #525252;">Form 6</p>
+    <div style="padding-bottom: 20px; border-bottom: 1px solid #D4D4D4;">
+      <p style="margin: 0; font-size: 13px; line-height: 18px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #525252;">Form&nbsp;6</p>
       <h2 style="margin: 8px 0 0; font-size: 22px; line-height: 30px; font-weight: 600; color: #171717;">Application for inclusion of name in the electoral roll</h2>
-      <p style="margin: 8px auto 0; max-width: 520px; font-size: 12px; line-height: 18px; color: #737373; text-wrap: pretty;">Made under Rules 13(1) and 26 of the Registration of Electors Rules 1960.</p>
+      <p style="margin: 8px 0 0; max-width: 520px; font-size: 12px; line-height: 18px; color: #737373;">Made under Rules 13(1) and 26 of the Registration of Electors Rules 1960.</p>
     </div>
 
     <div style="padding: 20px 0; border-bottom: 1px solid #E5E5E5;">
@@ -1039,43 +1384,66 @@
     </div>
 
     <x-for list="{{ previewSections }}" as="sec">
-      <section style="padding: 20px 0; border-bottom: 1px solid #E5E5E5;">
-        <div style="display: flex; align-items: baseline; gap: 12px;">
-          <h3 style="flex: 1 1 auto; min-width: 0; margin: 0; font-size: 15px; line-height: 22px; font-weight: 600; color: #171717; text-wrap: pretty;">{{ sec.title }}</h3>
-          <button type="button" on-click="{{ sec.onEdit }}" style="flex: 0 0 auto; min-height: 32px; padding: 0 4px; border: none; background: transparent; font-family: inherit; font-size: 13px; font-weight: 500; color: #4A2BC2; cursor: pointer;" class-hover="hv-2">Edit</button>
+      <section class="ux4g-result-list ux4g-result-list-v2 preview-group">
+        <div class="ux4g-result-list-header">
+          <div class="ux4g-result-list-info">
+            <div class="ux4g-result-list-title-group">
+              <h3 class="ux4g-title-s-default ux4g-result-list-title">{{ sec.title }}</h3>
+            </div>
+          </div>
+          <div class="ux4g-result-list-actions-container ux4g-d-flex ux4g-ai-center">
+            <div class="ux4g-result-list-actions">
+              <button type="button" class="ux4g-btn ux4g-btn-outline-neutral ux4g-btn-sm" on-click="{{ sec.onEdit }}"><span class="ux4g-icon-outlined ux4g-fs-18" aria-hidden="true">edit</span>Edit</button>
+            </div>
+          </div>
         </div>
-        <dl style="margin: 12px 0 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 10px 20px;">
-          <x-for list="{{ sec.rows }}" as="row">
-            <dt style="margin: 0; font-size: 13px; line-height: 20px; color: #737373; text-wrap: pretty;">{{ row.label }}</dt>
-            <dd style="{{ row.valueStyle }}">{{ row.value }}</dd>
-          </x-for>
-        </dl>
+        <div class="ux4g-result-list-content">
+          <dl class="ux4g-result-list-details">
+            <x-for list="{{ sec.rows }}" as="row">
+              <div class="ux4g-result-list-detail-item">
+                <dt class="ux4g-text-neutral-tertiary ux4g-label-m-default">{{ row.label }}</dt>
+                <dd class="{{ row.valueClass }}">{{ row.value }}</dd>
+              </div>
+            </x-for>
+          </dl>
+        </div>
       </section>
     </x-for>
 
     <div style="padding-top: 24px;">
       <h3 style="margin: 0; font-size: 15px; line-height: 22px; font-weight: 600; color: #171717;">Declaration</h3>
-      <label style="display: flex; gap: 10px; align-items: flex-start; margin-top: 12px; cursor: pointer;">
-        <input type="checkbox" checked="{{ declared }}" on-change="{{ toggleDeclared }}" style="flex: 0 0 auto; width: 20px; height: 20px; margin: 2px 0 0; accent-color: #4A2BC2; cursor: pointer;">
-        <span style="font-size: 15px; line-height: 23px; color: #171717; text-wrap: pretty;">I declare that the information given above is true to the best of my knowledge, that I am a citizen of India, and that I am not registered in the electoral roll of any other constituency. <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></span>
+      <label class="ux4g-checkbox ux4g-checkbox-md ux4g-mt-s">
+        <input class="ux4g-checkbox-input" type="checkbox" checked="{{ declared }}" on-change="{{ toggleDeclared }}">
+        <div class="ux4g-checkbox-control">
+          <span class="ux4g-checkmark"></span>
+        </div>
+        <div class="ux4g-checkbox-content">
+          <div class="ux4g-checkbox-header">
+            <span class="ux4g-checkbox-label">I declare that the information given above is true to the best of my knowledge, that I am a citizen of India, and that I am not registered in the electoral roll of any other constituency. <span class="ux4g-text-error" aria-hidden="true">*</span></span>
+          </div>
+        </div>
       </label>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
-        <div>
-          <label for="preview-place" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Place <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-          <input id="preview-place" type="text" placeholder="Bhopal" value="{{ v.place }}" on-change="{{ on.place }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; color: #171717;">
+        <div class="ux4g-input-container ux4g-input-md ux4g-input-default">
+          <label class="ux4g-label-m-default" for="preview-place">Place <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+          <div class="ux4g-input">
+            <input class="ux4g-input-input" id="preview-place" type="text" placeholder="Bhopal" value="{{ v.place }}" on-change="{{ on.place }}">
+          </div>
         </div>
-        <div>
-          <label for="preview-date" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Date <span class="label-note">(DD/MM/YYYY)</span> <span aria-hidden="true" style="color: #B3261E; font-weight: 600;">*</span></label>
-          <input id="preview-date" data-date type="text" inputmode="numeric" placeholder="DD/MM/YYYY" maxlength="10" pattern="\d{2}/\d{2}/\d{4}" value="{{ v.declDate }}" on-input="{{ on.declDate }}" style="display: block; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 22px; letter-spacing: 0.04em; color: #171717;">
+        <div class="ux4g-input-container ux4g-input-md ux4g-input-default">
+          <label class="ux4g-label-m-default" for="preview-date">Date <span class="label-note">(DD/MM/YYYY)</span> <span class="ux4g-text-error" aria-hidden="true">*</span></label>
+          <div class="ux4g-input">
+            <input class="ux4g-input-input" id="preview-date" data-date type="text" inputmode="numeric" placeholder="DD/MM/YYYY" maxlength="10" pattern="\d{2}/\d{2}/\d{4}" value="{{ v.declDate }}" on-input="{{ on.declDate }}">
+          </div>
         </div>
       </div>
-      <p style="margin: 16px 0 0; font-size: 13px; line-height: 20px; color: #737373; text-wrap: pretty;">Giving false information is an offence under section 31 of the Representation of the People Act 1950, punishable by imprisonment of up to one year, a fine, or both.</p>
+      <p style="margin: 16px 0 0; font-size: 13px; line-height: 20px; color: #737373;">Giving false information is an offence under section 31 of the Representation of the People Act 1950, punishable by imprisonment of up to one year, a fine, or both.</p>
     </div>
   </article>
 
   <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 24px;">
-    <button type="button" on-click="{{ backToForm }}" style="min-height: 48px; padding: 0 4px; border: none; background: transparent; font-family: inherit; font-size: 15px; font-weight: 500; color: #4A2BC2; cursor: pointer;">Go back and edit</button>
-    <button type="button" class="ux4g-btn ux4g-btn-primary ux4g-btn-md" disabled="{{ submitDisabled }}" aria-busy="{{ submitting }}" on-click="{{ submitApplication }}" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-left: auto; min-height: 48px; padding: 0 28px; border-radius: 8px; font-family: inherit; font-size: 15px; font-weight: 600;">
+    <button type="button" on-click="{{ backToForm }}" class="ux4g-btn ux4g-btn-text-primary ux4g-btn-lg">Go back and edit</button>
+    <button type="button" class="ux4g-btn ux4g-btn-primary ux4g-btn-lg ux4g-ml-auto" disabled="{{ submitDisabled }}" aria-busy="{{ submitting }}" on-click="{{ submitApplication }}">
       <x-if value="{{ submitting }}"><span class="ux4g-spinner-inverse-full ux4g-spinner-xs" aria-hidden="true"></span></x-if>
       {{ submitLabel }}
     </button>
@@ -1105,10 +1473,10 @@
       <span>{{ copyLabel }}</span>
     </button>
   </div>
-  <p style="margin: 12px 0 0; font-size: 14px; line-height: 22px; color: #525252; text-wrap: pretty;">Keep this number. It is how you check the progress of your application.</p>
+  <p style="margin: 12px 0 0; font-size: 14px; line-height: 22px; color: #525252;">Keep this number. It is how you check the progress of your application.</p>
 
   <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 28px;">
-    <button type="button" on-click="{{ goToTrack }}" style="display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 28px; border: none; border-radius: 8px; background: #4A2BC2; color: #FAFAFA; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;" class-hover="hv-3">Track this application</button>
+    <a href="{{ trackHref }}" style="display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 28px; border: none; border-radius: 8px; background: #4A2BC2; color: #FAFAFA; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: none;" class-hover="hv-3">Track this application</a>
     <a href="index.html?loggedIn=1" style="display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 24px; border: 1px solid #D4D4D4; border-radius: 8px; background: #FFFFFF; font-size: 15px; font-weight: 500; color: #404040; text-decoration: none;" class-hover="hv-1">Back to home</a>
   </div>
 
@@ -1134,83 +1502,46 @@
         <span class="step-text">If approved, your name is added to the electoral roll and your voter ID is issued.</span>
       </li>
     </ol>
-    <p style="margin: 20px 0 0; font-size: 13px; line-height: 20px; color: #737373; text-wrap: pretty;">Applications are usually decided within 30 days, as set out in the Registration of Electors Rules 1960, and timelines can vary during election periods.</p>
+    <p style="margin: 20px 0 0; font-size: 13px; line-height: 20px; color: #737373;">Applications are usually decided within 30 days, as set out in the Registration of Electors Rules 1960, and timelines can vary during election periods.</p>
   </section>
 
 </div>
-<footer role="contentinfo" style="background: #FFFFFF; border-top: 1px solid #E5E5E5;">
-  <div style="max-width: 1200px; margin: 0 auto; padding: 20px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; font-size: 13px; line-height: 20px; color: #525252;">
+<footer role="contentinfo" class="eci-footer">
+  <div class="eci-footer-row">
     <span>© 2026 Election Commission of India</span>
     <span>Last updated 24 September 2026</span>
-    <nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 4px 20px; margin-left: auto;">
-      <a href="#contact-directory" style="display: inline-flex; align-items: center; min-height: 32px; color: #4A2BC2; font-weight: 500;">Contact directory</a>
-      <a href="#privacy" style="display: inline-flex; align-items: center; min-height: 32px; color: #4A2BC2; font-weight: 500;">Privacy policy</a>
+    <nav aria-label="Footer" class="eci-footer-nav">
+      <a href="#contact-directory" class="eci-footer-link">Contact directory</a>
+      <a href="#privacy" class="eci-footer-link">Privacy policy</a>
     </nav>
   </div>
 </footer>
 </x-if>
 
-<x-if value="{{ screenTrack }}">
-<div style="max-width: 760px; margin: 0 auto; padding: 32px 24px 72px;">
-  <nav aria-label="Breadcrumb" class="ux4g-breadcrumb ux4g-breadcrumb-divider" style="margin-bottom: 20px;">
-    <ol class="ux4g-breadcrumb-list ux4g-d-flex ux4g-ai-center" style="margin: 0; padding: 0;">
-      <li class="ux4g-breadcrumb-item"><a class="ux4g-breadcrumb-link" href="index.html?loggedIn=1"><span class="ux4g-icon-outlined" aria-hidden="true" style="font-size: 18px; margin-right: 4px;">home</span>Home</a></li>
-      <li class="ux4g-breadcrumb-item active" aria-current="page">Track an application</li>
-    </ol>
-  </nav>
-
-  <h1 style="margin: 0; font-size: 30px; line-height: 38px; font-weight: 600; color: #171717;">Track your application</h1>
-  <p style="margin: 6px 0 0; font-size: 15px; line-height: 23px; color: #525252; text-wrap: pretty;">Your reference number is filled in from the application you have just submitted.</p>
-
-  <div style="margin-top: 24px; padding: 24px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 12px;">
-    <label for="track-ref" style="display: block; margin-bottom: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #171717;">Application reference number</label>
-    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px;">
-      <input id="track-ref" type="text" value="{{ refNumber }}" readonly="{{ true }}" style="flex: 1 1 260px; min-width: 0; box-sizing: border-box; min-height: 48px; padding: 0 12px; border: 1px solid #737373; border-radius: 8px; background: #F5F5F5; font-family: inherit; font-size: 15px; line-height: 22px; letter-spacing: 0.04em; color: #171717;">
-      <button type="button" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 24px; border: none; border-radius: 8px; background: #4A2BC2; color: #FAFAFA; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;" class-hover="hv-3">Check status</button>
-    </div>
-
-    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 24px; padding-top: 20px; border-top: 1px solid #E5E5E5;">
-      <span style="display: inline-flex; align-items: center; min-height: 28px; padding: 0 12px; border-radius: 999px; background: #F3F0FF; font-size: 13px; line-height: 18px; font-weight: 600; color: #4A2BC2;">Under verification</span>
-      <span style="font-size: 13px; line-height: 20px; color: #737373;">Form 6 · submitted today · Huzur assembly constituency</span>
-    </div>
-
-    <ol style="list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-direction: column; gap: 0;">
-      <li style="display: flex; gap: 14px;">
-        <span aria-hidden="true" style="flex: 0 0 auto; display: flex; flex-direction: column; align-items: center;"><span style="display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 999px; background: var(--eci-success); color: #FFFFFF; font-size: 12px; font-weight: 700;">✓</span><span style="flex: 1; width: 2px; background: var(--eci-success);"></span></span>
-        <span style="padding-bottom: 20px;"><span style="display: block; font-size: 15px; line-height: 22px; font-weight: 600; color: #171717;">Application received</span><span style="display: block; margin-top: 2px; font-size: 13px; line-height: 20px; color: #737373;">Your Form 6 has reached the electoral registration officer.</span></span>
-      </li>
-      <li style="display: flex; gap: 14px;">
-        <span aria-hidden="true" style="flex: 0 0 auto; display: flex; flex-direction: column; align-items: center;"><span style="display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 999px; border: 2px solid #4A2BC2; background: #FFFFFF;"></span><span style="flex: 1; width: 2px; background: #E5E5E5;"></span></span>
-        <span style="padding-bottom: 20px;"><span style="display: block; font-size: 15px; line-height: 22px; font-weight: 600; color: #171717;">Field verification</span><span style="display: block; margin-top: 2px; font-size: 13px; line-height: 20px; color: #737373;">A booth level officer checks your details, and may visit your address.</span></span>
-      </li>
-      <li style="display: flex; gap: 14px;">
-        <span aria-hidden="true" style="flex: 0 0 auto;"><span style="display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 999px; border: 2px solid #D4D4D4; background: #FFFFFF;"></span></span>
-        <span><span style="display: block; font-size: 15px; line-height: 22px; font-weight: 600; color: #525252;">Decision</span><span style="display: block; margin-top: 2px; font-size: 13px; line-height: 20px; color: #737373;">Usually within 30 days of submission.</span></span>
-      </li>
-    </ol>
-  </div>
-
-  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 24px;">
-    <a href="index.html?loggedIn=1" style="display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 24px; border: 1px solid #D4D4D4; border-radius: 8px; background: #FFFFFF; font-size: 15px; font-weight: 500; color: #404040; text-decoration: none;" class-hover="hv-1">Back to home</a>
-  </div>
-</div>
-</x-if>
-
-<div role="status" aria-live="polite" style="{{ savedNoteStyle }}">{{ savedNote }}</div>
-
 <x-if value="{{ leaveOpen }}">
-<div style="position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(23,23,23,0.45);">
-  <div role="dialog" aria-modal="true" aria-labelledby="leave-title" style="width: 100%; max-width: 440px; background: #FFFFFF; border-radius: 12px; padding: 24px; box-shadow: 0 12px 32px rgba(23,23,23,0.24);">
-    <h2 id="leave-title" style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 600; color: #171717;">Leave this application?</h2>
-    <p style="margin: 8px 0 0; font-size: 15px; line-height: 23px; color: #404040; text-wrap: pretty;">Your answers are saved, so you can return and finish this application later.</p>
-    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 24px;">
-      <button type="button" on-click="{{ closeLeave }}" style="display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 24px; border: none; border-radius: 8px; background: #4A2BC2; color: #FAFAFA; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;" class-hover="hv-3">Stay on this form</button>
-      <a href="{{ leaveHref }}" style="display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 20px; border-radius: 8px; font-size: 15px; font-weight: 500; color: #404040; text-decoration: none;" class-hover="hv-1">Leave the form</a>
+<!-- UX4G Modal, medium. The page opens and closes it, so UX4G's own close button, which its script closes, is left out. -->
+<div class="ux4g-modal-backdrop ux4g-modal-backdrop-50 eci-modal-open">
+  <div class="ux4g-modal" role="dialog" aria-modal="true" aria-labelledby="leave-title" aria-describedby="leave-desc">
+    <div class="ux4g-modal-box ux4g-modal-m">
+      <header class="ux4g-modal-header">
+        <div class="ux4g-modal-header-title-content">
+          <h2 id="leave-title" class="ux4g-modal-header-title">Leave this application?</h2>
+        </div>
+      </header>
+      <div class="ux4g-modal-body">
+        <p id="leave-desc">Your answers are saved, so you can return and finish this application later.</p>
+      </div>
+      <footer class="ux4g-modal-actions">
+        <a class="ux4g-btn ux4g-btn-outline-primary ux4g-btn-md" href="{{ leaveHref }}">Leave the form</a>
+        <button type="button" class="ux4g-btn ux4g-btn-primary ux4g-btn-md" on-click="{{ closeLeave }}">Stay on this form</button>
+      </footer>
     </div>
   </div>
 </div>
 </x-if>
 </div></div>
+<script src="https://cdn.ux4g.gov.in/UX4G@3.2.0/ux4g.js"></script>
+<script src="https://cdn.ux4g.gov.in/UX4G@3.2.0/ux4g-custom.js"></script>
 <script src="assets/js/dc-lite.js"></script>
 <script src="assets/js/form6-application.js"></script>
 </body>

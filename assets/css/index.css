@@ -26,3 +26,60 @@ body { margin: 0; font-family: 'Noto Sans', system-ui, sans-serif; background: #
    (two columns would leave a single card on its own). */
 .other-services-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 @media (max-width: 720px) { .other-services-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Account menu in the header */
+.account-item { display: block; width: 100%; box-sizing: border-box; padding: 9px 10px; border: none; border-radius: 6px; background: transparent; font-family: inherit; font-size: 13px; line-height: 18px; font-weight: 500; color: #171717; text-align: left; text-decoration: none; cursor: pointer; }
+.account-item:hover { color: #171717; }
+
+/* Find your nearest centre card (replaces "Prefer to apply offline?"). UX4G Card has no
+   single-row or whole-card-link variant, so the row layout, the stretched click area and the
+   phone stacking are page rules. Colours, border and type come from UX4G classes. */
+.centre-section { padding: 0 32px 48px; }
+.centre-card { position: relative; max-width: 1200px; margin: 0 auto; cursor: pointer; }
+.centre-card:hover { border-color: var(--ux4g-border-color-primary-default, #4A2BC2); }
+.centre-card-body { display: flex; align-items: center; gap: var(--ux4g-gap-column-m); }
+.centre-card-icon { flex: 0 0 auto; font-size: 24px; }
+.centre-card-text { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: var(--ux4g-gap-row-2xs); }
+.centre-card-action { flex: 0 0 auto; }
+/* The arrow button's hit area covers the whole card, so a click anywhere opens the sheet. */
+.centre-card-action::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.centre-card:has(.centre-card-action:focus-visible) { outline: 2px solid var(--ux4g-border-color-primary-default, #4A2BC2); outline-offset: 2px; }
+.centre-card-action:focus-visible { outline: none; }
+@media (max-width: 600px) {
+  .centre-card-body { flex-direction: column; align-items: flex-start; gap: var(--ux4g-gap-row-xs); }
+  .centre-card-icon { display: none; }
+  /* The 48px touch target is wider than its 24px arrow; pull it back so the arrow lines up with the text. */
+  .centre-card-action { margin-inline-start: calc((var(--ux4g-sz-48, 48px) - 24px) / -2); }
+}
+
+/* Homepage hero: the heading and its subline are centred here only. The search bar under it
+   keeps its own width and position. */
+.home-hero { text-align: center; }
+
+/* ---- Homepage search (assets/js/home-search.js) ---- */
+.home-search { position: relative; }
+/* While suggestions are open, the bar and its list sit above the tint. */
+.home-search.is-open { z-index: 71; }
+.home-search-field { position: relative; flex: 1 1 auto; min-width: 0; display: flex; align-items: center; }
+/* The guide, "I want to …", drawn where the placeholder would be. */
+.home-search-hint { position: absolute; inset: 0 0 0 0; display: flex; align-items: center; gap: 0.25em; overflow: hidden; white-space: nowrap; pointer-events: none; font-size: 14px; line-height: 20px; color: #757575; }
+.home-search-field.has-value .home-search-hint { display: none; }
+.home-search-ending { transition: opacity 0.2s ease; }
+.home-search-ending.is-fading { opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .home-search-ending { transition: none; } }
+/* The list floats under the bar, over the cards, without moving them. */
+.home-search-panel { position: absolute; top: calc(100% + 8px); left: 0; right: 0; }
+.home-search-panel[hidden] { display: none; }
+.home-search-list { list-style: none; margin: 0; border-radius: var(--ux4g-radius-xl); }
+.home-search-group-label { padding: var(--ux4g-padding-xs) var(--ux4g-padding-m); }
+.home-search-group-list { list-style: none; margin: 0; padding: 0; }
+/* Rows about 40px tall, each with a small line icon. Hover and the arrow keys tint a row light
+   purple; UX4G's own hover is grey. */
+.home-search-list .ux4g-list-item .ux4g-list-item-row { padding-block: 10px; min-height: 40px; }
+.home-search-icon { font-size: 20px; color: var(--ux4g-text-neutral-secondary); }
+.home-search-list .ux4g-list-item-row:hover,
+.home-search-list .ux4g-list-item-row.is-current { background-color: var(--ux4g-bg-primary-soft); }
+.home-search-empty { padding: var(--ux4g-padding-m); }
+/* A light tint over the rest of the page, lighter than the log in dialog's and without blur. */
+.home-search-scrim { position: fixed; inset: 0; z-index: 70; background-color: rgba(23, 23, 23, 0.2); }
+.home-search-scrim[hidden] { display: none; }

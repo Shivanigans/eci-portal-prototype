@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Form&nbsp;8 guides</title>
+
+<link rel="stylesheet" href="https://cdn.ux4g.gov.in/UX4G@3.2.0/index.css">
+<link rel="stylesheet" href="assets/css/fonts-form8-prep.css">
+<link rel="stylesheet" href="assets/css/shell.css">
+<link rel="stylesheet" href="assets/css/form8-prep.css">
+<link rel="stylesheet" href="assets/css/centre-sheet.css">
+<style>.dc-loading #app { visibility: hidden; }</style>
+<script>
+  // Hold the page back until the first render, otherwise the raw {{ }} bindings
+  // and every x-if branch flash up at once. dc-lite clears this once it has
+  // rendered; the timeout is a failsafe, so a script that fails to load leaves
+  // an unbound page rather than a blank one.
+  document.documentElement.classList.add('dc-loading');
+  setTimeout(function () {
+    document.documentElement.classList.remove('dc-loading');
+  }, 4000);
+</script>
+</head>
+<body>
+<div id="app">
+<div style="min-height: 100vh; background: #F5F5F5; zoom: {{ textZoom }}; letter-spacing: {{ rootTracking }};">
+
+<header role="banner" class="eci-header">
+  <div class="eci-header-row eci-header-row-top">
+    <a href="{{ homeHref }}" class="eci-brand">
+      <img src="assets/img/eci-logo.png" alt="" class="eci-brand-emblem">
+      <div class="eci-brand-text">
+        <div lang="hi" class="eci-brand-hindi">भारत निर्वाचन आयोग</div>
+        <div class="eci-brand-name">Election Commission of India</div>
+        <div class="eci-brand-sub">Citizen Service Portal</div>
+      </div>
+    </a>
+    <nav aria-label="Top utilities" class="eci-utilities">
+      <div role="group" aria-label="Text size controls" class="eci-text-size">
+        <button type="button" aria-label="Decrease text size" on-click="{{ decreaseText }}" class="eci-util-btn eci-util-btn-text eci-util-btn-sm" class-hover="hv-hd">A<span aria-hidden="true" class="eci-util-sign-sm">−</span></button>
+        <button type="button" aria-label="Reset text size" on-click="{{ resetText }}" class="eci-util-btn eci-util-btn-text eci-util-btn-md" class-hover="hv-hd">A</button>
+        <button type="button" aria-label="Increase text size" on-click="{{ increaseText }}" class="eci-util-btn eci-util-btn-text eci-util-btn-lg" class-hover="hv-hd">A<span aria-hidden="true" class="eci-util-sign-lg">+</span></button>
+      </div>
+      <span aria-hidden="true" class="eci-util-divider"></span>
+      <button type="button" aria-label="Wide letter spacing" aria-pressed="{{ trackingWide }}" on-click="{{ toggleTracking }}" class="eci-util-btn" class-hover="hv-hd">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="4" r="1.6"></circle><path d="M4 8.5h16"></path><path d="M12 8.5V15"></path><path d="M9 21l3-6 3 6"></path></svg>
+      </button>
+      <span aria-hidden="true" class="eci-util-divider"></span>
+      <div class="eci-menu-anchor">
+        <button type="button" aria-haspopup="listbox" aria-expanded="{{ langOpen }}" on-click="{{ toggleLangMenu }}" class="eci-lang-btn" class-hover="hv-hd">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3a15 15 0 010 18a15 15 0 010-18z"></path></svg>
+          {{ langLabel }}
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <x-if value="{{ langOpen }}">
+        <ul role="listbox" aria-label="Language" class="eci-lang-menu">
+          <li><button type="button" role="option" aria-selected="{{ isEnglish }}" on-click="{{ setEnglish }}" style="{{ enOptStyle }}" class-hover="hv-hd">English</button></li>
+          <li><button type="button" role="option" aria-selected="{{ isHindi }}" on-click="{{ setHindi }}" style="{{ hiOptStyle }}" class-hover="hv-hd" lang="hi">हिन्दी</button></li>
+        </ul>
+        </x-if>
+      </div>
+    </nav>
+  </div>
+  <div class="eci-header-nav-band">
+    <div class="eci-header-row eci-header-row-nav">
+      <nav aria-label="Main navigation" class="eci-nav">
+        <a href="{{ homeHref }}" class="eci-nav-link" class-hover="hv-hd">Home</a>
+        <div data-guides class="eci-menu-anchor" on-mouseenter="{{ openGuides }}" on-mouseleave="{{ closeGuides }}">
+          <a href="#guides" aria-haspopup="true" aria-expanded="{{ guidesOpen }}" on-focus="{{ openGuides }}" on-blur="{{ closeGuidesOnBlur }}" class="eci-nav-link eci-nav-link-icon" class-hover="hv-hd">
+            Guides
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </a>
+          <x-if value="{{ guidesOpen }}">
+          <ul aria-label="Form guides" class="eci-guides-menu">
+            <li><a href="#guide-form6" on-blur="{{ closeGuidesOnBlur }}" class="eci-guides-item" class-hover="hv-hd">
+              <span class="eci-guides-title">Form&nbsp;6 — New voter registration</span>
+              <span class="eci-guides-desc">Adding your name to the electoral roll</span>
+            </a></li>
+            <li><a href="#guide-form6a" on-blur="{{ closeGuidesOnBlur }}" class="eci-guides-item" class-hover="hv-hd">
+              <span class="eci-guides-title">Form&nbsp;6A — Overseas electors</span>
+              <span class="eci-guides-desc">Registering as an NRI voter</span>
+            </a></li>
+            <li><a href="#guide-form7" on-blur="{{ closeGuidesOnBlur }}" class="eci-guides-item" class-hover="hv-hd">
+              <span class="eci-guides-title">Form&nbsp;7 — Objection or deletion</span>
+              <span class="eci-guides-desc">Removing a name from the roll</span>
+            </a></li>
+            <li><a href="#guide-form8" on-blur="{{ closeGuidesOnBlur }}" class="eci-guides-item" class-hover="hv-hd">
+              <span class="eci-guides-title">Form&nbsp;8 — Corrections and transfer</span>
+              <span class="eci-guides-desc">Name, address, photo, or shifting</span>
+            </a></li>
+            <li><a href="#guides" on-blur="{{ closeGuidesOnBlur }}" class="eci-guides-all" class-hover="hv-hd">See all guides →</a></li>
+          </ul>
+          </x-if>
+        </div>
+        <a href="#faqs" class="eci-nav-link" class-hover="hv-hd">FAQs</a>
+        <!-- Help menu: the helpline and a BLO call. It opens on click, and closes on Escape or when focus leaves it. -->
+        <div data-help class="eci-menu-anchor" on-keydown="{{ helpKeydown }}">
+          <button type="button" aria-haspopup="true" aria-expanded="{{ helpOpen }}" aria-controls="help-menu" on-click="{{ toggleHelp }}" on-blur="{{ closeHelpOnBlur }}" class="eci-nav-link eci-nav-link-icon eci-nav-btn" class-hover="hv-hd">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 16.5a1.15 1.15 0 110-2.3 1.15 1.15 0 010 2.3zm1.4-5.9c-.6.4-.75.63-.75 1.05v.35h-1.5v-.5c0-1.02.43-1.6 1.3-2.2.7-.48.95-.76.95-1.28 0-.6-.47-1.02-1.2-1.02-.7 0-1.2.38-1.42 1.05l-1.4-.5C9.7 8.3 10.7 7.6 12.2 7.6c1.6 0 2.75.9 2.75 2.3 0 1-.5 1.66-1.55 2.3z"></path></svg>
+            Help
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <x-if value="{{ helpOpen }}">
+          <ul id="help-menu" aria-label="Help" class="eci-guides-menu eci-help-menu">
+            <li><a href="tel:1950" on-blur="{{ closeHelpOnBlur }}" class="eci-guides-item" class-hover="hv-hd">
+              <span class="eci-guides-title">Call&nbsp;1950</span>
+              <span class="eci-guides-desc">Toll-free helpline, Monday&nbsp;to&nbsp;Saturday</span>
+            </a></li>
+            <li><a href="{{ helpBloHref }}" on-blur="{{ closeHelpOnBlur }}" class="eci-guides-item" class-hover="hv-hd">
+              <span class="eci-guides-title">Book a call with BLO</span>
+              <span class="eci-guides-desc">Your Booth Level Officer calls or visits you</span>
+            </a></li>
+          </ul>
+          </x-if>
+        </div>
+      </nav>
+      <div class="eci-account">
+        <x-if value="{{ isLoggedOut }}">
+        <a href="{{ loginHref }}" on-click="{{ onLoginClick }}" class="eci-account-link" class-hover="hv-hd">Log in</a>
+        <a href="signup.html" class="eci-account-link" class-hover="hv-hd">Sign up</a>
+        </x-if>
+        <x-if value="{{ isLoggedIn }}">
+        <div data-account class="eci-menu-anchor">
+          <button type="button" aria-haspopup="menu" aria-expanded="{{ accountOpen }}" aria-controls="account-menu" on-click="{{ toggleAccount }}" on-blur="{{ closeAccountOnBlur }}" class="eci-account-btn" class-hover="hv-hd">
+            <span aria-hidden="true" class="eci-avatar">{{ userInitials }}</span>
+            <span class="eci-account-name">{{ userName }}</span>
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#404040" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <x-if value="{{ accountOpen }}">
+          <ul id="account-menu" role="menu" aria-label="Account" class="eci-account-menu">
+            <li role="none"><a role="menuitem" href="service.html?s=profile&loggedIn=1" on-blur="{{ closeAccountOnBlur }}" class="account-item" class-hover="hv-hd">Profile</a></li>
+            <li role="none"><a role="menuitem" href="track.html?loggedIn=1" on-blur="{{ closeAccountOnBlur }}" class="account-item" class-hover="hv-hd">My applications</a></li>
+            <li role="none"><button type="button" role="menuitem" on-click="{{ logOut }}" on-blur="{{ closeAccountOnBlur }}" class="account-item" class-hover="hv-hd">Log out</button></li>
+          </ul>
+          </x-if>
+        </div>
+        </x-if>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main-content" class="prep-main">
+
+  <nav aria-label="Breadcrumb" class="ux4g-breadcrumb ux4g-breadcrumb-divider ux4g-mb-l">
+    <ol class="ux4g-breadcrumb-list ux4g-d-flex ux4g-ai-center ux4g-flex-wrap ux4g-m-none ux4g-p-none">
+      <li class="ux4g-breadcrumb-item ux4g-d-flex ux4g-ai-center"><a class="ux4g-breadcrumb-link ux4g-d-flex ux4g-ai-center ux4g-gap-x-xs" href="{{ homeHref }}"><span class="ux4g-icon-outlined ux4g-fs-18" aria-hidden="true">home</span>Home</a></li>
+      <!-- Correction of entries has no page of its own yet, so it goes to the homepage service cards. -->
+      <li class="ux4g-breadcrumb-item ux4g-d-flex ux4g-ai-center"><a class="ux4g-breadcrumb-link" href="{{ servicesHref }}">Correction of entries</a></li>
+      <li class="ux4g-breadcrumb-item active" aria-current="page">Form&nbsp;8 guides</li>
+    </ol>
+  </nav>
+
+  <div class="ux4g-d-flex ux4g-flex-wrap ux4g-ai-center ux4g-gap-x-s ux4g-gap-y-s ux4g-mb-s">
+    <h1 class="ux4g-heading-xl-default ux4g-text-neutral-primary ux4g-m-none">Form&nbsp;8</h1>
+    <span class="ux4g-tag-tonal-primary">Official form</span>
+  </div>
+  <p class="ux4g-body-l-strong ux4g-text-neutral-secondary ux4g-mt-none ux4g-mb-s">Correction of entries</p>
+  <p class="ux4g-body-m-default ux4g-text-neutral-secondary ux4g-mt-none ux4g-mb-xl prep-measure">For voters already on the electoral roll.</p>
+
+  <!-- Information only: nothing is chosen here. The form asks for the purpose as its first question. -->
+  <section class="ux4g-card ux4g-card-outline f8-card" aria-labelledby="docs-heading">
+    <div class="ux4g-card-body">
+      <h2 id="docs-heading" class="ux4g-heading-s-default ux4g-text-neutral-primary ux4g-mt-none ux4g-mb-xs">Documents required</h2>
+      <p class="ux4g-body-m-default ux4g-text-neutral-secondary ux4g-mt-none ux4g-mb-m">Open the one that applies to you. You will choose it at the start of the form.</p>
+
+      <!-- UX4G Accordion, as in Common queries, all closed. UX4G's accordion has no icon slot,
+           so the page's icon tile sits in the header content before the title. -->
+      <div class="ux4g-accordion f8-purposes" id="acc-purposes">
+
+        <div class="ux4g-accordion__item">
+          <h3 class="ux4g-accordion__header">
+            <button aria-controls="purpose-correct" aria-expanded="false" class="ux4g-accordion__button collapsed" type="button" ux4g-target="#purpose-correct" ux4g-toggle="collapse">
+              <span class="ux4g-accordion__button-content"><span class="f8-icon-tile" aria-hidden="true"><span class="ux4g-icon-outlined">edit</span></span><span class="ux4g-accordion__title">Correct wrong details</span></span>
+            </button>
+          </h3>
+          <div class="ux4g-accordion__collapse collapse" id="purpose-correct">
+            <div class="ux4g-accordion__body">
+              <div class="ux4g-d-flex ux4g-flex-wrap ux4g-ai-center ux4g-jc-between ux4g-gap-s ux4g-mb-m">
+                <h4 class="ux4g-body-m-strong ux4g-text-neutral-primary ux4g-m-none">Details you can correct</h4>
+                <span class="ux4g-tag-tonal-primary">Up to 4 per application</span>
+              </div>
+              <ul class="ux4g-m-none doc-accepted f8-cols" aria-label="Details you can correct">
+                <li><span class="ux4g-body-m-strong ux4g-text-neutral-primary">Name</span></li>
+                <li><span class="ux4g-body-m-strong ux4g-text-neutral-primary">Gender</span></li>
+                <li><span class="ux4g-body-m-strong ux4g-text-neutral-primary">Date of birth or age</span></li>
+                <li><span class="ux4g-body-m-strong ux4g-text-neutral-primary">Relation type</span><span class="ux4g-body-s-default ux4g-text-neutral-secondary ux4g-d-block">Father, mother, husband, wife or guardian</span></li>
+                <li><span class="ux4g-body-m-strong ux4g-text-neutral-primary">Relative’s name</span></li>
+                <li><span class="ux4g-body-m-strong ux4g-text-neutral-primary">Address</span><span class="ux4g-body-s-default ux4g-text-neutral-secondary ux4g-d-block">Mistakes only</span></li>
+                <li><span class="ux4g-body-m-strong ux4g-text-neutral-primary">Mobile number</span></li>
+                <li><span class="ux4g-body-m-strong ux4g-text-neutral-primary">Photograph</span></li>
+              </ul>
+              <div class="ux4g-alert ux4g-alert-info ux4g-mt-m prep-alert">
+                <span class="ux4g-alert-icon ux4g-icon-outlined" aria-hidden="true">info</span>
+                <div class="ux4g-alert-content">
+                  <span class="ux4g-alert-message">Correct your address only to fix a mistake, such as a wrong house number or spelling. If you have moved, choose Move to a new address instead.</span>
+                </div>
+              </div>
+              <div class="ux4g-divider-horizontal ux4g-mt-m" aria-hidden="true"></div>
+              <ul class="doc-list" aria-label="Documents to keep ready">
+                <li class="doc-item">
+                  <span class="ux4g-icon-outlined ux4g-text-primary doc-icon" aria-hidden="true">check</span>
+                  <div class="ux4g-min-w-0 ux4g-flex-1">
+                    <p class="ux4g-body-l-strong ux4g-text-neutral-primary ux4g-m-none">One self-attested document for each detail</p>
+                    <div class="ux4g-accordion ux4g-accordion-arrow-left doc-accordion" id="acc-correct">
+                      <div class="ux4g-accordion__item">
+                        <div class="ux4g-accordion__header">
+                          <button aria-controls="acc-correct-body" aria-expanded="false" class="ux4g-accordion__button collapsed" type="button" ux4g-target="#acc-correct-body" ux4g-toggle="collapse">
+                            <span class="ux4g-accordion__button-content"><span class="ux4g-accordion__title">See accepted documents</span></span>
+                          </button>
+                        </div>
+                        <div class="ux4g-accordion__collapse collapse" id="acc-correct-body" ux4g-parent="#acc-correct">
+                          <div class="ux4g-accordion__body">
+                            <ul class="ux4g-body-s-default ux4g-text-neutral-secondary ux4g-m-none doc-accepted f8-cols">
+                              <li>Birth certificate from a municipal authority or registrar</li>
+                              <li>Class X or XII certificate showing date of birth</li>
+                              <li>PAN card</li>
+                              <li>Driving licence</li>
+                              <li>Water, electricity or gas bill for the address, at least one year</li>
+                              <li>Registered sale deed or rent agreement</li>
+                              <li>Land records, including Kisan Bahi</li>
+                              <li>Current bank or post office passbook</li>
+                              <li>Indian passport</li>
+                              <li>Aadhaar card</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="doc-item">
+                  <span class="ux4g-icon-outlined ux4g-text-primary doc-icon" aria-hidden="true">check</span>
+                  <div class="ux4g-min-w-0 ux4g-flex-1">
+                    <p class="ux4g-body-l-strong ux4g-text-neutral-primary ux4g-m-none">A new photograph, if correcting it</p>
+                    <p class="ux4g-body-m-default ux4g-text-neutral-secondary ux4g-mt-2xs ux4g-mb-none">Colour, unsigned, 4.5 cm by 3.5 cm, white background.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="ux4g-accordion__item">
+          <h3 class="ux4g-accordion__header">
+            <button aria-controls="purpose-move" aria-expanded="false" class="ux4g-accordion__button collapsed" type="button" ux4g-target="#purpose-move" ux4g-toggle="collapse">
+              <span class="ux4g-accordion__button-content"><span class="f8-icon-tile" aria-hidden="true"><span class="ux4g-icon-outlined">home</span></span><span class="ux4g-accordion__title">Move to a new address</span></span>
+            </button>
+          </h3>
+          <div class="ux4g-accordion__collapse collapse" id="purpose-move">
+            <div class="ux4g-accordion__body">
+              <div class="ux4g-alert ux4g-alert-info prep-alert">
+                <span class="ux4g-alert-icon ux4g-icon-outlined" aria-hidden="true">info</span>
+                <div class="ux4g-alert-content">
+                  <span class="ux4g-alert-message">Apply to the constituency of your new address. Your entry at the old address is removed.</span>
+                </div>
+              </div>
+              <ul class="doc-list ux4g-mt-xs" aria-label="Documents to keep ready">
+                <li class="doc-item">
+                  <span class="ux4g-icon-outlined ux4g-text-primary doc-icon" aria-hidden="true">check</span>
+                  <div class="ux4g-min-w-0 ux4g-flex-1">
+                    <p class="ux4g-body-l-strong ux4g-text-neutral-primary ux4g-m-none">Your new address, with PIN code</p>
+                  </div>
+                </li>
+                <li class="doc-item">
+                  <span class="ux4g-icon-outlined ux4g-text-primary doc-icon" aria-hidden="true">check</span>
+                  <div class="ux4g-min-w-0 ux4g-flex-1">
+                    <p class="ux4g-body-l-strong ux4g-text-neutral-primary ux4g-m-none">One proof of the new address</p>
+                    <p class="ux4g-body-m-default ux4g-text-neutral-secondary ux4g-mt-2xs ux4g-mb-none">In your name, or a parent, spouse or adult child already registered there.</p>
+                    <div class="ux4g-accordion ux4g-accordion-arrow-left doc-accordion" id="acc-move">
+                      <div class="ux4g-accordion__item">
+                        <div class="ux4g-accordion__header">
+                          <button aria-controls="acc-move-body" aria-expanded="false" class="ux4g-accordion__button collapsed" type="button" ux4g-target="#acc-move-body" ux4g-toggle="collapse">
+                            <span class="ux4g-accordion__button-content"><span class="ux4g-accordion__title">See accepted documents</span></span>
+                          </button>
+                        </div>
+                        <div class="ux4g-accordion__collapse collapse" id="acc-move-body" ux4g-parent="#acc-move">
+                          <div class="ux4g-accordion__body">
+                            <ul class="ux4g-body-s-default ux4g-text-neutral-secondary ux4g-m-none doc-accepted f8-cols">
+                              <li>Water, electricity or gas bill for the address, at least one year</li>
+                              <li>Registered sale deed or rent agreement</li>
+                              <li>Land records, including Kisan Bahi</li>
+                              <li>Current bank or post office passbook</li>
+                              <li>Indian passport</li>
+                              <li>Aadhaar card</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="ux4g-accordion__item">
+          <h3 class="ux4g-accordion__header">
+            <button aria-controls="purpose-replace" aria-expanded="false" class="ux4g-accordion__button collapsed" type="button" ux4g-target="#purpose-replace" ux4g-toggle="collapse">
+              <span class="ux4g-accordion__button-content"><span class="f8-icon-tile" aria-hidden="true"><span class="ux4g-icon-outlined">badge</span></span><span class="ux4g-accordion__title">Replace your voter ID card</span></span>
+            </button>
+          </h3>
+          <div class="ux4g-accordion__collapse collapse" id="purpose-replace">
+            <div class="ux4g-accordion__body">
+              <dl class="doc-list ux4g-m-none" aria-label="Document needed for each reason">
+                <div class="doc-item f8-reason">
+                  <dt class="ux4g-body-l-strong ux4g-text-neutral-primary">Lost</dt>
+                  <dd class="ux4g-body-m-default ux4g-text-neutral-secondary ux4g-m-none">Copy of an FIR or police report</dd>
+                </div>
+                <div class="doc-item f8-reason">
+                  <dt class="ux4g-body-l-strong ux4g-text-neutral-primary">Damaged</dt>
+                  <dd class="ux4g-body-m-default ux4g-text-neutral-secondary ux4g-m-none">None</dd>
+                </div>
+                <div class="doc-item f8-reason">
+                  <dt class="ux4g-body-l-strong ux4g-text-neutral-primary">Destroyed in a flood, fire or other disaster</dt>
+                  <dd class="ux4g-body-m-default ux4g-text-neutral-secondary ux4g-m-none">None</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>
+
+        <div class="ux4g-accordion__item">
+          <h3 class="ux4g-accordion__header">
+            <button aria-controls="purpose-pwd" aria-expanded="false" class="ux4g-accordion__button collapsed" type="button" ux4g-target="#purpose-pwd" ux4g-toggle="collapse">
+              <span class="ux4g-accordion__button-content"><span class="f8-icon-tile" aria-hidden="true"><span class="ux4g-icon-outlined">accessible</span></span><span class="ux4g-accordion__title">Mark as a person with disability</span></span>
+            </button>
+          </h3>
+          <div class="ux4g-accordion__collapse collapse" id="purpose-pwd">
+            <div class="ux4g-accordion__body">
+              <ul class="doc-list" aria-label="Documents to keep ready">
+                <li class="doc-item">
+                  <span class="ux4g-icon-outlined ux4g-text-primary doc-icon" aria-hidden="true">check</span>
+                  <div class="ux4g-min-w-0 ux4g-flex-1 ux4g-d-flex ux4g-flex-wrap ux4g-ai-center ux4g-gap-x-s ux4g-gap-y-2xs">
+                    <p class="ux4g-body-l-strong ux4g-text-neutral-primary ux4g-m-none">Disability certificate</p>
+                    <span class="ux4g-tag-tonal-neutral">Optional</span>
+                  </div>
+                </li>
+              </ul>
+              <div class="ux4g-alert ux4g-alert-info ux4g-mt-xs prep-alert">
+                <span class="ux4g-alert-icon ux4g-icon-outlined" aria-hidden="true">accessible</span>
+                <div class="ux4g-alert-content">
+                  <span class="ux4g-alert-message">For intellectual disability, autism, cerebral palsy or multiple disabilities, a signature or left thumb impression from you or your legal guardian is needed.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- How to apply: UX4G grid. Apply online keeps its 8 of 12 columns from the lg breakpoint (992px)
+       and is full width below it. The offline route is the quiet line under Start. -->
+  <div class="ux4g-grid ux4g-grid-cols-1 ux4g-lg-grid-cols-12 f8-pair f8-apply" role="group" aria-label="How to apply">
+
+    <section class="ux4g-card ux4g-card-outline ux4g-lg-cols-span-8 ux4g-min-w-0 f8-card f8-card-primary" aria-labelledby="online-heading">
+      <div class="ux4g-card-body">
+        <h2 id="online-heading" class="ux4g-heading-s-default ux4g-text-neutral-primary ux4g-mt-none ux4g-mb-m">Apply online</h2>
+        <!-- The e-Sign acknowledgement: a UX4G Checkbox (lg) whose label is the statement itself, on a
+             soft purple panel (UX4G background utility). UX4G's Alert has no purple variant. -->
+        <div class="ux4g-bg-primary-soft ux4g-radius-m ux4g-p-m esign-ack">
+          <label class="ux4g-checkbox ux4g-checkbox-lg">
+            <input class="ux4g-checkbox-input" type="checkbox" id="esign-ack" checked="{{ acknowledged }}" on-change="{{ toggleAck }}" aria-describedby="esign-ack-desc">
+            <div class="ux4g-checkbox-control">
+              <span class="ux4g-checkmark"></span>
+            </div>
+            <div class="ux4g-checkbox-content">
+              <div class="ux4g-checkbox-header">
+                <span class="ux4g-checkbox-label">I understand I need Aadhaar e-Sign to submit online</span>
+              </div>
+              <div class="ux4g-checkbox-description" id="esign-ack-desc">Your Aadhaar must be linked to your mobile number, and the name on it must match your voter ID.</div>
+            </div>
+          </label>
+        </div>
+        <p class="ux4g-body-s-default ux4g-text-neutral-secondary ux4g-mt-m ux4g-mb-m f8-time"><span class="ux4g-icon-outlined" aria-hidden="true">schedule</span>About 10 minutes. Answers are saved as you go.</p>
+        <!-- Form 6's primary button. Disabled until "I understand" is ticked, and again if it is
+             unticked. Signed out, it goes to log in first and then on to the form. -->
+        <button type="button" class="ux4g-btn ux4g-btn-primary ux4g-btn-lg ux4g-w-100" disabled="{{ startDisabled }}" on-click="{{ onStart }}">Start application</button>
+        <!-- Offline route: the quietest line on the page. Plain text links only. The PDF link is a placeholder. -->
+        <div class="ux4g-divider-horizontal ux4g-mt-l ux4g-mb-m" aria-hidden="true"></div>
+        <p class="ux4g-body-s-default ux4g-text-neutral-tertiary ux4g-m-none offline-line">No Aadhaar, or no mobile number linked to it? Submit this form in person. <a href="#" target="_blank" rel="noopener" class="ux4g-text-link-neutral">Download Form&nbsp;8 (PDF)<span class="ux4g-sr-only"> (opens in a new tab)</span></a><span aria-hidden="true">&nbsp;· </span><button type="button" class="ux4g-text-link-neutral ux4g-body-s-default link-btn" data-centre-sheet>Find your nearest centre</button></p>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="ux4g-divider-horizontal ux4g-mt-3xl ux4g-mb-xl" aria-hidden="true"></div>
+
+  <!-- Common questions: a white UX4G card with a UX4G Accordion, matching the homepage's box. -->
+  <section aria-labelledby="faq-heading" class="ux4g-card ux4g-card-outline ux4g-bg-neutral-elevated faq-card">
+   <div class="ux4g-card-body">
+    <h2 id="faq-heading" class="ux4g-heading-s-default ux4g-text-neutral-primary ux4g-mt-none ux4g-mb-xs">Common questions</h2>
+    <div class="ux4g-accordion faq-accordion eci-reading" id="acc-faq">
+      <div class="ux4g-accordion__item">
+        <h3 class="ux4g-accordion__header">
+          <button aria-controls="faq-many" aria-expanded="false" class="ux4g-accordion__button collapsed" type="button" ux4g-target="#faq-many" ux4g-toggle="collapse">
+            <span class="ux4g-accordion__button-content"><span class="ux4g-accordion__title">Can I correct more than one detail?</span></span>
+          </button>
+        </h3>
+        <div class="ux4g-accordion__collapse collapse" id="faq-many">
+          <div class="ux4g-accordion__body">
+            <p>Yes, up to four in one application.</p>
+          </div>
+        </div>
+      </div>
+      <div class="ux4g-accordion__item">
+        <h3 class="ux4g-accordion__header">
+          <button aria-controls="faq-moved" aria-expanded="false" class="ux4g-accordion__button collapsed" type="button" ux4g-target="#faq-moved" ux4g-toggle="collapse">
+            <span class="ux4g-accordion__button-content"><span class="ux4g-accordion__title">I moved within the same area. Which option do I choose?</span></span>
+          </button>
+        </h3>
+        <div class="ux4g-accordion__collapse collapse" id="faq-moved">
+          <div class="ux4g-accordion__body">
+            <p>Move to a new address. Correcting your address is only for mistakes.</p>
+          </div>
+        </div>
+      </div>
+      <div class="ux4g-accordion__item">
+        <h3 class="ux4g-accordion__header">
+          <button aria-controls="faq-card" aria-expanded="false" class="ux4g-accordion__button collapsed" type="button" ux4g-target="#faq-card" ux4g-toggle="collapse">
+            <span class="ux4g-accordion__button-content"><span class="ux4g-accordion__title">Will I get a new voter ID card?</span></span>
+          </button>
+        </h3>
+        <div class="ux4g-accordion__collapse collapse" id="faq-card">
+          <div class="ux4g-accordion__body">
+            <p>Yes, once your application is approved.</p>
+          </div>
+        </div>
+      </div>
+      <div class="ux4g-accordion__item">
+        <h3 class="ux4g-accordion__header">
+          <button aria-controls="faq-status" aria-expanded="false" class="ux4g-accordion__button collapsed" type="button" ux4g-target="#faq-status" ux4g-toggle="collapse">
+            <span class="ux4g-accordion__button-content"><span class="ux4g-accordion__title">How do I check my application status?</span></span>
+          </button>
+        </h3>
+        <div class="ux4g-accordion__collapse collapse" id="faq-status">
+          <div class="ux4g-accordion__body">
+            <p>Use your reference number on the <a href="{{ trackHref }}" class="ux4g-text-link">track application page</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Placeholder: there is no full FAQ page yet (the homepage link is a placeholder too). -->
+    <a href="#all-faqs" class="ux4g-text-link-sm faq-all">View all FAQs →</a>
+   </div>
+  </section>
+
+  <div class="ux4g-divider-horizontal ux4g-mt-3xl ux4g-mb-xl" aria-hidden="true"></div>
+
+  <!-- Placeholder: the video is not recorded yet, and the duration is a placeholder. -->
+  <a href="#" class="ux4g-card ux4g-card-outline ux4g-card-horizontal video-card">
+    <span class="ux4g-card-header video-thumb" aria-hidden="true">
+      <span class="ux4g-card-header-img ux4g-radius-l">
+        <img alt="" class="ux4g-card-header-image ux4g-radius-l" src="assets/img/form8-hand.png">
+        <span class="ux4g-card-header-tag">
+          <span class="ux4g-card-token ux4g-radius-full"><i class="ux4g-icon-outlined ux4g-fs-20">play_arrow</i></span>
+        </span>
+      </span>
+    </span>
+    <span class="ux4g-card-body ux4g-d-flex ux4g-flex-column ux4g-gap-y-xs">
+      <span class="ux4g-card-title">Video guide: how to fill Form&nbsp;8</span>
+      <span class="ux4g-body-s-default ux4g-text-neutral-secondary">2 minute video</span>
+    </span>
+  </a>
+
+  <section class="ux4g-card ux4g-card-outline ux4g-mt-3xl f8-card" aria-labelledby="help-heading">
+    <div class="ux4g-card-body">
+      <h2 id="help-heading" class="ux4g-heading-s-default ux4g-text-neutral-primary ux4g-mt-none ux4g-mb-xs">Stuck on something?</h2>
+      <div class="ux4g-grid ux4g-grid-cols-1 ux4g-md-grid-cols-2 ux4g-gap-x-l">
+        <a href="tel:1950" class="f8-row f8-help-row">
+          <span class="f8-icon-tile" aria-hidden="true"><span class="ux4g-icon-outlined">call</span></span>
+          <span class="ux4g-min-w-0">
+            <span class="ux4g-body-m-strong ux4g-text-primary ux4g-d-block">Call&nbsp;1950</span>
+            <span class="ux4g-body-s-default ux4g-text-neutral-secondary ux4g-d-block">Voter helpline</span>
+          </span>
+        </a>
+        <!-- Placeholder: BLO search not built yet. -->
+        <a href="#" class="f8-row f8-help-row">
+          <span class="f8-icon-tile" aria-hidden="true"><span class="ux4g-icon-outlined">location_on</span></span>
+          <span class="ux4g-min-w-0">
+            <span class="ux4g-body-m-strong ux4g-text-primary ux4g-d-block">Find your Booth Level Officer</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+
+<footer role="contentinfo" class="eci-footer">
+  <div class="eci-footer-row">
+    <span>© 2026 Election Commission of India</span>
+    <span>Last updated 24 September 2026</span>
+    <nav aria-label="Footer" class="eci-footer-nav">
+      <a href="#contact-directory" class="eci-footer-link">Contact directory</a>
+      <a href="#privacy" class="eci-footer-link">Privacy policy</a>
+    </nav>
+  </div>
+</footer>
+</div></div>
+<script src="https://cdn.ux4g.gov.in/UX4G@3.2.0/ux4g.js"></script>
+<script src="https://cdn.ux4g.gov.in/UX4G@3.2.0/ux4g-custom.js"></script>
+<script src="assets/js/dc-lite.js"></script>
+<script src="assets/js/form8-prep.js"></script>
+<script src="assets/js/centres.js"></script>
+<script src="assets/js/centre-sheet.js"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+/* Shared page shell: the two-row header and the footer, identical on every page.
+   These rules were inline styles until 2026-09-27 and are copied here unchanged, so the
+   look is the same. The UX4G component CSS will replace them in the design system pass. */
+
+/* ---- Header ---- */
+.eci-header { background: #FFFFFF; border-bottom: 1px solid #E5E5E5; }
+.eci-header-row { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+.eci-header-row-top { padding: 12px 32px; }
+.eci-header-row-nav { padding: 4px 32px; }
+.eci-header-nav-band { border-top: 1px solid #E5E5E5; }
+
+/* Brand: emblem and the three name lines */
+.eci-brand { display: flex; align-items: center; gap: 12px; min-width: 0; text-decoration: none; color: inherit; }
+.eci-brand-emblem { width: 52px; height: 52px; flex: 0 0 auto; object-fit: contain; }
+.eci-brand-text { min-width: 0; }
+.eci-brand-hindi { font-size: 12px; line-height: 16px; color: #404040; }
+.eci-brand-name { font-size: 16px; line-height: 20px; font-weight: 600; color: #4A2BC2; }
+.eci-brand-sub { font-size: 11px; line-height: 14px; color: #737373; }
+
+/* Utilities: text size, letter spacing, language */
+.eci-utilities { display: flex; align-items: center; margin-left: auto; }
+.eci-text-size { display: flex; align-items: center; gap: 2px; }
+.eci-util-btn { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; padding: 0; background: transparent; border: none; border-radius: 6px; color: #404040; cursor: pointer; }
+.eci-util-btn-text { font-family: inherit; line-height: 1; font-weight: 600; }
+.eci-util-btn-sm { font-size: 13px; }
+.eci-util-btn-md { font-size: 15px; }
+.eci-util-btn-lg { font-size: 17px; }
+.eci-util-sign-sm { font-size: 10px; }
+.eci-util-sign-lg { font-size: 11px; }
+.eci-util-divider { width: 1px; height: 18px; background: #D9D9D9; margin: 0 10px; }
+.eci-menu-anchor { position: relative; }
+.eci-lang-btn { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 8px; background: transparent; border: none; border-radius: 6px; font-family: inherit; font-size: 13px; line-height: 16px; font-weight: 500; color: #404040; cursor: pointer; }
+.eci-lang-menu { list-style: none; position: absolute; top: 100%; right: 0; z-index: 50; margin: 4px 0 0; padding: 4px; width: 140px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+
+/* Main navigation: Guides menu, FAQs, Help */
+.eci-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-left: -10px; }
+.eci-nav-link { display: inline-flex; align-items: center; min-height: 40px; padding: 0 10px; border-radius: 8px; font-size: 14px; line-height: 18px; font-weight: 500; color: #171717; text-decoration: none; }
+.eci-nav-link-icon { gap: 6px; }
+.eci-guides-menu { list-style: none; position: absolute; top: 100%; left: 0; z-index: 40; margin: 0; padding: 8px; width: 320px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.04); display: flex; flex-direction: column; }
+.eci-guides-item { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 8px; min-height: 44px; text-decoration: none; color: inherit; }
+.eci-guides-title { font-size: 14px; line-height: 18px; font-weight: 600; color: #171717; }
+.eci-guides-desc { font-size: 12px; line-height: 16px; color: #404040; }
+/* Help menu: its trigger is a <button> styled as a nav link, and the menu reuses the Guides menu styles. */
+.eci-nav-btn { border: none; background: transparent; font-family: inherit; cursor: pointer; }
+.eci-help-menu { width: 280px; }
+.eci-guides-all { display: flex; align-items: center; min-height: 44px; padding: 10px 12px; border-radius: 8px; font-size: 14px; line-height: 18px; font-weight: 500; color: #4A2BC2; text-decoration: none; }
+
+/* Account: Log in and Sign up when signed out, the avatar menu when signed in */
+.eci-account { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.eci-account-link { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 0 16px; border-radius: 999px; font-size: 13px; font-weight: 500; background: #FFFFFF; color: #171717; border: 1px solid #737373; white-space: nowrap; text-decoration: none; }
+.eci-account-btn { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 10px 0 4px; border: none; border-radius: 999px; background: transparent; font-family: inherit; cursor: pointer; }
+.eci-avatar { width: 32px; height: 32px; flex: 0 0 auto; border-radius: 999px; background: #F3F0FF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #4A2BC2; }
+.eci-account-name { font-size: 13px; line-height: 18px; font-weight: 500; color: #171717; white-space: nowrap; }
+.eci-account-menu { list-style: none; position: absolute; top: 100%; right: 0; z-index: 50; margin: 4px 0 0; padding: 4px; width: 200px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+
+/* Several page stylesheets set a:hover { color: #3A1F9E }. Inline styles used to outrank it;
+   these keep header and footer link colours unchanged on hover, as before. */
+.eci-brand:hover, .eci-guides-item:hover { color: inherit; }
+.eci-nav-link:hover, .eci-account-link:hover { color: #171717; }
+.eci-guides-all:hover, .eci-footer-link:hover { color: #4A2BC2; }
+
+/* ---- Footer ---- */
+.eci-footer { background: #FFFFFF; border-top: 1px solid #E5E5E5; }
+.eci-footer-row { max-width: 1200px; margin: 0 auto; padding: 20px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; font-size: 13px; line-height: 20px; color: #525252; }
+.eci-footer-nav { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-left: auto; }
+.eci-footer-link { display: inline-flex; align-items: center; min-height: 32px; color: #4A2BC2; font-weight: 500; }
+
+/* UX4G Input: a helper line held in the markup but not in use (an empty error) stays hidden.
+   The component sets display on every helper, which would otherwise override [hidden]. */
+.ux4g-input-helper[hidden] { display: none !important; }
+
+/* Typography, set once for every page (every page loads this file).
+   Headings and titles balance their lines; running text avoids a lone word on its last line;
+   long-form reading stops at a readable measure. */
+h1, h2, h3, h4, h5, h6,
+.ux4g-card-title, .ux4g-journey-title, .ux4g-drawer-title, .ux4g-modal-title, .ux4g-accordion__title,
+.ux4g-alert-title, .ux4g-result-list-title, .ux4g-checkbox-label,
+.eci-card-title, .eci-guides-title, .step-title, .answer-main { text-wrap: balance; }
+p, li, dd,
+.ux4g-journey-description, .ux4g-checkbox-description, .ux4g-alert-message, .ux4g-input-helper-text,
+.ux4g-drawer-subtitle, .ux4g-stepper-description,
+.eci-card-text, .eci-guides-desc, .step-text, .section-rail-link { text-wrap: pretty; }
+/* Long-form reading (guide pages and FAQ answers) stops at about 70 characters. Everywhere
+   else a paragraph takes the width of its container, so it lines up with what is around it. */
+.eci-reading p, .eci-reading li { max-width: 70ch; }

@@ -1,11 +1,33 @@
 class Page extends DCLogic {
-  state = { urlLoggedIn: false, acknowledged: false };
+  state = { urlLoggedIn: false, serviceId: '' };
+
+  // Services the homepage links to that this prototype has not built. Each lands on this
+  // page, which names the service and shows UX4G's "Coming soon" empty state.
+  services = {
+    'polling': 'Find your polling station',
+    'epic': 'Download e-EPIC (digital voter ID)',
+    'book-blo': 'Book a call with your booth level officer (BLO)',
+    'profile': 'Manage your profile (self and family)',
+    'appeal': 'Submit an appeal',
+    'appeal-adjudication': 'Submit an appeal for individuals under adjudication',
+    'deletion': 'Request a deletion from voter list',
+    'nri': 'NRI voter registration',
+    'results': 'Election results and updates',
+    'download-forms': 'Download forms',
+    'find-centre': 'Find your nearest centre'
+  };
 
   componentDidMount() {
     try {
       const q = new URLSearchParams(location.search);
-      if (q.get('loggedIn') === '1' || q.get('signedIn') === '1') this.setState({ urlLoggedIn: true });
+      const id = q.get('s') || '';
+      this.setState({ urlLoggedIn: q.get('loggedIn') === '1', serviceId: id });
+      document.title = this.serviceName(id) + ' — Citizen Service Portal';
     } catch (e) {}
+  }
+
+  serviceName(id) {
+    return this.services[id] || 'Service';
   }
 
   // Everything the shared <header> binds to. The header markup is identical on every
@@ -83,26 +105,15 @@ class Page extends DCLogic {
 
   renderVals() {
     const loggedIn = (this.props.loggedIn ?? false) || this.state.urlLoggedIn;
-    const dismissed = this.state.tipDismissed;
-    // "Self-attested" is explained in a UX4G tooltip on the term. CSS shows it on hover and
-    // on keyboard focus; Escape hides it without moving focus, until the pointer or focus
-    // leaves the term (WCAG 1.4.13).
-    const dismissOnEscape = (key) => (e) => { if (e.key === 'Escape') this.setState({ tipDismissed: key }); };
     const home = loggedIn ? 'index.html?loggedIn=1' : 'index.html';
     return {
       ...this.headerVals({ loggedIn: loggedIn, homeHref: home }),
-      // Breadcrumb Home goes back to the homepage's service cards, where this form was chosen.
-      servicesHref: home + '#services',
-      tipClass: { dob: dismissed === 'dob' ? 'is-dismissed' : '', addr: dismissed === 'addr' ? 'is-dismissed' : '' },
-      dismissTip: { dob: dismissOnEscape('dob'), addr: dismissOnEscape('addr') },
-      resetTip: () => { if (this.state.tipDismissed) this.setState({ tipDismissed: null }); },
-      // Start stays disabled until "I understand" is ticked, as on Form 8.
-      acknowledged: this.state.acknowledged,
-      toggleAck: (e) => this.setState({ acknowledged: e.target.checked }),
-      startDisabled: !this.state.acknowledged,
-      onStart: () => {
-        const form = 'form6-application.html';
-        location.href = loggedIn ? form + '?loggedIn=1' : 'login.html?next=' + encodeURIComponent(form);
+      serviceName: this.serviceName(this.state.serviceId),
+      // Back to wherever the person came from; straight to the homepage if they opened
+      // this page directly, since there is then nothing to go back to.
+      goBack: () => {
+        if (document.referrer && history.length > 1) history.back();
+        else location.href = home;
       }
     };
   }

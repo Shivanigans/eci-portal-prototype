@@ -1,22 +1,32 @@
-body { margin: 0; font-family: 'Noto Sans', system-ui, sans-serif; background: #FAFAFA; color: #171717; }
+body { margin: 0; font-family: 'Noto Sans', system-ui, sans-serif; background: #F5F5F5; color: #171717; }
   *:focus-visible { outline: 2px solid #4A2BC2; outline-offset: 2px; }
   a { color: #4A2BC2; }
   a:hover { color: #3A1F9E; }
 
-/* hover styles, lifted out of style-hover attributes */
+/* hover styles, as on the other pages */
 .hv-1:hover { background: #F3F0FF; border-color: #4A2BC2; }
 .hv-2:hover { color: #4A2BC2; text-decoration: underline; }
+.hv-3:hover { background: #3A1F9E; }
 /* header: hover fills the background and nothing else, so no item changes size or moves.
    !important because header items set their resting background inline. */
 .hv-hd:hover { background: #F3F0FF !important; }
+
+/* The current page in a breadcrumb is not a link, so it should not look like one. */
+.ux4g-breadcrumb .ux4g-breadcrumb-item.active { color: #525252; }
 
 /* header: tighter side gutters on a phone so the utilities row fits (the rows set padding inline) */
 @media (max-width: 600px) { header[role="banner"] > div > div, header[role="banner"] > div:first-child { padding-left: 16px !important; padding-right: 16px !important; } }
 
 /* Status colours, the same on every page: green means completed successfully, red means
    it failed, purple means this is where you are now. Never use green on a failed state. */
-:root { --eci-success: #1B7A4B; --eci-success-tint: #E8F5EE; }
+:root { --eci-success: #1B7A4B; --eci-success-tint: #E8F5EE; --eci-error: #B3261E; --eci-error-tint: #FCEBEA; }
 
 /* Account menu in the header */
 .account-item { display: block; width: 100%; box-sizing: border-box; padding: 9px 10px; border: none; border-radius: 6px; background: transparent; font-family: inherit; font-size: 13px; line-height: 18px; font-weight: 500; color: #171717; text-align: left; text-decoration: none; cursor: pointer; }
 .account-item:hover { color: #171717; }
+
+/* "Coming soon" empty state, in a white panel so it reads as the page's content. */
+.service-panel { padding: 48px 24px; background: #FFFFFF; border: 1px solid #E5E5E5; border-radius: 12px; }
+.service-panel .ux4g-empty-state-content h2, .service-panel .ux4g-empty-state-content p { margin: 0; }
+/* UX4G fixes the text block at 330px wide, which overflows a phone; let it shrink there. */
+@media (max-width: 480px) { .service-panel { padding: 32px 16px; } .service-panel .ux4g-empty-state-content { min-width: 0; } }

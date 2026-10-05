@@ -3,14 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sign in</title>
+<title>Track your application — Form&nbsp;6</title>
 
 <link rel="stylesheet" href="https://cdn.ux4g.gov.in/UX4G@3.2.0/index.css">
-<link rel="stylesheet" href="https://cdn.ux4g.gov.in/UX4G@3.2.0/patterns/identity-access.css">
-<link rel="stylesheet" href="assets/css/fonts-login.css">
+<link rel="stylesheet" href="assets/css/fonts-track.css">
 <link rel="stylesheet" href="assets/css/shell.css">
-<link rel="stylesheet" href="assets/css/login.css">
-<link rel="stylesheet" href="assets/css/auth.css">
+<link rel="stylesheet" href="assets/css/track.css">
 <style>.dc-loading #app { visibility: hidden; }</style>
 <script>
   // Hold the page back until the first render, otherwise the raw {{ }} bindings
@@ -25,7 +23,7 @@
 </head>
 <body>
 <div id="app">
-<div style="min-height: 100vh; background: #FAFAFA; display: flex; flex-direction: column; zoom: {{ textZoom }}; letter-spacing: {{ rootTracking }};">
+<div style="min-height: 100vh; background: #F5F5F5; zoom: {{ textZoom }}; letter-spacing: {{ rootTracking }};">
 
 <header role="banner" class="eci-header">
   <div class="eci-header-row eci-header-row-top">
@@ -142,22 +140,136 @@
   </div>
 </header>
 
-<main id="main-content" class="ux4g-identity-access-container auth-main">
-  <div class="ux4g-identity-access-layout-card">
-    <!-- The shared log in form (assets/js/login-form.js) is drawn in here. The homepage dialog
-         draws the same form, so the two are identical. -->
-    <div class="login-card login-page-card" id="loginMount"></div>
+<main id="main-content" style="max-width: 760px; margin: 0 auto; padding: 20px 24px 72px;">
 
-    <p class="ux4g-body-xs-default ux4g-text-neutral-secondary auth-privacy">Your data is protected under the ECI’s <a href="#privacy">privacy policy</a>.</p>
+  <nav aria-label="Breadcrumb" class="ux4g-breadcrumb ux4g-breadcrumb-divider" style="margin-bottom: 20px;">
+    <ol class="ux4g-breadcrumb-list ux4g-d-flex ux4g-ai-center ux4g-flex-wrap" style="margin: 0; padding: 0;">
+      <li class="ux4g-breadcrumb-item ux4g-d-flex ux4g-ai-center"><a class="ux4g-breadcrumb-link ux4g-d-flex ux4g-ai-center ux4g-gap-x-xs" href="{{ homeHref }}"><span class="ux4g-icon-outlined" aria-hidden="true" style="font-size: 18px;">home</span>Home</a></li>
+      <li class="ux4g-breadcrumb-item ux4g-d-flex ux4g-ai-center"><a class="ux4g-breadcrumb-link" href="{{ trackHref }}">Track application</a></li>
+      <li class="ux4g-breadcrumb-item active" aria-current="page">{{ formCrumb }}</li>
+    </ol>
+  </nav>
+
+  <h1 style="margin: 0 0 8px; font-size: 32px; line-height: 40px; font-weight: 600; color: #171717;">Track your application</h1>
+
+  <x-if value="{{ isLoggedIn }}">
+  <p class="lede">Applications made from your account.</p>
+  </x-if>
+
+  <!-- Signed out: operators and assisted users often have the number but no account. -->
+  <x-if value="{{ isLoggedOut }}">
+  <p class="lede">Enter the reference number from your confirmation, or <a href="login.html">log in</a> to see every application made from your account.</p>
+  <form class="lookup" novalidate on-submit="{{ lookUp }}">
+    <!-- UX4G Input. Its one helper line holds the hint, and the error takes its place. -->
+    <div class="{{ refFieldClass }}">
+      <label class="ux4g-label-m-default" for="ref">Application reference number</label>
+      <div class="lookup-row">
+        <div class="ux4g-input lookup-input">
+          <input class="ux4g-input-input" id="ref" type="text" autocomplete="off" spellcheck="false" aria-describedby="ref-hint ref-error" aria-invalid="{{ refInvalid }}" value="{{ refInput }}" on-input="{{ onRefInput }}">
+        </div>
+        <button type="submit" class="ux4g-btn ux4g-btn-primary ux4g-btn-md lookup-btn">Find application</button>
+      </div>
+      <x-if value="{{ refValid }}">
+      <div id="ref-hint" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">info</span><span class="ux4g-input-helper-text">It is on your confirmation page, for example MP/BHO/2026/482913.</span></div>
+      </x-if>
+      <x-if value="{{ refInvalid }}">
+      <div id="ref-error" class="ux4g-input-helper"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ refError }}</span></div>
+      </x-if>
+    </div>
+  </form>
+  </x-if>
+
+  <x-if value="{{ showResult }}">
+  <article class="app-card" aria-labelledby="app-title">
+
+    <div class="app-head">
+      <div style="min-width: 0;">
+        <!-- The form type and purpose come from the application (track.js), not the page. -->
+        <h2 id="app-title" class="app-title">{{ appTitle }}</h2>
+        <p class="app-sub">Reference {{ app.reference }} · Submitted {{ app.submittedOn }}</p>
+        <x-if value="{{ correcting }}">
+        <p class="app-sub">{{ detailsLine }}</p>
+        </x-if>
+      </div>
+      <span class="{{ view.tagClass }} status-tag"><i class="ux4g-icon-outlined" aria-hidden="true">{{ view.tagIcon }}</i>{{ view.tagLabel }}</span>
+    </div>
+
+    <!-- The answer comes first, so no one has to infer it from the timeline. -->
+    <div class="{{ view.answerClass }}">
+      <p class="answer-main">{{ view.headline }}</p>
+      <p class="answer-sub">{{ view.support }}</p>
+    </div>
+
+    <div class="actions">
+      <x-for list="{{ view.actions }}" as="action">
+      <a href="{{ action.href }}" class="{{ action.cls }}">
+        <x-if value="{{ action.download }}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></x-if>
+        {{ action.label }}
+      </a>
+      </x-for>
+    </div>
+
+    <x-if value="{{ view.rejected }}">
+    <hr class="rule">
+    <div class="appeal">
+      <p class="appeal-days">{{ appeal.days }}</p>
+      <p class="appeal-date">{{ appeal.date }}</p>
+      <p class="appeal-note">Appeals go to the District Magistrate under section 24 of the Representation of the People Act 1950.</p>
+    </div>
+    </x-if>
+
+  </article>
+
+  <!-- UX4G Journey Timeline, vertical variant. UX4G has no failed step, so tl-failed
+       (track.css) adds one; completed steps are recoloured green, per the status colours. -->
+  <div class="journey-timeline-card journey-timeline-card-vertical ux4g-d-flex progress-card">
+    <div class="journey-timeline-title ux4g-d-flex ux4g-flex-column ux4g-gap-y-xs">
+      <h2 class="ux4g-title-m-default progress-heading">Progress</h2>
+      <span class="ux4g-body-m-default ux4g-text-neutral-secondary journey-timeline-description">From submission to your name on the electoral roll.</span>
+    </div>
+    <div class="ux4g-journey-timeline ux4g-journey-timeline--vertical" role="list">
+      <x-for list="{{ view.stages }}" as="stage">
+      <div class="{{ stage.cls }}" role="listitem">
+        <div class="ux4g-journey-indicator" aria-hidden="true">
+          <span class="ux4g-icon-outlined">{{ stage.icon }}</span>
+        </div>
+        <div class="ux4g-journey-card ux4g-journey-card--standard">
+          <div class="ux4g-journey-info">
+            <span class="ux4g-journey-date">{{ stage.date }}</span>
+            <div class="ux4g-d-flex ux4g-flex-column ux4g-gap-y-xs">
+              <span class="ux4g-journey-title">{{ stage.title }}<span class="ux4g-sr-only">: {{ stage.stateText }}</span></span>
+              <span class="ux4g-journey-description">{{ stage.text }}</span>
+            </div>
+            <x-if value="{{ stage.proposed }}"><span class="ux4g-tag-tonal-neutral">Proposed</span></x-if>
+          </div>
+        </div>
+      </div>
+      </x-for>
+    </div>
+
+    <p class="proposal-note"><strong>Proposed stage.</strong> The live portal records only submission and decision. Field verification is shown here as a proposal and is not part of the current service.</p>
   </div>
+  </x-if>
+
 </main>
 
+<footer role="contentinfo" class="eci-footer">
+  <div class="eci-footer-row">
+    <span>© 2026 Election Commission of India</span>
+    <span>Last updated 24 September 2026</span>
+    <nav aria-label="Footer" class="eci-footer-nav">
+      <a href="#contact-directory" class="eci-footer-link">Contact directory</a>
+      <a href="#privacy" class="eci-footer-link">Privacy policy</a>
+    </nav>
+  </div>
+</footer>
 </div></div>
+<!-- REVIEW ONLY: switches between the four application states. Remove this line and
+     assets/js/track-review.js before the prototype ships; the page works without them. -->
+<script src="assets/js/track-review.js"></script>
 <script src="https://cdn.ux4g.gov.in/UX4G@3.2.0/ux4g.js"></script>
 <script src="https://cdn.ux4g.gov.in/UX4G@3.2.0/ux4g-custom.js"></script>
 <script src="assets/js/dc-lite.js"></script>
-<script src="assets/js/auth-otp.js"></script>
-<script src="assets/js/login-form.js"></script>
-<script src="assets/js/login.js"></script>
+<script src="assets/js/track.js"></script>
 </body>
 </html>

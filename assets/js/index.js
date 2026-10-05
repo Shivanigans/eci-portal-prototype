@@ -1,5 +1,5 @@
 class Page extends DCLogic {
-  state = { scale: 1, wide: false, lang: 'en', guidesOpen: false, officeState: 'Delhi', panelOpen: false, loggedIn: false, loginOpen: true, sirState: 'Madhya Pradesh', sirDismissed: false };
+  state = { scale: 1, wide: false, lang: 'en', guidesOpen: false, officeState: 'Delhi', panelOpen: false, loggedIn: false, sirState: 'Madhya Pradesh', sirDismissed: false };
 
   // PLACEHOLDER DATA — check against the ECI site before use. Phase dates, the list of
   // states currently mid-phase, and the documents accepted under Special Intensive Revision
@@ -23,27 +23,30 @@ class Page extends DCLogic {
     'West Bengal': { name: 'Chief Electoral Officer, West Bengal', address: '21, N.S. Road, 4th Floor, Kolkata-700001' }
   };
 
+  // The log in dialog: the shared log in form (assets/js/login-form.js). Signing in there
+  // signs the person in on this page.
+  openLogin() {
+    LoginForm.openDialog({ onSuccess: () => this.setState({ loggedIn: true }) });
+  }
+
   componentDidMount() {
     document.documentElement.setAttribute('data-theme', 'light');
     document.documentElement.setAttribute('lang', 'en');
     try {
       const p = new URLSearchParams(location.search);
-      if (p.get('loggedIn') === '1' || p.get('signedIn') === '1') this.setState({ loggedIn: true, loginOpen: false });
+      if (p.get('loggedIn') === '1' || p.get('signedIn') === '1') this.setState({ loggedIn: true });
       if (sessionStorage.getItem('eci-sir-strip') === 'dismissed') this.setState({ sirDismissed: true });
     } catch (e) {}
-  }
-
-  personas = DC.ref();
-
-  scrollPersonas(dir) {
-    const el = this.personas.current;
-    if (el) el.scrollBy({ left: dir * 552, behavior: 'smooth' });
+    // The search bar's rotating guide and suggestions. Links keep the signed-in state.
+    HomeSearch.mount(document.querySelector('.home-search'), { loggedIn: () => this.state.loggedIn });
+    // Signed out, the log in dialog opens on arrival, as before.
+    if (!this.state.loggedIn) this.openLogin();
   }
 
   // Everything the shared <header> binds to. The header markup is identical on every
   // page, so this method is too; each page only says whether someone is signed in,
   // where the emblem links, and (on the homepage) what Log in does.
-  headerVals({ loggedIn, homeHref, onLoginClick }) {
+  headerVals({ loggedIn, homeHref, onLoginClick, onLogOut }) {
     const s = this.state;
     const lang = s.lang || 'en';
     const name = this.props.userName ?? 'Ananya Rao';
@@ -78,6 +81,37 @@ class Page extends DCLogic {
       closeGuidesOnBlur: (e) => {
         const wrap = e.currentTarget.closest('[data-guides]');
         if (!wrap || !wrap.contains(e.relatedTarget)) this.setState({ guidesOpen: false });
+      },
+      // Help menu: opens on click; Escape or focus leaving it closes it.
+      helpOpen: !!s.helpOpen,
+      toggleHelp: () => this.setState(st => ({ helpOpen: !st.helpOpen })),
+      closeHelpOnBlur: (e) => {
+        const wrap = e.currentTarget.closest('[data-help]');
+        if (!wrap || !wrap.contains(e.relatedTarget)) this.setState({ helpOpen: false });
+      },
+      helpKeydown: (e) => {
+        if (e.key !== 'Escape' || !s.helpOpen) return;
+        this.setState({ helpOpen: false });
+        e.currentTarget.querySelector('button').focus();
+      },
+      helpBloHref: 'service.html?s=book-blo' + (loggedIn ? '&loggedIn=1' : ''),
+      // Log in brings the person back to this page, signed in.
+      loginHref: 'login.html?next=' + encodeURIComponent(location.pathname.split('/').pop() || 'index.html'),
+      // Account menu, shown once signed in: profile, my applications, log out.
+      accountOpen: !!s.accountOpen,
+      toggleAccount: () => this.setState(st => ({ accountOpen: !st.accountOpen })),
+      closeAccountOnBlur: (e) => {
+        const wrap = e.currentTarget.closest('[data-account]');
+        if (!wrap || !wrap.contains(e.relatedTarget)) this.setState({ accountOpen: false });
+      },
+      // Signs out straight away by reloading this page without the signed-in flag. Only a
+      // page with unsaved work (the application form) passes onLogOut to ask first.
+      logOut: () => {
+        this.setState({ accountOpen: false });
+        if (onLogOut) { onLogOut(); return; }
+        const q = new URLSearchParams(location.search);
+        q.delete('loggedIn'); q.delete('signedIn');
+        location.href = location.pathname + (q.toString() ? '?' + q : '');
       }
     };
   }
@@ -89,8 +123,15 @@ class Page extends DCLogic {
       ...this.headerVals({
         loggedIn: this.state.loggedIn,
         homeHref: this.state.loggedIn ? 'index.html?loggedIn=1' : 'index.html',
-        onLoginClick: (e) => { e.preventDefault(); this.setState({ loginOpen: true }); }
+        onLoginClick: (e) => { e.preventDefault(); this.openLogin(); }
       }),
+      // Services not built in this prototype open service.html, which shows a "Coming soon"
+      // empty state instead of a link that goes nowhere.
+      svc: ['polling', 'epic', 'book-blo', 'profile', 'appeal', 'appeal-adjudication', 'deletion', 'nri', 'results', 'download-forms', 'find-centre']
+        .reduce((all, id) => {
+          all[id.replace(/-([a-z])/g, (m, c) => c.toUpperCase())] = 'service.html?s=' + id + (this.state.loggedIn ? '&loggedIn=1' : '');
+          return all;
+        }, {}),
       sirState: this.state.sirState,
       sirCloseDate: phase.closes,
       sirOpenHere: phase.open,
@@ -103,13 +144,7 @@ class Page extends DCLogic {
         try { sessionStorage.setItem('eci-sir-strip', 'dismissed'); } catch (err) {}
         this.setState({ sirDismissed: true });
       },
-      loginOpen: this.state.loginOpen && !this.state.loggedIn,
-      closeLogin: () => this.setState({ loginOpen: false }),
-      submitLogin: (e) => { e.preventDefault(); this.setState({ loggedIn: true, loginOpen: false }); },
       showAppBanner: this.props.showAppBanner ?? true,
-      personasRef: this.personas,
-      scrollPersonasLeft: () => this.scrollPersonas(-1),
-      scrollPersonasRight: () => this.scrollPersonas(1),
       panelOpen: this.state.panelOpen || (this.props.openFormSheet ?? false),
       closePanel: () => this.setState({ panelOpen: false }),
       chk1: !!this.state.chk1, toggle1: () => this.setState(s => ({ chk1: !s.chk1 })),
@@ -118,15 +153,20 @@ class Page extends DCLogic {
       chk4: !!this.state.chk4, toggle4: () => this.setState(s => ({ chk4: !s.chk4 })),
       onRegisterClick: (e) => {
         e.preventDefault();
-        if (!this.state.loggedIn) { this.setState({ loginOpen: true }); return; }
+        if (!this.state.loggedIn) { this.openLogin(); return; }
         location.href = 'form6-prep.html?loggedIn=1';
+      },
+      // The Form 8 prep page asks nothing, so it opens signed in or not, keeping the state.
+      onForm8Click: (e) => {
+        e.preventDefault();
+        location.href = 'form8-prep.html' + (this.state.loggedIn ? '?loggedIn=1' : '');
       },
       officeStates: Object.keys(this.offices),
       officeState: this.state.officeState,
       officeName: this.offices[this.state.officeState].name,
       officeAddress: this.offices[this.state.officeState].address,
       onOfficeChange: (e) => this.setState({ officeState: e.target.value }),
-      onSearchSubmit: (e) => e.preventDefault()
+      onSearchSubmit: (e) => { e.preventDefault(); HomeSearch.submit(); }
     };
   }
 }

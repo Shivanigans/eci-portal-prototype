@@ -1,0 +1,173 @@
+/* Page base. Focus outlines come from UX4G's own :focus-visible rule. */
+body { margin: 0; font-family: 'Noto Sans', system-ui, sans-serif; background: var(--ux4g-bg-neutral-soft); color: var(--ux4g-text-neutral-primary); }
+
+/* header: hover fills the background and nothing else, so no item changes size or moves.
+   !important because header items set their resting background inline. */
+.hv-hd:hover { background: #F3F0FF !important; }
+
+/* Breadcrumb: earlier steps are dark grey links, and the page you are on is purple and not a link. */
+.ux4g-breadcrumb .ux4g-breadcrumb-link { color: var(--ux4g-text-neutral-secondary); }
+.ux4g-breadcrumb .ux4g-breadcrumb-item.active { color: var(--ux4g-text-brand-primary-default); font-weight: var(--ux4g-fw-semibold); }
+
+/* header: tighter side gutters on a phone so the utilities row fits (the rows set padding inline) */
+@media (max-width: 600px) { header[role="banner"] > div > div, header[role="banner"] > div:first-child { padding-left: 16px !important; padding-right: 16px !important; } }
+
+/* Status colours, the same on every page: green means completed successfully, red means
+   it failed, purple means this is where you are now. Never use green on a failed state. */
+:root { --eci-success: #1B7A4B; --eci-success-tint: #E8F5EE; }
+
+/* Account menu in the header */
+.account-item { display: block; width: 100%; box-sizing: border-box; padding: 9px 10px; border: none; border-radius: 6px; background: transparent; font-family: inherit; font-size: 13px; line-height: 18px; font-weight: 500; color: #171717; text-align: left; text-decoration: none; cursor: pointer; }
+.account-item:hover { color: #171717; }
+
+/* ---- Main content. Everything below is layout UX4G has no class for; see each note. ---- */
+
+/* Single reading column. UX4G's grid has no narrow content width. */
+.prep-main { max-width: var(--ux4g-sz-768); margin: 0 auto; padding: var(--ux4g-padding-l) var(--ux4g-padding-xl) var(--ux4g-space-13); box-sizing: border-box; }
+@media (max-width: 600px) { .prep-main { padding-left: var(--ux4g-padding-m); padding-right: var(--ux4g-padding-m); } }
+
+/* Document list inside the card. UX4G has no static list with dividers between rows
+   (its List rows are interactive), so the rows and dividers are set here from tokens. */
+.doc-list { list-style: none; margin: 0; padding-top: var(--ux4g-padding-2xs); padding-bottom: var(--ux4g-padding-2xs); }
+.doc-item { display: flex; align-items: flex-start; gap: var(--ux4g-gap-column-s); padding: var(--ux4g-padding-m) 0; }
+.doc-item + .doc-item { border-top: var(--ux4g-border-width-sm) solid var(--ux4g-border-color-neutral-subtle); }
+.doc-icon { flex: 0 0 auto; font-size: var(--ux4g-fs-20); margin-top: var(--ux4g-space-1); }
+/* The time estimate is a boxed inline alert rather than a full-width page banner. */
+.prep-alert { padding: var(--ux4g-padding-m); border-radius: var(--ux4g-radius-md); }
+.prep-alert .ux4g-alert-content { flex-direction: column; align-items: flex-start; gap: var(--ux4g-gap-row-2xs); }
+
+/* Video card. The card is a link, so it takes the text colour rather than the link colour.
+   Above UX4G's 768px breakpoint the thumbnail keeps a small fixed size beside the text;
+   below it, UX4G's own stacked layout applies unchanged. */
+.video-card { text-decoration: none; color: inherit; background: var(--ux4g-bg-neutral-elevated); }
+.video-thumb .ux4g-card-header-image { object-fit: contain; background: var(--ux4g-bg-neutral-subtle); }
+@media (min-width: 769px) {
+  .video-card { align-items: center; }
+  .video-thumb { flex: 0 0 var(--ux4g-sz-144); padding: var(--ux4g-padding-s); }
+  .video-thumb .ux4g-card-header-image { height: var(--ux4g-sz-80); }
+  .video-card .ux4g-card-body { padding-left: 0; }
+}
+
+/* Accepted-documents lists and their accordion, as on the Form 6 prep page. */
+.doc-accepted { padding-left: var(--ux4g-padding-l); list-style: disc outside; }
+.doc-accepted li + li { margin-top: var(--ux4g-space-2); }
+
+/* The accepted-documents accordion sits inside the entry's text, so it takes the card's
+   background, drops its side padding and borders, and keeps a 44px target. Set through
+   the accordion's own custom properties, not its internal selectors. */
+.doc-accordion {
+  margin-top: var(--ux4g-space-2);
+  border-bottom: none;
+  /* No hover or open band behind the toggle: the arrow is the marker. */
+  --ux4g-accordion-bg: transparent;
+  --ux4g-accordion-header-bg-hover: transparent;
+  --ux4g-accordion-header-bg-expanded: transparent;
+  --ux4g-accordion-body-bg: transparent;
+  --ux4g-accordion-border-color: transparent;
+  --ux4g-accordion-button-min-height: var(--ux4g-sz-44);
+  --ux4g-accordion-button-padding-x: var(--ux4g-padding-none);
+  --ux4g-accordion-body-padding-x: var(--ux4g-padding-none);
+  --ux4g-accordion-title-size: var(--ux4g-fs-14);
+  --ux4g-accordion-title-color: var(--ux4g-text-brand-primary-default);
+  --ux4g-accordion-icon-color: var(--ux4g-text-brand-primary-default);
+}
+
+/* ---- Form 8 only. Each rule covers something UX4G has no class or component for. ---- */
+
+/* Wider than Form 6's single reading column, to fit the two cards side by side. */
+.prep-main { max-width: var(--ux4g-sz-1152); }
+
+/* Section cards are white on the grey page, as in the prototype. They are containers, not
+   links, so they do not lift on hover. */
+.f8-card { background: var(--ux4g-bg-neutral-elevated); }
+/* Card padding matches the prototype: 24px, rather than UX4G's default 16px. */
+.f8-card > .ux4g-card-body { padding: var(--ux4g-padding-xl); }
+
+/* Spacing on this page: 24px between cards and page blocks, 16px between blocks inside a
+   card. UX4G's grid gap utilities jump from 16px to 48px, so the card gap is set here. */
+.f8-pair { gap: var(--ux4g-space-8); }
+.f8-card:hover { box-shadow: none; }
+
+/* Icon tile beside the purpose names and help rows. UX4G has no icon tile. */
+.f8-icon-tile { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: var(--ux4g-sz-40); height: var(--ux4g-sz-40); border-radius: var(--ux4g-radius-md); background: var(--ux4g-bg-primary); color: var(--ux4g-text-brand-primary-default); }
+.f8-icon-tile .ux4g-icon-outlined { font-size: var(--ux4g-fs-20); }
+
+/* Purpose accordion inside the Documents required card. The icon tile sits beside the title
+   (UX4G's accordion has no icon slot), the headers and bodies take the card's white, and the
+   body lines up with the title rather than the tile. Set through the accordion's own custom
+   properties where it has one. */
+.f8-purposes {
+  --ux4g-accordion-bg: var(--ux4g-bg-neutral-elevated);
+  --ux4g-accordion-body-bg: var(--ux4g-bg-neutral-elevated);
+  --ux4g-accordion-header-bg-expanded: var(--ux4g-bg-neutral-elevated);
+  --ux4g-accordion-body-color: var(--ux4g-text-neutral-primary);
+  --ux4g-accordion-body-padding-y: var(--ux4g-padding-m);
+}
+.f8-purposes > .ux4g-accordion__item > .ux4g-accordion__header .ux4g-accordion__button-content { display: flex; align-items: center; flex: 1 1 auto; min-width: 0; gap: var(--ux4g-gap-column-s); padding-right: var(--ux4g-padding-s); }
+.f8-purposes > .ux4g-accordion__item > .ux4g-accordion__header .ux4g-accordion__title { min-width: 0; white-space: normal; }
+.f8-purposes > .ux4g-accordion__item > .ux4g-accordion__collapse > .ux4g-accordion__body { padding-bottom: var(--ux4g-padding-l); }
+@media (min-width: 768px) {
+  .f8-purposes > .ux4g-accordion__item > .ux4g-accordion__collapse > .ux4g-accordion__body { padding-left: calc(var(--ux4g-sz-40) + var(--ux4g-gap-column-s) + var(--ux4g-padding-s) + var(--ux4g-accordion-title-padding-x, var(--ux4g-padding-xs))); }
+}
+/* Tick lists inside a purpose take their spacing from the blocks around them. */
+.f8-purposes .doc-list { padding: 0; }
+.f8-purposes .doc-item:last-child { padding-bottom: 0; }
+
+/* How to apply: the online card has the primary border, as the main way to apply. */
+.f8-apply { margin-top: var(--ux4g-space-8); }
+.f8-card-primary { border-color: var(--ux4g-border-color-primary-default); }
+
+
+/* Time estimate: one quiet line with its clock icon. */
+.f8-time { display: flex; align-items: center; gap: var(--ux4g-space-2); }
+.f8-time .ux4g-icon-outlined { font-size: var(--ux4g-fs-18); }
+
+/* Two-column bulleted lists, one column below UX4G's 768px breakpoint. Items keep to one
+   column each, and spacing sits below each item so both columns start level. */
+.f8-cols { column-count: 2; column-gap: var(--ux4g-padding-xl); }
+.f8-cols li { break-inside: avoid; }
+.f8-cols li, .f8-cols li + li { margin: 0 0 var(--ux4g-space-2); }
+@media (max-width: 767px) { .f8-cols { column-count: 1; } }
+
+/* Replacement reasons: the document list's rows and dividers, without the tick. */
+.f8-reason { flex-direction: column; gap: var(--ux4g-space-1); }
+
+/* Links and buttons with an icon (external link, location). */
+.f8-icon-link { display: inline-flex; align-items: center; gap: var(--ux4g-space-2); min-height: var(--ux4g-sz-44); }
+.f8-icon-link .ux4g-icon-outlined, .f8-apply .ux4g-btn .ux4g-icon-outlined { font-size: var(--ux4g-fs-18); }
+
+/* Help rows: icon tile beside text. */
+.f8-row { display: flex; align-items: flex-start; gap: var(--ux4g-gap-column-s); }
+.f8-help-row { min-height: var(--ux4g-sz-44); padding: var(--ux4g-padding-s) 0; border-top: var(--ux4g-border-width-sm) solid var(--ux4g-border-color-neutral-subtle); text-decoration: none; color: inherit; }
+
+/* The Form 8 illustration is portrait, so in UX4G's stacked card layout below 768px it
+   would fill the screen height. Cap the thumbnail; the image keeps its proportions. */
+@media (max-width: 768px) { .video-thumb .ux4g-card-header-image { height: var(--ux4g-sz-200); } }
+
+/* Common questions: UX4G Card (outline) holding a UX4G Accordion, styled like the homepage's
+   box through the accordion's own custom properties: no row backgrounds, rows divided by a
+   subtle line, 16px semibold questions, purple chevrons, 44px rows. */
+.faq-card .ux4g-card-body { padding: var(--ux4g-padding-2xl, 32px); }
+.faq-accordion {
+  --ux4g-accordion-bg: transparent;
+  --ux4g-accordion-body-bg: transparent;
+  --ux4g-accordion-header-bg-expanded: transparent;
+  --ux4g-accordion-header-bg-hover: transparent;
+  --ux4g-accordion-border-color: var(--ux4g-border-color-neutral-subtle);
+  --ux4g-accordion-button-min-height: var(--ux4g-sz-44);
+  --ux4g-accordion-button-padding-x: var(--ux4g-padding-none);
+  --ux4g-accordion-button-padding-y: var(--ux4g-padding-m);
+  --ux4g-accordion-title-padding-x: var(--ux4g-padding-none);
+  --ux4g-accordion-body-padding-x: var(--ux4g-padding-none);
+  --ux4g-accordion-title-size: var(--ux4g-fs-16);
+  --ux4g-accordion-title-weight: var(--ux4g-font-weight-semibold);
+  --ux4g-accordion-title-color: var(--ux4g-text-neutral-primary);
+  --ux4g-accordion-icon-color: var(--ux4g-text-brand-primary-default);
+  --ux4g-accordion-body-size: var(--ux4g-fs-14);
+  --ux4g-accordion-body-color: var(--ux4g-text-neutral-secondary);
+}
+.faq-all { min-height: var(--ux4g-sz-44); margin-top: var(--ux4g-space-4); }
+
+/* The e-Sign acknowledgement panel. The checkbox keeps its UX4G white fill on the purple, and the
+   description takes the full secondary text colour; UX4G has no panel spacing for a lone checkbox. */
+.esign-ack .ux4g-checkbox-content { gap: var(--ux4g-gap-row-2xs); }

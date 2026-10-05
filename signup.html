@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sign in</title>
+<title>Sign up</title>
 
 <link rel="stylesheet" href="https://cdn.ux4g.gov.in/UX4G@3.2.0/index.css">
 <link rel="stylesheet" href="https://cdn.ux4g.gov.in/UX4G@3.2.0/patterns/identity-access.css">
@@ -144,9 +144,87 @@
 
 <main id="main-content" class="ux4g-identity-access-container auth-main">
   <div class="ux4g-identity-access-layout-card">
-    <!-- The shared log in form (assets/js/login-form.js) is drawn in here. The homepage dialog
-         draws the same form, so the two are identical. -->
-    <div class="login-card login-page-card" id="loginMount"></div>
+    <div class="login-card login-page-card">
+
+      <x-if value="{{ stepDetails }}">
+      <a href="{{ loginLink }}" class="ux4g-text-link-sm login-back">
+        <span class="ux4g-icon-outlined ux4g-fs-14" aria-hidden="true">arrow_back</span>
+        Back to log in
+      </a>
+      <h1 class="ux4g-title-l-strong ux4g-text-neutral-primary ux4g-m-none">Create an account</h1>
+      <p class="ux4g-body-s-default ux4g-text-neutral-secondary ux4g-m-none login-intro">Enter your details to receive a one-time password on your mobile number.</p>
+
+      <form id="signupForm" class="auth-form login-form" novalidate on-submit="{{ onSendOtp }}">
+        <div class="{{ f.name.boxClass }}">
+          <label class="ux4g-label-m-default" for="signupName">Full name</label>
+          <div class="ux4g-input">
+            <input class="ux4g-input-input" id="signupName" name="name" type="text" autocomplete="name" placeholder="Enter your full name" value="{{ v.name }}" on-input="{{ on.name }}" aria-describedby="signupNameError" aria-invalid="{{ f.name.invalid }}">
+          </div>
+          <x-if value="{{ f.name.invalid }}">
+          <div id="signupNameError" class="ux4g-input-helper" role="alert"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ f.name.error }}</span></div>
+          </x-if>
+        </div>
+
+        <div class="{{ f.mobile.boxClass }}">
+          <label class="ux4g-label-m-default" for="signupMobile">Mobile number</label>
+          <div class="ux4g-input">
+            <span class="ux4g-input-prefix" aria-hidden="true">+91</span>
+            <input class="ux4g-input-input" id="signupMobile" name="mobile" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="11" placeholder="98765&nbsp;43210" value="{{ mobileValue }}" on-input="{{ on.mobile }}" aria-describedby="signupMobileError" aria-invalid="{{ f.mobile.invalid }}">
+          </div>
+          <x-if value="{{ f.mobile.invalid }}">
+          <div id="signupMobileError" class="ux4g-input-helper" role="alert"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ f.mobile.error }}</span></div>
+          </x-if>
+        </div>
+
+        <div class="{{ f.email.boxClass }}">
+          <label class="ux4g-label-m-default" for="signupEmail">Email address <span class="auth-optional">(optional)</span></label>
+          <div class="ux4g-input">
+            <input class="ux4g-input-input" id="signupEmail" name="email" type="email" inputmode="email" autocomplete="email" placeholder="name@example.com" value="{{ v.email }}" on-input="{{ on.email }}" aria-describedby="signupEmailError" aria-invalid="{{ f.email.invalid }}">
+          </div>
+          <x-if value="{{ f.email.invalid }}">
+          <div id="signupEmailError" class="ux4g-input-helper" role="alert"><span class="ux4g-icon-outlined ux4g-input-helper-icon" aria-hidden="true">error</span><span class="ux4g-input-helper-text">{{ f.email.error }}</span></div>
+          </x-if>
+        </div>
+
+        <div class="ux4g-form-actions ux4g-d-flex ux4g-flex-column auth-actions">
+          <button class="ux4g-btn ux4g-btn-primary ux4g-btn-lg ux4g-w-100" type="submit">Send OTP</button>
+          <!-- UX4G's pattern shows a warning alert here. Its stylesheet replaces the text of any warning
+               alert in this card layout with its own camera notice, so the note is plain text. -->
+          <p class="ux4g-body-xs-default ux4g-text-neutral-tertiary auth-note">You do not need a password. Each time you log in, a one-time password is sent to this mobile number.</p>
+        </div>
+      </form>
+      </x-if>
+
+      <x-if value="{{ stepOtp }}">
+      <a href="#details" on-click="{{ backToDetails }}" class="ux4g-text-link-sm login-back">
+        <span class="ux4g-icon-outlined ux4g-fs-14" aria-hidden="true">arrow_back</span>
+        Change mobile number
+      </a>
+      <h1 class="ux4g-title-l-strong ux4g-text-neutral-primary ux4g-m-none">Enter the one-time password</h1>
+      <p class="ux4g-body-s-default ux4g-text-neutral-secondary ux4g-m-none login-intro">A 6 digit one-time password has been sent to {{ mobileShown }}.</p>
+
+      <form id="otpForm" class="auth-form login-form" novalidate on-submit="{{ onVerify }}">
+        <!-- UX4G's script draws the six boxes when this step opens. PROTOTYPE: they start empty,
+             and the sample one-time password types itself in, so nothing needs typing. -->
+        <div id="otpBoxes" class="ux4g-otp auth-otp" data-ux-state="default" data-ux-count="6" data-ux-no-separator="true" role="group" aria-labelledby="otpLabel" aria-describedby="otpMeta">
+          <div class="ux4g-otp-label ux4g-label-m-default" id="otpLabel">One-time password</div>
+          <div class="ux4g-otp-group">
+            <input class="ux4g-otp-source" type="hidden" value="" placeholder="-">
+          </div>
+          <div class="ux4g-otp-meta ux4g-body-s-default ux4g-otp-meta-between" id="otpMeta" aria-live="polite">
+            <span class="ux4g-otp-helper" data-otp-note="Did not receive the OTP?">Did not receive the OTP?</span>
+            <button type="button" id="otpResend" class="ux4g-btn ux4g-btn-text-primary ux4g-btn-sm" on-click="{{ resendOtp }}">Resend OTP</button>
+          </div>
+        </div>
+
+        <div class="ux4g-form-actions ux4g-d-flex ux4g-flex-column auth-actions">
+          <button class="ux4g-btn ux4g-btn-primary ux4g-btn-lg ux4g-w-100" type="submit">Verify and create account</button>
+          <p id="otpResent" class="ux4g-body-s-default ux4g-text-neutral-secondary auth-status" role="status" aria-live="polite">{{ resentNote }}</p>
+        </div>
+      </form>
+      </x-if>
+
+    </div>
 
     <p class="ux4g-body-xs-default ux4g-text-neutral-secondary auth-privacy">Your data is protected under the ECI’s <a href="#privacy">privacy policy</a>.</p>
   </div>
@@ -157,7 +235,6 @@
 <script src="https://cdn.ux4g.gov.in/UX4G@3.2.0/ux4g-custom.js"></script>
 <script src="assets/js/dc-lite.js"></script>
 <script src="assets/js/auth-otp.js"></script>
-<script src="assets/js/login-form.js"></script>
-<script src="assets/js/login.js"></script>
+<script src="assets/js/signup.js"></script>
 </body>
 </html>

@@ -40,11 +40,8 @@ body { margin: 0; font-family: 'Noto Sans', system-ui, sans-serif; background: #
 .error-summary li { font-size: 14px; line-height: 22px; }
 .error-summary a { color: #B3261E; font-weight: 500; }
 
-/* Advisory document checks: a spinner beside the file name, then a warning only if needed. */
-.doc-scanning { display: flex; align-items: center; gap: 8px; margin: 8px 0 0; font-size: 13px; line-height: 19px; color: #404040; }
-.doc-warning { align-items: flex-start; margin-top: 8px; padding: 12px 14px; border-radius: 8px; }
-.doc-warning .ux4g-alert-content { flex-direction: column; align-items: flex-start; gap: 4px; }
-.doc-warning .ux4g-alert-title { font-size: 14px; line-height: 20px; }
+/* Advisory document check warning: UX4G alert layout as is, message left, action right on one row. */
+.doc-warning { margin-top: 8px; padding: 12px 14px; border-radius: 8px; }
 .doc-warning .ux4g-alert-message { font-size: 13px; line-height: 19px; color: #262626; }
 
 /* Numbered steps joined by lines. Neutral by default; mark a step is-done or is-current
@@ -53,8 +50,8 @@ body { margin: 0; font-family: 'Noto Sans', system-ui, sans-serif; background: #
 .step { position: relative; display: flex; flex-direction: column; }
 .step-marker { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; box-sizing: border-box; border-radius: 999px; border: 1px solid #D4D4D4; background: #FFFFFF; font-size: 12px; font-weight: 600; color: #525252; }
 .step:not(:last-child)::after { content: ""; position: absolute; top: 13px; left: 36px; right: -8px; height: 2px; background: #D4D4D4; }
-.step-title { display: block; margin-top: 10px; font-size: 15px; line-height: 22px; font-weight: 600; color: #171717; text-wrap: pretty; }
-.step-text { display: block; margin-top: 4px; font-size: 13px; line-height: 20px; color: #737373; text-wrap: pretty; }
+.step-title { display: block; margin-top: 10px; font-size: 15px; line-height: 22px; font-weight: 600; color: #171717; }
+.step-text { display: block; margin-top: 4px; font-size: 13px; line-height: 20px; color: #737373; }
 .step.is-done .step-marker { border-color: var(--eci-success); background: var(--eci-success); color: #FFFFFF; }
 .step.is-done::after { background: var(--eci-success); }
 .step.is-current .step-marker { border: 2px solid #4A2BC2; color: #4A2BC2; }
@@ -81,3 +78,102 @@ body { margin: 0; font-family: 'Noto Sans', system-ui, sans-serif; background: #
 
 /* Parenthetical detail inside a label, such as a date format, reads like "(optional)". */
 .label-note { font-weight: 400; color: #737373; }
+
+/* Account menu in the header */
+.account-item { display: block; width: 100%; box-sizing: border-box; padding: 9px 10px; border: none; border-radius: 6px; background: transparent; font-family: inherit; font-size: 13px; line-height: 18px; font-weight: 500; color: #171717; text-align: left; text-decoration: none; cursor: pointer; }
+.account-item:hover { color: #171717; }
+
+/* Quiet confirmation that the check ran: same size and weight as the text beside it,
+   and the icon no larger than the type. */
+.doc-file-ok { display: inline-flex; align-items: center; gap: 4px; color: var(--eci-success); font-weight: 400; }
+.doc-file-ok .ux4g-icon-outlined { font-size: 1em; }
+/* Remove: a muted grey cross that tints to the primary colour on hover, at a fixed size. */
+.doc-remove-wrap { flex: 0 0 auto; display: inline-flex; }
+.doc-remove { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; padding: 0; border: none; border-radius: 8px; background: transparent; color: #737373; cursor: pointer; }
+.doc-remove .ux4g-icon-outlined { font-size: 20px; }
+.doc-remove:hover { color: #4A2BC2; }
+/* UX4G shows its tooltip on hover only; keyboard focus needs to show it too, and Escape hides it. */
+.ux4g-tooltip-wrapper:focus-within .ux4g-tooltip { display: flex; opacity: 1; }
+.ux4g-tooltip-wrapper.tip-dismissed .ux4g-tooltip { display: none; }
+/* Info tooltips sit beside a label; the text wraps at UX4G's own max width. */
+.info-tip { display: inline-flex; vertical-align: middle; }
+.doc-reupload { flex: 0 0 auto; white-space: nowrap; min-height: 36px; padding: 0 14px; border: 1px solid #737373; border-radius: 8px; background: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 500; color: #171717; cursor: pointer; }
+.doc-reupload:hover { background: #F3F0FF; }
+/* On a phone the action drops below the message rather than squeezing it. */
+@media (max-width: 480px) { .doc-warning { flex-wrap: wrap; } .doc-warning .ux4g-alert-content { flex-basis: calc(100% - 40px); } .doc-warning .ux4g-alert-actions { margin-left: 32px; } }
+
+/* UX4G file upload, as used by every upload on this form. The field's own hint sits above
+   the drop panel; the component's hint inside it gives the file types and size limit. */
+.upload-field-hint { margin: 0 0 8px; font-size: 13px; line-height: 19px; color: #737373; }
+.ux4g-upload .ux4g-upload-heading, .ux4g-upload .ux4g-upload-hint { overflow-wrap: anywhere; }
+.ux4g-upload-file-description .doc-file-ok { margin-left: 12px; }
+/* UX4G colours a held file's name green. A flagged file is not a success, so it stays neutral. */
+.ux4g-upload-file-item.is-flagged .ux4g-upload-file-name { color: #171717; }
+.ux4g-upload .doc-warning { margin-top: 0; }
+/* Layout inside an open form section (UX4G Accordion body). Spacing between fields only; the look comes from UX4G. */
+.section-body { display: flex; flex-direction: column; gap: 24px; padding-top: 8px; }
+
+/* Form sections rail: UX4G Status pipeline (vertical, small). The whole row is the link. */
+.section-rail-title { margin: 16px 0 0; }
+.section-rail { padding: 4px 20px 20px; }
+.section-rail .ux4g-status-pipeline-step { min-height: 40px; }
+.section-rail-link { text-decoration: none; }
+.section-rail-link::before { content: ""; position: absolute; inset: 0; z-index: 3; }
+.section-rail-link:hover { text-decoration: underline; }
+.section-rail-link:focus-visible { outline: none; }
+.section-rail-link:focus-visible::before { outline: 2px solid var(--ux4g-border-color-primary-strong, #4A2BC2); outline-offset: 2px; border-radius: 4px; }
+/* UX4G sizes the connecting line for its 70px rows; these rows are 40px, so the line runs from
+   the bottom of one 24px circle to the top of the next. */
+.section-rail .ux4g-status-pipeline-step:not(:last-child)::after { top: 32px; height: calc(100% - 24px); }
+
+/* Close application: UX4G icon button (text), kept at 40px beside the heading. */
+.close-app { flex: 0 0 auto; }
+.close-app .ux4g-icon-outlined { font-size: 24px; width: 24px; height: 24px; }
+
+/* UX4G Modal: its backdrop is hidden until UX4G's script opens it. These dialogs are rendered
+   only while open, so the backdrop shows whenever it is on the page. */
+.eci-modal-open { display: block; padding: 24px; box-sizing: border-box; }
+.eci-modal-open .ux4g-modal-box { margin: 0 auto; }
+/* On a phone the two actions stack full width, the main one on top. */
+@media (max-width: 480px) {
+  .eci-modal-open .ux4g-modal-actions { flex-direction: column-reverse; }
+  .eci-modal-open .ux4g-modal-actions .ux4g-btn { width: 100%; justify-content: center; }
+}
+
+/* UX4G's accordion paints its whole container in --ux4g-accordion-body-bg (a pale grey), so the
+   gaps between the separate section cards showed as a lighter slab over the page. The container
+   is left clear, and each section card is white, as the other cards on the page are. */
+.ux4g-accordion-bordered { background: transparent; border-bottom: none; }
+.ux4g-accordion-bordered > .ux4g-accordion__item {
+  --ux4g-accordion-body-bg: var(--ux4g-bg-neutral-elevated, #FFFFFF);
+  /* UX4G's accordion padding is its small 12px, made for compact lists. The section cards use
+     24px, the same as the title card above them, so their edges line up. */
+  --ux4g-accordion-button-padding-x: var(--ux4g-padding-xl);
+  --ux4g-accordion-button-padding-y: var(--ux4g-padding-xl);
+  --ux4g-accordion-body-padding-x: var(--ux4g-padding-xl);
+  --ux4g-accordion-body-padding-y: var(--ux4g-padding-xl);
+  background: var(--ux4g-accordion-body-bg);
+}
+
+/* UX4G auto-save status bar, between the title card and the sections. */
+.autosave-bar { margin-bottom: 16px; }
+
+/* Preview summary: one UX4G Result list (v2) for each section, always open, so without UX4G's
+   expand toggle. The lists sit inside the application sheet and take its side padding. */
+.preview-group { padding: 20px 0; }
+.preview-group .ux4g-result-list-header { align-items: center; gap: 12px; }
+.preview-group .ux4g-result-list-title { margin: 0; }
+.preview-group .ux4g-result-list-content { padding-top: 4px; }
+.preview-group .ux4g-result-list-details { margin: 0; }
+.preview-group .ux4g-result-list-detail-item { min-width: 0; }
+.preview-group dt, .preview-group dd { margin: 0; overflow-wrap: anywhere; }
+/* An answer left blank shows as a dashed line to write on, as on the paper form. */
+.preview-empty { min-height: 20px; border-bottom: 1px dashed #D4D4D4; }
+/* On a phone UX4G lays the header out as a grid with slots for an icon, a tag and a toggle,
+   none of which are used here. The title takes the row from the left edge, and Edit takes the
+   toggle's slot at the right. */
+@media (max-width: 768px) {
+  .preview-group .ux4g-result-list-header { margin-bottom: 0; }
+  .preview-group .ux4g-result-list-title { grid-area: 1 / 1 / 2 / 5; }
+  .preview-group .ux4g-result-list-actions .ux4g-btn-sm { grid-area: 1 / 5 / 2 / 6; margin-right: 0; }
+}

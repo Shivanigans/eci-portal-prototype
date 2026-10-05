@@ -1,0 +1,50 @@
+/* Form 8 application. Loaded after form6-application.css, whose rules it reuses as they are.
+   Each rule here covers a Form 8 layout that UX4G and the Form 6 styles have no class for. */
+
+/* An English field and its Hindi field below it stay together, closer than separate fields. */
+.f8-field-pair { display: flex; flex-direction: column; gap: var(--ux4g-space-6); }
+
+/* Labels outside a UX4G input container (uploads, fieldset legends) keep the same spacing. */
+.f8-block-label { display: block; margin-bottom: var(--ux4g-space-3); padding: 0; }
+
+.f8-fieldset { margin: 0; padding: 0; border: none; min-width: 0; }
+
+/* The detail checkboxes, two columns from UX4G's 768px breakpoint. */
+.f8-choice-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--ux4g-space-6) var(--ux4g-padding-xl); }
+@media (min-width: 768px) { .f8-choice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* "Currently recorded": read only, set apart from the fields that follow it. */
+.f8-recorded { padding: var(--ux4g-padding-m); border-radius: var(--ux4g-radius-md); background: var(--ux4g-bg-neutral-soft); }
+
+/* Read-only details on Your details, laid out like the review's rows. */
+.f8-readonly { margin: 0; display: grid; gap: var(--ux4g-space-4); padding: var(--ux4g-padding-m); border-radius: var(--ux4g-radius-md); background: var(--ux4g-bg-neutral-soft); }
+.f8-readonly > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: var(--ux4g-padding-l); }
+.f8-readonly dt { margin: 0; font-size: 13px; line-height: 20px; color: var(--ux4g-text-neutral-secondary); }
+.f8-readonly dd { margin: 0; font-size: 14px; line-height: 20px; font-weight: 500; color: var(--ux4g-text-neutral-primary); }
+
+/* Small info alerts inside a section, boxed like the prep page's. */
+.f8-alert { padding: var(--ux4g-padding-m); border-radius: var(--ux4g-radius-md); }
+.f8-alert .ux4g-alert-content { flex-direction: column; align-items: flex-start; }
+
+/* The file rules sit beneath each upload rather than inside its panel. */
+.f8-upload-rules { margin: var(--ux4g-space-4) 0 0; }
+
+/* Review: each correction as recorded now, next to the value it should be. */
+.f8-compare { display: flex; flex-direction: column; gap: var(--ux4g-space-6); margin-top: var(--ux4g-space-6); }
+.f8-compare-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1.4fr); gap: var(--ux4g-space-4) var(--ux4g-padding-l); }
+.f8-compare-label { margin: 0; font-size: 13px; line-height: 20px; color: var(--ux4g-text-neutral-secondary); }
+.f8-compare-head { margin: 0; font-size: 12px; line-height: 16px; color: var(--ux4g-text-neutral-secondary); }
+.f8-compare-value { margin: var(--ux4g-space-1) 0 0; font-size: 14px; line-height: 20px; color: var(--ux4g-text-neutral-secondary); overflow-wrap: anywhere; }
+.f8-compare-after { font-weight: 500; color: var(--ux4g-text-neutral-primary); }
+@media (max-width: 560px) { .f8-compare-row { grid-template-columns: minmax(0, 1fr); } }
+
+/* Resend is a link-styled button: it acts on this page and goes nowhere. */
+.f8-link-button { padding: 0; min-height: var(--ux4g-sz-44); border: none; background: none; font: inherit; cursor: pointer; }
+
+/* Section 1: each purpose is the UX4G radio, then an icon tile, then the label. The tile is the
+   prep page's; UX4G has no icon tile. */
+.f8-purpose-option { align-items: center; }
+.f8-purpose-option .ux4g-radio-content { flex: 1 1 auto; min-width: 0; }
+.f8-purpose-option .ux4g-radio-label { white-space: normal; }
+.f8-icon-tile { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: var(--ux4g-sz-40); height: var(--ux4g-sz-40); border-radius: var(--ux4g-radius-md); background: var(--ux4g-bg-primary); color: var(--ux4g-text-brand-primary-default); }
+.f8-icon-tile .ux4g-icon-outlined { font-size: var(--ux4g-fs-20); }

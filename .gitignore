@@ -1,0 +1,6 @@
+# Local tools (see package.json). Not part of the site.
+node_modules/
+test-results/
+playwright-report/
+screenshots/
+.cache/
