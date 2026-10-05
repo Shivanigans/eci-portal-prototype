@@ -1,0 +1,17 @@
+# Vercel serves the site as plain files: the HTML pages and assets/. Everything below is local
+# tooling or reference material and stays off the deployment.
+node_modules/
+package.json
+package-lock.json
+tests/
+test-results/
+playwright-report/
+screenshots/
+playwright.config.js
+playwright.shots.config.js
+.cache/
+.claude/
+reference/
+vendor/
+tools/
+portfolio/
